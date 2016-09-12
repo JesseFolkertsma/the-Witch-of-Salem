@@ -16,8 +16,6 @@ public class PlayerAttacks : MonoBehaviour {
 
     PlayerManager pm;
 
-    public Transform backBone;
-
     public bool useBow = false;
 
     void Start()
@@ -41,7 +39,6 @@ public class PlayerAttacks : MonoBehaviour {
             if (Input.GetButtonDown("Fire3"))
             {
                 weaponType = WeaponType.Ranged;
-                pm.anim.SetTrigger("DrawArrow");
                 return;
             }
         }
@@ -64,11 +61,11 @@ public class PlayerAttacks : MonoBehaviour {
         if (Input.GetButtonDown("Fire1"))
         {
             print("Attack");
-            if (pm.pm.isSprinting == true)
+            if (pm.pMove.state > 0.1)
             {
                 SprintAttack();
             }
-            if (pm.pm.isSprinting == false)
+            if (pm.pMove.state <= 0)
             {
                 Attack();
             }
@@ -79,11 +76,12 @@ public class PlayerAttacks : MonoBehaviour {
     {
         if (Input.GetButton("Fire2"))
         {
-            backBone.LookAt(pm.lp.transform.position);
+            pm.la.look = true;
             useBow = true;
         }
         else
         {
+            pm.la.look = false;
             useBow = false;
         }
     }
@@ -91,14 +89,14 @@ public class PlayerAttacks : MonoBehaviour {
     void Attack()
     {
         pm.anim.SetTrigger("Attack");
-        pm.pm.canMove = false;
+        pm.pMove.canMove = false;
         StartCoroutine(AfterAttack());
     }
 
     IEnumerator AfterAttack()
     {
         yield return new WaitForSeconds(1.2f);
-        pm.pm.canMove = true;
+        pm.pMove.canMove = true;
     }
 
     void SprintAttack()

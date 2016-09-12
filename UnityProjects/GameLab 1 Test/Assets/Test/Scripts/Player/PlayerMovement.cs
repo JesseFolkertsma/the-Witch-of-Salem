@@ -14,13 +14,14 @@ public class PlayerMovement : MonoBehaviour {
 
     public float crouchSpeed = 1f;
     public float walkingSpeed = 2f;
-    public float sprintSpeed = 4f;
+    public float sprintSpeed = 5f;
+
+    public Vector3 movement;
 
     public bool canMove = true;
-
-    public bool isSprinting;
-    public bool isCrouching;
     public bool isFalling;
+
+    public float state;
 
     PlayerManager pm;
 
@@ -39,19 +40,13 @@ public class PlayerMovement : MonoBehaviour {
         {
             Movement();
         }
-        pm.anim.SetFloat("Walking", Input.GetAxis("Horizontal"));
-        pm.anim.SetBool("Crouch", isCrouching);
-        pm.anim.SetBool("Sprint", isSprinting);
 
-        //Jump
-        if (Input.GetButtonDown("Jump") && isFalling == false)
-        {
-            Jump();
-            pm.anim.SetTrigger("Jump");
-        }
+        pm.anim.SetFloat("Walking", movement.x);
+        pm.anim.SetFloat("Speed", state);
+        
 
         //Check if player is touching ground
-        if(Physics.Raycast(transform.position, Vector3.down, .05f))
+        if(Physics.Raycast(pm.playerMiddle.position, Vector3.down, 1.1f))
         {
             isFalling = false;
         }
@@ -59,9 +54,12 @@ public class PlayerMovement : MonoBehaviour {
         {
             isFalling = true;
         }
+
+        Climb();
+        CheckInput();
     }
 
-    void Movement()
+    void CheckInput()
     {
         if (Input.GetButtonDown("Shift"))
         {
@@ -80,65 +78,118 @@ public class PlayerMovement : MonoBehaviour {
             moveState = MoveState.Walking;
         }
 
-        float ms = walkingSpeed;
+        //Jump
+        if (Input.GetButtonDown("Jump") && isFalling == false)
+        {
+            Jump();
+            pm.anim.SetTrigger("Jump");
+        }
 
-        switch (moveState)
+        movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+    }
+
+    void Movement()
+    {
+        float ms = CheckMovementSpeed();
+
+        if (pm.la.look == true)
         {
-            case MoveState.Walking:
-                ms = walkingSpeed;
-                isCrouching = false;
-                isSprinting = false;
-                break;
-            case MoveState.Sprinting:
-                ms = sprintSpeed;
-                isSprinting = true;
-                isCrouching = false;
-                break;
-            case MoveState.Crouching:
-                ms = crouchSpeed;
-                isSprinting = false;
-                isCrouching = true;
-                break;
+            //Walk right and look at point
+            if (pm.la.IsRight() == true)
+            {
+                //Backward
+                if (movement.x <= -.1f)
+                {
+                    transform.Translate(Vector3.back * Time.deltaTime * ms);
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                }
+                //Forward
+                if (movement.x >= .1f)
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * ms);
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                }
+            }
+            //Walk left and look at point
+            if (pm.la.IsRight() == false)
+            {
+                //Backward
+                if (movement.x >= .1f)
+                {
+                    transform.Translate(Vector3.back * Time.deltaTime * ms);
+                    transform.rotation = Quaternion.Euler(0, -90, 0);
+                }
+                //Forward
+                if (movement.x <= -.1f)
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * ms);
+                    transform.rotation = Quaternion.Euler(0, -90, 0);
+                }
+            }
         }
-        if (Input.GetAxis("Horizontal") <= -.1f)
+        else
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * ms);
-            transform.rotation = Quaternion.Euler(0, -90, 0);
-        }
-        if (Input.GetAxis("Horizontal") >= .1f)
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * ms);
-            transform.rotation = Quaternion.Euler(0, 90, 0);
+            // Walk left
+            if (movement.x >= .1f)
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * ms);
+                transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
+            // Walk Right
+            if (movement.x <= -.1f)
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * ms);
+                transform.rotation = Quaternion.Euler(0, -90, 0);
+            }
         }
     }
 
     void Jump()
     {
+        pm.rb.isKinematic = false;
         pm.rb.AddForce(Vector3.up * 300);
     }
 
-    public void Climb()
+    void Climb()
     {
-        pm.anim.SetTrigger("Climb");
-        canMove = false;
-        pm.rb.isKinematic = true;
-        StartCoroutine(AfterClimb());
+        Debug.DrawRay(pm.playerMiddle.position, transform.forward);
+        Debug.DrawRay(pm.playerMiddle.position + new Vector3(0, 1, 0), transform.forward);
+        Debug.DrawRay(pm.playerMiddle.position, transform.forward + -transform.up);
+
+        if (Physics.Raycast(pm.playerMiddle.position, transform.forward + -transform.up, .5f) && Physics.Raycast(pm.playerMiddle.position, transform.forward, .5f) && !Physics.Raycast(pm.playerMiddle.position + new Vector3(0,1,0), transform.forward, 3f))
+        {
+            pm.rb.isKinematic = true;
+            canMove = false;
+            isFalling = false;
+            movement.x = 0;
+            transform.Translate(movement * Time.deltaTime * 2);
+            print("GET DA CAMERA MOM IM CLIMBING");
+        }
+        else
+        {
+            pm.rb.isKinematic = false;
+            canMove = true;
+        }
     }
 
-    IEnumerator AfterClimb()
+    float CheckMovementSpeed()
     {
-        yield return new WaitForSeconds(.8f);
-        pm.rb.isKinematic = false;
-        canMove = true;
-    }
-
-    void OnCollisionEnter()
-    {
-        contact = true;
-    }
-
-    void OnCollisionExit()
-    {
-        contact = false;
+        float ms = 0f;
+        switch (moveState)
+        {
+            case MoveState.Walking:
+                ms = walkingSpeed;
+                state = Mathf.Lerp(state, -0.01f, .05f);
+                break;
+            case MoveState.Sprinting:
+                ms = sprintSpeed;
+                state = Mathf.Lerp(state, 1f, .05f);
+                break;
+            case MoveState.Crouching:
+                ms = crouchSpeed;
+                state = Mathf.Lerp(state, -1f, .05f);
+                break;
+        }
+        return ms;
     }
 }

@@ -13,18 +13,24 @@ public class ListSorting : MonoBehaviour {
         list.Add(1);
         list.Add(2);
         list.Add(0);
+        list.Add(6);
+        list.Add(5);
+        list.Add(5);
+        list.Add(5);
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Fire2"))
         {
-            List<int> tSort = SortList(list);
-            list.Clear();
-            for(int i = 0; i<tSort.Count; i++)
-            {
-                list.Add(tSort[i]);
-            }
+            //List<int> tSort = SortList(list);
+            //list.Clear();
+            //for(int i = 0; i<tSort.Count; i++)
+            //{
+            //    list.Add(tSort[i]);
+            //}
+            
+            print(GetHigh(list));
         }
     }
 	
@@ -51,5 +57,37 @@ public class ListSorting : MonoBehaviour {
         }
 
         return sortedList;
+    }
+
+    int GetHigh(List<int> l)
+    {
+        l.Sort();
+
+        int counter = 0;
+        int cHigh = 0;
+
+        for (int i = 0; i < l.Count; i++)
+        {
+            bool b = false;
+            for(int i2 = 0; b == false; i2++)
+            {
+                int tCounter = 0;
+                if(l[i + i2] == i)
+                {
+                    tCounter++;
+                    if(tCounter >= counter)
+                    {
+                        counter = tCounter;
+                        cHigh = i;
+                    }
+                }
+                else
+                {
+                    b = true;
+                }
+            }
+        }
+
+        return cHigh;
     }
 }
