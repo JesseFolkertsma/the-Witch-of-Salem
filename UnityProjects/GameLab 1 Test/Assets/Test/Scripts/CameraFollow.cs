@@ -9,6 +9,8 @@ public class CameraFollow : MonoBehaviour {
 
     void Start()
     {
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        camPos = GameObject.Find("CameraPosition").transform;
         cam.transform.position = transform.position;
     }
 

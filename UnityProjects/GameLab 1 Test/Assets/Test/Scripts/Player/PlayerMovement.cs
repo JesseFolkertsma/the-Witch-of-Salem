@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour {
     {
         Walking,
         Sprinting,
-        Crouching
+        Crouching,
+        Climbing
     };
 
     public MoveState moveState = MoveState.Walking;
@@ -19,7 +20,12 @@ public class PlayerMovement : MonoBehaviour {
     public Vector3 movement;
 
     public bool canMove = true;
-    public bool isFalling;
+    public bool canClimb = true;
+    public bool isFalling = false;
+    public bool isClimbing = false;
+
+    float jumpHeigt = 5;
+    float jumpXForce = 0;
 
     public float state;
 
@@ -30,20 +36,11 @@ public class PlayerMovement : MonoBehaviour {
     void Start()
     {
         pm = GetComponent<PlayerManager>();
-        pm.rb = GetComponent<Rigidbody>();
-        pm.anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (canMove == true)
-        {
-            Movement();
-        }
-
-        pm.anim.SetFloat("Walking", movement.x);
-        pm.anim.SetFloat("Speed", state);
-        
+        Movement(canMove);
 
         //Check if player is touching ground
         if(Physics.Raycast(pm.playerMiddle.position, Vector3.down, 1.1f))
@@ -55,7 +52,7 @@ public class PlayerMovement : MonoBehaviour {
             isFalling = true;
         }
 
-        Climb();
+        Climb(canClimb);
         CheckInput();
     }
 
@@ -88,88 +85,153 @@ public class PlayerMovement : MonoBehaviour {
         movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
     }
 
-    void Movement()
+    void Movement(bool b)
     {
-        float ms = CheckMovementSpeed();
+        if (b)
+        {
+            pm.anim.SetFloat("Walking", movement.x);
+            pm.anim.SetFloat("Speed", state);
 
-        if (pm.la.look == true)
-        {
-            //Walk right and look at point
-            if (pm.la.IsRight() == true)
+            float ms = CheckMovementSpeed();
+
+            if (pm.la.look == true)
             {
-                //Backward
-                if (movement.x <= -.1f)
+                //Walk right and look at point
+                if (pm.la.IsRight() == true)
                 {
-                    transform.Translate(Vector3.back * Time.deltaTime * ms);
-                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                    //Backward
+                    if (movement.x <= -.1f)
+                    {
+                        transform.Translate(Vector3.back * Time.deltaTime * ms);
+                        transform.rotation = Quaternion.Euler(0, 90, 0);
+                    }
+                    //Forward
+                    if (movement.x >= .1f)
+                    {
+                        transform.Translate(Vector3.forward * Time.deltaTime * ms);
+                        transform.rotation = Quaternion.Euler(0, 90, 0);
+                    }
                 }
-                //Forward
+                //Walk left and look at point
+                if (pm.la.IsRight() == false)
+                {
+                    //Backward
+                    if (movement.x >= .1f)
+                    {
+                        transform.Translate(Vector3.back * Time.deltaTime * ms);
+                        transform.rotation = Quaternion.Euler(0, -90, 0);
+                    }
+                    //Forward
+                    if (movement.x <= -.1f)
+                    {
+                        transform.Translate(Vector3.forward * Time.deltaTime * ms);
+                        transform.rotation = Quaternion.Euler(0, -90, 0);
+                    }
+                }
+            }
+            else
+            {
+                // Walk left
                 if (movement.x >= .1f)
                 {
                     transform.Translate(Vector3.forward * Time.deltaTime * ms);
                     transform.rotation = Quaternion.Euler(0, 90, 0);
                 }
-            }
-            //Walk left and look at point
-            if (pm.la.IsRight() == false)
-            {
-                //Backward
-                if (movement.x >= .1f)
-                {
-                    transform.Translate(Vector3.back * Time.deltaTime * ms);
-                    transform.rotation = Quaternion.Euler(0, -90, 0);
-                }
-                //Forward
+                // Walk Right
                 if (movement.x <= -.1f)
                 {
                     transform.Translate(Vector3.forward * Time.deltaTime * ms);
                     transform.rotation = Quaternion.Euler(0, -90, 0);
                 }
-            }
-        }
-        else
-        {
-            // Walk left
-            if (movement.x >= .1f)
-            {
-                transform.Translate(Vector3.forward * Time.deltaTime * ms);
-                transform.rotation = Quaternion.Euler(0, 90, 0);
-            }
-            // Walk Right
-            if (movement.x <= -.1f)
-            {
-                transform.Translate(Vector3.forward * Time.deltaTime * ms);
-                transform.rotation = Quaternion.Euler(0, -90, 0);
             }
         }
     }
 
     void Jump()
     {
+        print("Jumping!");
+
         pm.rb.isKinematic = false;
-        pm.rb.AddForce(Vector3.up * 300);
+        pm.rb.velocity = new Vector3(jumpXForce, jumpHeigt, 0);
+        StartCoroutine(AfterJump());
     }
 
-    void Climb()
+    IEnumerator AfterJump()
     {
-        Debug.DrawRay(pm.playerMiddle.position, transform.forward);
-        Debug.DrawRay(pm.playerMiddle.position + new Vector3(0, 1, 0), transform.forward);
-        Debug.DrawRay(pm.playerMiddle.position, transform.forward + -transform.up);
+        canClimb = false;
+        yield return new WaitForSeconds(.2f);
+        canClimb = true;
+    }
 
-        if (Physics.Raycast(pm.playerMiddle.position, transform.forward + -transform.up, .5f) && Physics.Raycast(pm.playerMiddle.position, transform.forward, .5f) && !Physics.Raycast(pm.playerMiddle.position + new Vector3(0,1,0), transform.forward, 3f))
+    void Climb(bool b)
+    {
+        Debug.DrawRay(pm.playerMiddle.position + new Vector3(0, .5f, 0), transform.forward);
+        Debug.DrawRay(pm.playerMiddle.position + new Vector3(0, 1.5f, 0), transform.forward);
+
+        pm.anim.SetFloat("ClimbSpeed", Input.GetAxis("Vertical"));
+        pm.anim.SetBool("IsClimbing", isClimbing);
+
+        if (b)
         {
-            pm.rb.isKinematic = true;
-            canMove = false;
-            isFalling = false;
-            movement.x = 0;
-            transform.Translate(movement * Time.deltaTime * 2);
-            print("GET DA CAMERA MOM IM CLIMBING");
+            RaycastHit ray;
+
+            if (Physics.Raycast(pm.playerMiddle.position + new Vector3(0, 0f, 0), transform.forward, out ray, .5f) && !Physics.Raycast(pm.playerMiddle.position + new Vector3(0, 1.5f, 0), transform.forward, 3f) && canClimb == true)
+            {
+                isClimbing = true;
+                pm.rb.isKinematic = true;
+                canMove = false;
+                isFalling = false;
+
+                movement.x = 0;
+                transform.Translate(movement * Time.deltaTime * 2);
+
+                Vector3 pospos;
+
+                jumpHeigt = 7;
+
+                //Check is Player is right or left from object
+                if (ray.transform.position.x - transform.position.x < 0) {
+                    jumpXForce = .5f;
+                    pospos = ray.transform.position + new Vector3(ray.collider.bounds.extents.x, ray.collider.bounds.extents.y, 0);
+                }
+                else {
+                    jumpXForce = -.5f;
+                    pospos = ray.transform.position + new Vector3(-ray.collider.bounds.extents.x, ray.collider.bounds.extents.y, 0);
+                }
+
+                if(!Physics.Raycast(pm.playerMiddle.position + new Vector3(0, .1f, 0), transform.forward, .5f))
+                {
+                    StartCoroutine(ClimbUp());
+                    print("CLIMB BITCH CLIMB");
+                }
+
+                Debug.DrawRay(pospos, transform.up, Color.red);
+                
+                PlayerIK.instance.useIK = true;
+                PlayerIK.instance.hPos = pospos;
+            }
+            else
+            {
+                PlayerIK.instance.useIK = false;
+                pm.rb.isKinematic = false;
+                canMove = true;
+                isClimbing = false;
+                jumpHeigt = 5;
+                jumpXForce = 0;
+            }
         }
-        else
-        {
-            pm.rb.isKinematic = false;
-            canMove = true;
-        }
+    }
+
+    IEnumerator ClimbUp()
+    {
+        canClimb = false;
+        pm.anim.applyRootMotion = true;
+        pm.anim.SetTrigger("Climb");
+        GetComponentInChildren<BoxCollider>().enabled = false;
+        yield return new WaitForSeconds(1f);
+        pm.anim.applyRootMotion = false;
+        canClimb = true;
+        GetComponentInChildren<BoxCollider>().enabled = true;
     }
 
     float CheckMovementSpeed()

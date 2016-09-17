@@ -21,6 +21,7 @@ public class PlayerAttacks : MonoBehaviour {
     void Start()
     {
         pm = GetComponent<PlayerManager>();
+        text = GameObject.Find("Text").GetComponent<Text>();
     }
 
 	void Update()

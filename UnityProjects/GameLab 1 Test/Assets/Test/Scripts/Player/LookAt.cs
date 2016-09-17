@@ -12,6 +12,7 @@ public class LookAt : MonoBehaviour {
     void Start()
     {
         pm = GetComponent<PlayerManager>();
+        backBone = GameObject.Find("Spine1").transform;
     }
 
     void LateUpdate()
