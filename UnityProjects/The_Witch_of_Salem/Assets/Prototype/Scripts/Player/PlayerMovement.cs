@@ -5,10 +5,10 @@ public class PlayerMovement : MonoBehaviour {
 
     public enum MoveState
     {
-        Walking,
-        Sprinting,
-        Crouching,
-        Climbing
+        Walking = 0,
+        Sprinting = 1,
+        Crouching = 2,
+        Climbing = 3
     };
 
     public MoveState moveState = MoveState.Walking;
@@ -60,21 +60,24 @@ public class PlayerMovement : MonoBehaviour {
     {
         pm.anim.SetBool("IsFalling", isFalling);
 
-        if (Input.GetButtonDown("Shift"))
+        if (canMove == true)
         {
-            moveState = MoveState.Sprinting;
-        }
-        else if (Input.GetButtonUp("Shift"))
-        {
-            moveState = MoveState.Walking;
-        }
-        else if (Input.GetButtonDown("Control"))
-        {
-            moveState = MoveState.Crouching;
-        }
-        else if (Input.GetButtonUp("Control"))
-        {
-            moveState = MoveState.Walking;
+            if (Input.GetButtonDown("Shift"))
+            {
+                moveState = MoveState.Sprinting;
+            }
+            else if (Input.GetButtonUp("Shift"))
+            {
+                moveState = MoveState.Walking;
+            }
+            else if (Input.GetButtonDown("Control"))
+            {
+                moveState = MoveState.Crouching;
+            }
+            else if (Input.GetButtonUp("Control"))
+            {
+                moveState = MoveState.Walking;
+            }
         }
 
         //Jump
@@ -184,7 +187,7 @@ public class PlayerMovement : MonoBehaviour {
                     }
                 }
             }
-            else
+            else if (isClimbing == true)
             {
                 ExitClimb();
             }
@@ -197,6 +200,7 @@ public class PlayerMovement : MonoBehaviour {
         pm.rb.isKinematic = true;
         canMove = false;
         isFalling = false;
+        SetMoveState(3);
 
         movement.x = 0;
         transform.Translate(movement * Time.deltaTime * 2);
@@ -218,15 +222,12 @@ public class PlayerMovement : MonoBehaviour {
             pospos = climbRay.transform.position + new Vector3(-climbRay.collider.bounds.extents.x, climbRay.collider.bounds.extents.y, 0);
         }
 
+        PlayerIK.instance.hPos = pospos;
+
         if (!Physics.Raycast(pm.playerMiddle.position + new Vector3(0, .1f, 0), transform.forward, .5f))
         {
             StartCoroutine(ClimbUp());
-            print("CLIMB BITCH CLIMB");
         }
-
-        Debug.DrawRay(pospos, transform.up, Color.red);
-
-        PlayerIK.instance.hPos = pospos;
     }
 
     void ExitClimb()
@@ -241,13 +242,12 @@ public class PlayerMovement : MonoBehaviour {
 
     IEnumerator ClimbUp()
     {
-        //ExitClimb();
         PlayerIK.instance.useIK = false;
         canClimb = false;
         pm.anim.applyRootMotion = true;
         pm.anim.SetTrigger("Climb");
         GetComponentInChildren<BoxCollider>().enabled = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.1f);
         pm.anim.applyRootMotion = false;
         canClimb = true;
         GetComponentInChildren<BoxCollider>().enabled = true;
@@ -272,5 +272,47 @@ public class PlayerMovement : MonoBehaviour {
                 break;
         }
         return ms;
+    }
+
+    public void SetMoveState(int state)
+    {
+        switch (state)
+        {
+            case 0:
+                moveState = MoveState.Walking;
+                break;
+
+            case 1:
+                moveState = MoveState.Sprinting;
+                break;
+
+            case 2:
+                moveState = MoveState.Crouching;
+                break;
+
+            case 3:
+                moveState = MoveState.Climbing;
+                break;
+        }
+    }
+
+    public int CheckMoveState()
+    {
+        switch (moveState)
+        {
+            case MoveState.Walking:
+                return (0);
+                break;
+            case MoveState.Sprinting:
+                return (1);
+                break;
+            case MoveState.Crouching:
+                return (2);
+                break;
+            case MoveState.Climbing:
+                return (3);
+                break;
+        }
+        return (0);
     }
 }

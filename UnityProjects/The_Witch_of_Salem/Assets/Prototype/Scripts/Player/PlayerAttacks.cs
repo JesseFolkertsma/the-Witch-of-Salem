@@ -18,24 +18,22 @@ public class PlayerAttacks : MonoBehaviour {
 
     public bool useBow = false;
 
+    public int combo;
+
     void Start()
     {
         pm = GetComponent<PlayerManager>();
-        text = GameObject.Find("Text").GetComponent<Text>();
+        //text = GameObject.Find("Text").GetComponent<Text>();
     }
 
 	void Update()
     {
         pm.anim.SetBool("UseBow", useBow);
-    }
-
-    void LateUpdate()
-    {
-
+        
         if (weaponType == WeaponType.Melee)
         {
             Melee();
-            text.text = "Melee";
+            //text.text = "Melee";
 
             if (Input.GetButtonDown("Fire3"))
             {
@@ -46,8 +44,7 @@ public class PlayerAttacks : MonoBehaviour {
 
         if (weaponType == WeaponType.Ranged)
         {
-            Ranged();
-            text.text = "Ranged";
+            //text.text = "Ranged";
 
             if (Input.GetButtonDown("Fire3"))
             {
@@ -57,25 +54,32 @@ public class PlayerAttacks : MonoBehaviour {
         }
     }
 
+    void LateUpdate()
+    {
+        if (weaponType == WeaponType.Ranged)
+        {
+            Ranged();
+            //text.text = "Ranged";
+        }
+    }
+
     void Melee()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && pm.pMove.CheckMoveState() == 0)
         {
             print("Attack");
-            if (pm.pMove.state > 0.1)
-            {
-                SprintAttack();
-            }
-            if (pm.pMove.state <= 0)
-            {
-                Attack();
-            }
+            Attack();
+        }
+        if (Input.GetButtonDown("Fire1") && pm.pMove.CheckMoveState() == 1)
+        {
+            print("Sprint Attack");
+            SprintAttack();
         }
     }
 
     void Ranged()
     {
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButton("Fire2") && pm.pMove.CheckMoveState() == 1)
         {
             pm.la.look = true;
             useBow = true;
@@ -89,14 +93,15 @@ public class PlayerAttacks : MonoBehaviour {
 
     void Attack()
     {
-        pm.anim.SetTrigger("Attack");
-        pm.pMove.canMove = false;
         StartCoroutine(AfterAttack());
     }
 
     IEnumerator AfterAttack()
     {
-        yield return new WaitForSeconds(1.2f);
+
+        pm.anim.SetTrigger("Attack");
+        pm.pMove.canMove = false;
+        yield return new WaitForSeconds(.6f);
         pm.pMove.canMove = true;
     }
 

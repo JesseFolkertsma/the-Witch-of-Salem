@@ -21,11 +21,13 @@ public class PlayerSpawn : MonoBehaviour {
     {
         List<GameObject> goList = new List<GameObject>();
 
+        goList[1].GetComponent<PlayerManager>().lp = goList[0].GetComponent<LookatPoint>();
+
         for (int i = 0; i < playerRequirements.Count; i++)
         {
             goList.Add((GameObject)Instantiate(playerRequirements[i], transform.position, Quaternion.identity));
         }
-
+        
         goList[0].GetComponent<LookatPoint>().Init();
         goList[1].GetComponent<PlayerManager>().Init();
     }

@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         la = GetComponent<LookAt>();
-        lp = GameObject.FindGameObjectWithTag("LookatObject").GetComponent<LookatPoint>();
         playerMiddle = GameObject.Find("Playermiddle").transform;
+        lp = GameObject.Find("LookatObject(Clone)").GetComponent<LookatPoint>();
     }
 }
