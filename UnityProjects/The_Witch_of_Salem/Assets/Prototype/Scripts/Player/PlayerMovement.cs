@@ -298,21 +298,22 @@ public class PlayerMovement : MonoBehaviour {
 
     public int CheckMoveState()
     {
+        int state = 0;
         switch (moveState)
         {
             case MoveState.Walking:
-                return (0);
+                state = 0;
                 break;
             case MoveState.Sprinting:
-                return (1);
+                state = 1;
                 break;
             case MoveState.Crouching:
-                return (2);
+                state = 2;
                 break;
             case MoveState.Climbing:
-                return (3);
+                state = 3;
                 break;
         }
-        return (0);
+        return (state);
     }
 }
