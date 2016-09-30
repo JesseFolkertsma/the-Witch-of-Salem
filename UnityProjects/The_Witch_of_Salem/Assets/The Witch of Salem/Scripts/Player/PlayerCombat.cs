@@ -40,9 +40,13 @@ public class PlayerCombat : PlayerComponent {
             Collider[] hits = Physics.OverlapSphere(psm.transform.position, 5f);
             for(int i = 0; i < hits.Length; i++)
             {
+                if(hits[i].GetComponent<RagdollSwitch>() != null)
+                {
+                    hits[i].GetComponent<RagdollSwitch>().EnableRagdoll();
+                }
                 if (hits[i].GetComponent<Rigidbody>() != null)
                 {
-                    hits[i].GetComponent<Rigidbody>().AddExplosionForce(500, psm.transform.position, 5f, 10);
+                    hits[i].GetComponent<Rigidbody>().AddExplosionForce(1000, psm.transform.position, 5f, 10);
                 }
             }
             psm.jumpAttack = false;
