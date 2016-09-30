@@ -133,7 +133,7 @@ public class PlayerMovements : PlayerComponent {
 
     public void Jump()
     {
-        Vector3 jump = new Vector3(movement.x * 3, 5, 0);
+        Vector3 jump = new Vector3(movement.x * 3, 7, 0);
         psm.rb.velocity += jump;
     }
 }

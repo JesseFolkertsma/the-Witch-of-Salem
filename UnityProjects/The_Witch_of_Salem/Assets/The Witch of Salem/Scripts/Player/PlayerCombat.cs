@@ -12,7 +12,14 @@ public class PlayerCombat : PlayerComponent {
 
 	public void BasicAttack()
     {
-
+        RaycastHit hit;
+        if(Physics.Raycast(psm.transform.position, psm.dir, out hit, 3f))
+        {
+            if(hit.rigidbody != null)
+            {
+                hit.rigidbody.AddForce(psm.dir * 100);
+            }
+        }
     }
 
     public void SprintAttack()
@@ -22,7 +29,15 @@ public class PlayerCombat : PlayerComponent {
 
     public void JumpAttack()
     {
-
+        psm.rb.velocity = new Vector3(0, -10, 0);
+        while(psm.isFalling == true)
+        {
+            if(psm.isFalling == false)
+            {
+                Debug.Log("BOOOOM");
+                break;
+            }
+        }
     }
 
     public void PierceAttack()
@@ -55,5 +70,14 @@ public class PlayerCombat : PlayerComponent {
     public void LookAtMouse()
     {
         psm.backBone.LookAt(psm.mouse.position);
+
+        if (psm.mouse.position.x > psm.transform.position.x)
+        {
+            psm.dir.x = 1;
+        }
+        else
+        {
+            psm.dir.x = -1;
+        }
     }
 }

@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour {
 
     void Update()
     {
-        camPos.transform.position = new Vector3(transform.position.x, transform.position.y + 2, -8);
+        camPos.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f, -12);
         cam.transform.position = Vector3.Lerp(cam.transform.position, camPos.transform.position, damping);
     }
 

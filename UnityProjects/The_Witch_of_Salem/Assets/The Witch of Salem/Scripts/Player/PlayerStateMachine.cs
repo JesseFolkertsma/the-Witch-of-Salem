@@ -31,6 +31,7 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public bool isFalling;
     public bool isClimbing;
+    public bool jumpAttack;
 
     public Transform backBone;
     public GameObject shield;
@@ -64,6 +65,11 @@ public class PlayerStateMachine : MonoBehaviour {
             case State.Blocking:
                 pc.Block();
                 break;
+        }
+
+        if(jumpAttack == true)
+        {
+            pc.JumpAttack();
         }
     }
 
@@ -120,7 +126,7 @@ public class PlayerStateMachine : MonoBehaviour {
                 print("Cant attack while crouching!");
                 break;
             case State.Falling:
-                pc.JumpAttack();
+                pc.JumpAttackInit();
                 break;
             case State.Blocking:
                 pc.BasicAttack();
