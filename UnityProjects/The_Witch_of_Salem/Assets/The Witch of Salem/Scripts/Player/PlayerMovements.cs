@@ -1,54 +1,139 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovements : MonoBehaviour {
+public class PlayerMovements : PlayerComponent {
 
     PlayerStateMachine psm;
 
     public Vector3 movement;
+    float moveSpeed = 1f;
 
     public PlayerMovements(PlayerStateMachine p)
     {
         psm = p;
     }
 
+    public void Move (float speed, bool combat)
+    {
+        if (combat == false)
+        {
+            if (movement.x < 0)
+            {
+                psm.dir.x = -1;
+            }
+            else if (movement.x > 0)
+            {
+                psm.dir.x = 1;
+            }
+
+            if (psm.isFalling == false && Input.GetButtonDown("Jump"))
+            {
+                Jump();
+            }
+
+            if (Input.GetButtonDown("Fire2"))
+            {
+                psm.state = PlayerStateMachine.State.Blocking;
+            }
+        }
+
+        if (Input.GetButtonDown("Control"))
+        {
+            CombatRoll();
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            psm.ToAttack();
+        }
+
+        moveSpeed = Mathf.Lerp(moveSpeed, speed, .05f);
+        movement *= moveSpeed;
+        psm.transform.Translate(new Vector3(movement.x, 0, 0) * psm.movementSpeed * Time.deltaTime);
+    }
+
     public void Walk()
     {
-        movement *= psm.walkSpeed;
-        transform.Translate(new Vector3(movement.x, 0, 0));
+        Move(1, false);
+        
+        if (Input.GetButton("Shift"))
+        {
+            psm.state = PlayerStateMachine.State.Running;
+        }
+        else if (Input.GetButtonDown("S"))
+        {
+            psm.state = PlayerStateMachine.State.Crouching;
+        }
     }
 
     public void Run()
     {
-        movement *= psm.runSpeed;
-        transform.Translate(new Vector3(movement.x, 0, 0));
+        Move(2, false);
+
+        if (Input.GetButtonUp("Shift"))
+        {
+            psm.state = PlayerStateMachine.State.Walking;
+        }
+        else if (Input.GetButtonDown("S"))
+        {
+            psm.state = PlayerStateMachine.State.Crouching;
+        }
     }
 
     public void Crouch()
     {
-        movement *= psm.crouchSpeed;
-        transform.Translate(new Vector3(movement.x, 0, 0));
+        Move(.5f, false);
+
+        if (Input.GetButtonDown("Shift"))
+        {
+            psm.state = PlayerStateMachine.State.Running;
+        }
+        else if (Input.GetButtonUp("S"))
+        {
+            psm.state = PlayerStateMachine.State.Walking;
+        }
+    }
+
+    public void Falling()
+    {
+        Move(.5f, false);
     }
 
     public void ClimbLedge()
     {
-        movement *= psm.climbSpeed;
-        transform.Translate(new Vector3(0, movement.y, 0));
+        moveSpeed = Mathf.Lerp(moveSpeed, 1, .05f);
+        movement *= moveSpeed;
+        psm.transform.Translate(new Vector3(0, movement.y, 0) * psm.climbSpeed * Time.deltaTime);
     }
 
     public void ClimbLadder()
     {
-        movement *= psm.climbSpeed;
-        transform.Translate(new Vector3(0, movement.y, 0));
+        if(psm.isClimbing == false)
+        {
+            psm.rb.isKinematic = true;
+            psm.isClimbing = true;
+        }
+        moveSpeed = Mathf.Lerp(moveSpeed, 1, .05f);
+        movement *= moveSpeed;
+        psm.transform.Translate(new Vector3(0, movement.y, 0) * psm.climbSpeed * Time.deltaTime);
+    }
+
+    public void ClimbUp()
+    {
+        psm.rb.isKinematic = false;
+        psm.isClimbing = false;
+        psm.transform.position += new Vector3(psm.dir.x, 1, 0);
+        psm.state = PlayerStateMachine.State.Walking;
     }
 
     public void CombatRoll()
     {
-
+        psm.rb.velocity += psm.dir * 10;
     }
 
     public void Jump()
     {
-
+        Vector3 jump = new Vector3(movement.x * 3, 5, 0);
+        psm.rb.velocity += jump;
     }
 }
