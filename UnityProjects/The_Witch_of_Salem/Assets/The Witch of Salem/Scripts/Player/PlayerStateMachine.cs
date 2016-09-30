@@ -102,7 +102,17 @@ public class PlayerStateMachine : MonoBehaviour {
             if(ray.transform.tag == "Ladder")
             {
                 state = State.Climbing;
-                pm.ClimbLadder();
+                pm.Climb();
+            }
+
+            if(!Physics.Raycast(transform.position + new Vector3(0,1.5f,0), dir, .5f) && ray.transform.tag == "Ledge")
+            {
+                state = State.Climbing;
+                pm.Climb();
+            }
+            else if (ray.transform.tag == "Ledge")
+            {
+                pm.DropClimb();
             }
         }
         else if(isClimbing == true)
@@ -110,6 +120,7 @@ public class PlayerStateMachine : MonoBehaviour {
             pm.ClimbUp();
         }
         Debug.DrawRay(transform.position, dir, Color.red);
+        Debug.DrawRay(transform.position + new Vector3(0, 1.5f, 0), dir, Color.blue);
     }
 
     public void ToAttack()

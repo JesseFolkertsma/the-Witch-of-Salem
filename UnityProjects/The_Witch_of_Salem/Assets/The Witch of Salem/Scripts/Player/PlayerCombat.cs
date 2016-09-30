@@ -27,16 +27,25 @@ public class PlayerCombat : PlayerComponent {
 
     }
 
-    public void JumpAttack()
+    public void JumpAttackInit()
     {
         psm.rb.velocity = new Vector3(0, -10, 0);
-        while(psm.isFalling == true)
+        psm.jumpAttack = true;
+    }
+
+    public void JumpAttack()
+    {
+        if(psm.isFalling == false)
         {
-            if(psm.isFalling == false)
+            Collider[] hits = Physics.OverlapSphere(psm.transform.position, 5f);
+            for(int i = 0; i < hits.Length; i++)
             {
-                Debug.Log("BOOOOM");
-                break;
+                if (hits[i].GetComponent<Rigidbody>() != null)
+                {
+                    hits[i].GetComponent<Rigidbody>().AddExplosionForce(500, psm.transform.position, 5f, 10);
+                }
             }
+            psm.jumpAttack = false;
         }
     }
 

@@ -8,6 +8,8 @@ public class PlayerMovements : PlayerComponent {
     public Vector3 movement;
     float moveSpeed = 1f;
 
+    bool canCombatRoll = true;
+
     public PlayerMovements(PlayerStateMachine p)
     {
         psm = p;
@@ -101,21 +103,39 @@ public class PlayerMovements : PlayerComponent {
 
     public void ClimbLedge()
     {
+        if (psm.isClimbing == false)
+        {
+            psm.rb.isKinematic = true;
+            psm.isClimbing = true;
+        }
+
         moveSpeed = Mathf.Lerp(moveSpeed, 1, .05f);
         movement *= moveSpeed;
         psm.transform.Translate(new Vector3(0, movement.y, 0) * psm.climbSpeed * Time.deltaTime);
     }
 
-    public void ClimbLadder()
+    public void Climb()
     {
         if(psm.isClimbing == false)
         {
             psm.rb.isKinematic = true;
             psm.isClimbing = true;
         }
+
         moveSpeed = Mathf.Lerp(moveSpeed, 1, .05f);
         movement *= moveSpeed;
         psm.transform.Translate(new Vector3(0, movement.y, 0) * psm.climbSpeed * Time.deltaTime);
+
+        if(psm.dir.x == -1 && Input.GetButton("D") && Input.GetButtonDown("Jump"))
+        {
+            DropClimb();
+            psm.rb.velocity += new Vector3(4, 4 ,0);
+        }
+        if (psm.dir.x == 1 && Input.GetButton("A") && Input.GetButtonDown("Jump"))
+        {
+            DropClimb();
+            psm.rb.velocity += new Vector3(-4, 4, 0);
+        }
     }
 
     public void ClimbUp()
@@ -126,9 +146,27 @@ public class PlayerMovements : PlayerComponent {
         psm.state = PlayerStateMachine.State.Walking;
     }
 
+    public void DropClimb()
+    {
+        psm.rb.isKinematic = false;
+        psm.isClimbing = false;
+        psm.state = PlayerStateMachine.State.Walking;
+    }
+
     public void CombatRoll()
     {
-        psm.rb.velocity += psm.dir * 10;
+        if (canCombatRoll == true)
+        {
+            psm.rb.velocity += psm.dir * 10;
+            psm.StartCoroutine(CombatRollCD());
+        }
+    }
+
+    IEnumerator CombatRollCD()
+    {
+        canCombatRoll = false;
+        yield return new WaitForSeconds(2f);
+        canCombatRoll = true;
     }
 
     public void Jump()
