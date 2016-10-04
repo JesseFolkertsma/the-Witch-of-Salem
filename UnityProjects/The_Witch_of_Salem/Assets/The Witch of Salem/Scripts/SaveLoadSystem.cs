@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
 
-public class SaveLoadSystem : MonoBehaviour {
+public class SaveLoadSystem {
 
 	public void SaveGame()
     {

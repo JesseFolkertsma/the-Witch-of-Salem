@@ -37,7 +37,13 @@ public class RagdollSwitch : MonoBehaviour {
         GetComponent<Animator>().enabled = false;
     }
 
-    public IEnumerator Fall()
+    public void PlayFall()
+    {
+        StopAllCoroutines();
+        StartCoroutine(Fall());
+    }
+
+    IEnumerator Fall()
     {
         EnableRagdoll();
         yield return new WaitForSeconds(5f);

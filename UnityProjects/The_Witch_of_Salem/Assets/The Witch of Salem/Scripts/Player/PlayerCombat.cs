@@ -42,7 +42,7 @@ public class PlayerCombat : PlayerComponent {
             {
                 if(hits[i].GetComponent<RagdollSwitch>() != null)
                 {
-                    hits[i].GetComponent<RagdollSwitch>().Fall();
+                    hits[i].GetComponent<RagdollSwitch>().PlayFall();
                 }
                 if (hits[i].GetComponent<Rigidbody>() != null)
                 {

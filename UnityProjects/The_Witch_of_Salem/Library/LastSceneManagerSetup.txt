@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/The Witch of Salem/Scenes/Test Level.unity
+- path: Assets/The Witch of Salem/Scenes/ArrowTest.unity
   isLoaded: 1
   isActive: 1
