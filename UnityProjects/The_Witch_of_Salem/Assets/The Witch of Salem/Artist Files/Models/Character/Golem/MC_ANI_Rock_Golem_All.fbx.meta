@@ -400,8 +400,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Golem_Idle
       takeName: Take 001
-      firstFrame: 61
-      lastFrame: 120
+      firstFrame: 70
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -409,7 +409,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 1
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -592,16 +592,16 @@ ModelImporter:
     - serializedVersion: 16
       name: Golem_Walk
       takeName: Take 001
-      firstFrame: 121
-      lastFrame: 182
+      firstFrame: 125
+      lastFrame: 170
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
