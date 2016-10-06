@@ -23,8 +23,10 @@ public class Arrow : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        GameObject ah = Instantiate(arrowHit, transform.position - rb.velocity.normalized/5 , transform.rotation) as GameObject;
-        ah.transform.parent = col.transform;
+        GameObject go = Instantiate(new GameObject(), transform.position - rb.velocity.normalized / 5, Quaternion.identity) as GameObject;
+        go.transform.parent = col.transform;
+        GameObject ah = Instantiate(arrowHit, go.transform.position, transform.rotation) as GameObject;
+        ah.transform.parent = go.transform;
         Destroy(gameObject);
     }
 }
