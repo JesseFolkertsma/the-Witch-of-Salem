@@ -44,16 +44,16 @@ public class PlayerMovements : PlayerComponent {
                     psm.state = PlayerStateMachine.State.Aiming;
                 }
             }
-        }
 
-        if (Input.GetButtonDown("Control"))
-        {
-            CombatRoll();
-        }
+            if (Input.GetButtonDown("Control"))
+            {
+                CombatRoll();
+            }
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            psm.ToAttack();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                psm.ToAttack();
+            }
         }
 
         moveSpeed = Mathf.Lerp(moveSpeed, speed, .05f);

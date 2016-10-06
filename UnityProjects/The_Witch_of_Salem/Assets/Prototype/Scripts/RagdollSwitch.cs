@@ -14,7 +14,7 @@ public class RagdollSwitch : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             if (ragdoll)
             {

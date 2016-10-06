@@ -4,6 +4,8 @@ using System.Collections;
 public class PlayerCombat : PlayerComponent {
 
     PlayerStateMachine psm;
+    bool canShoot = true;
+    float str = 0;
     
     public PlayerCombat (PlayerStateMachine p)
     {
@@ -66,15 +68,26 @@ public class PlayerCombat : PlayerComponent {
         {
             psm.state = PlayerStateMachine.State.Walking;
         }
+        
+        if (Input.GetButton("Fire1"))
+        {
+            str = Mathf.Lerp(str, 20, .02f);
+            Debug.Log(str);
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            ShootArrow(str);
+            str = 0;
+        }
     }
 
-    public void ShootArrow()
+    public void ShootArrow(float strenght)
     {
-        float str = 15;
         Vector3 dir = psm.mouse.position - psm.transform.position;
         dir.Normalize();
         GameObject arrow = GameObject.Instantiate(psm.arrow, psm.bow.transform.position + dir, Quaternion.identity) as GameObject;
-        arrow.GetComponent<Arrow>().Shoot(dir, str);
+        arrow.GetComponent<Arrow>().Shoot(dir, strenght);
+        Debug.Log("Shoot");
     }
 
     public void Block()

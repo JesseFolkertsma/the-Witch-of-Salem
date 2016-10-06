@@ -168,7 +168,6 @@ public class PlayerStateMachine : MonoBehaviour {
             switch (state)
             {
                 case State.Aiming:
-                    pc.ShootArrow();
                     break;
             }
         }
