@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/The Witch of Salem/Scenes/Test Level.unity
+- path: Assets/Prototype/Scenes/White box Level Farmland.unity
   isLoaded: 1
   isActive: 1
