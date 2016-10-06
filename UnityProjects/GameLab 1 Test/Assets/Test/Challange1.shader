@@ -1,9 +1,9 @@
 ﻿Shader "Custom/Challange1" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
-		_Smoothness ("Smoothness", Range(0,1)) = 0.5
+		_Smoothness ("Smoothness", 2D) = "white" {}
 		_MetallicTex("Metallic", 2D) = "white" {}
-		_NormalTex ("Normal", 2D) = "white" {}
+		_NormalTex ("Normal", 2D) = "bump" {}
 		_NormalI ("Normal Intensity", Range(0,1)) = 0.5
 		_EmissionTex ("Emission Texture", 2D) = "white" {}
 		_EmissionCol ("Emission Color", Color) = (1,1,1,1)
@@ -23,25 +23,30 @@
 		sampler2D _MetallicTex;
 		sampler2D _NormalTex;
 		sampler2D _EmissionTex;
+		sampler2D _SmoothnessTex;
 
 		struct Input {
-			float2 uv_MainTex;
+			float2 uv_NormalTex;
+			float2 uv_EmissionTex;
+			float2 uv_MetallicTex;
+			float2 uv_SmoothnessTex;
 		};
 
-		half _Smoothness;
 		half _EmissionI;
 		half _NormalI;
 		fixed4 _EmissionCol;
 		fixed4 _Color;
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
-			// Albedo comes from a texture tinted by color
+			fixed3 m = tex2D(_MetallicTex, IN.uv_MetallicTex);
+			fixed3 e = tex2D(_EmissionTex, IN.uv_EmissionTex);
+			fixed3 s = tex2D(_SmoothnessTex, IN.uv_SmoothnessTex);
+			fixed3 n = UnpackNormal(tex2D(_NormalTex, IN.uv_NormalTex) * _NormalI);
 			o.Albedo = _Color;
-			o.Metallic = tex2D(_MetallicTex, IN.uv_MainTex);
-			o.Normal = UnpackNormal(tex2D(_NormalTex, IN.uv_MainTex) * _NormalI);
-			o.Emission = tex2D(_EmissionTex, IN.uv_MainTex) * _EmissionCol * _EmissionI;
-			// Metallic and smoothness come from slider variables
-			o.Smoothness = _Smoothness;
+			o.Metallic = m;
+			o.Normal = n;
+			o.Emission = e * _EmissionCol * _EmissionI;
+			o.Smoothness = s;
 		}
 		ENDCG
 	}

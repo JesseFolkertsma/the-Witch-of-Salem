@@ -15,7 +15,14 @@ public class PlayerStateMachine : MonoBehaviour {
         Aiming
     };
 
+    public enum CombatState
+    {
+        Melee,
+        Ranged
+    };
+
     public State state = State.Walking;
+    public CombatState combatState = CombatState.Melee;
 
     public PlayerMovements pm;
     public PlayerCombat pc;
@@ -35,6 +42,8 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public Transform backBone;
     public GameObject shield;
+    public GameObject bow;
+    public GameObject arrow;
     public Transform mouse;
 
     void Awake()
@@ -64,6 +73,9 @@ public class PlayerStateMachine : MonoBehaviour {
                 break;
             case State.Blocking:
                 pc.Block();
+                break;
+            case State.Aiming:
+                pc.DrawArrow();
                 break;
         }
 
@@ -119,29 +131,61 @@ public class PlayerStateMachine : MonoBehaviour {
         {
             pm.ClimbUp();
         }
-        Debug.DrawRay(transform.position, dir, Color.red);
-        Debug.DrawRay(transform.position + new Vector3(0, 1.5f, 0), dir, Color.blue);
+
+        //Stuff for weaponswapping
+        if (Input.GetButtonDown("Fire3"))
+        {
+            SwapWeapons();
+        }
     }
 
     public void ToAttack()
     {
-        switch (state)
+        if (combatState == CombatState.Melee)
         {
-            case State.Walking:
-                pc.BasicAttack();
-                break;
-            case State.Running:
-                pc.SprintAttack();
-                break;
-            case State.Crouching:
-                print("Cant attack while crouching!");
-                break;
-            case State.Falling:
-                pc.JumpAttackInit();
-                break;
-            case State.Blocking:
-                pc.BasicAttack();
-                break;
+            switch (state)
+            {
+                case State.Walking:
+                    pc.BasicAttack();
+                    break;
+                case State.Running:
+                    pc.SprintAttack();
+                    break;
+                case State.Crouching:
+                    print("Cant attack while crouching!");
+                    break;
+                case State.Falling:
+                    pc.JumpAttackInit();
+                    break;
+                case State.Blocking:
+                    pc.BasicAttack();
+                    break;
+            }
+        }
+
+        if(combatState == CombatState.Ranged)
+        {
+            switch (state)
+            {
+                case State.Aiming:
+                    pc.ShootArrow();
+                    break;
+            }
+        }
+    }
+
+    public void SwapWeapons()
+    {
+        if(combatState == CombatState.Melee)
+        {
+            combatState = CombatState.Ranged;
+            bow.SetActive(true);
+        }
+
+        else if (combatState == CombatState.Ranged)
+        {
+            combatState = CombatState.Melee;
+            bow.SetActive(false);
         }
     }
 }

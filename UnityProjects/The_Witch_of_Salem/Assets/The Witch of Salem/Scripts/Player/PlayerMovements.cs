@@ -35,7 +35,14 @@ public class PlayerMovements : PlayerComponent {
 
             if (Input.GetButtonDown("Fire2"))
             {
-                psm.state = PlayerStateMachine.State.Blocking;
+                if (psm.combatState == PlayerStateMachine.CombatState.Melee)
+                {
+                    psm.state = PlayerStateMachine.State.Blocking;
+                }
+                if (psm.combatState == PlayerStateMachine.CombatState.Ranged)
+                {
+                    psm.state = PlayerStateMachine.State.Aiming;
+                }
             }
         }
 

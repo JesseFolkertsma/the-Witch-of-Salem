@@ -3,18 +3,23 @@ using System.Collections;
 
 public class Arrow : MonoBehaviour {
 
-    Rigidbody rb;
+    public Rigidbody rb;
     public GameObject arrowHit;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = new Vector3(4, 3.5f, 0);
+        transform.SetParent(null);
     }
 	
 	void Update () {
         transform.rotation = Quaternion.LookRotation(rb.velocity);
 	}
+
+    public void Shoot(Vector3 direction, float strenght)
+    {
+        rb.velocity += direction * strenght;
+    }
 
     void OnTriggerEnter(Collider col)
     {

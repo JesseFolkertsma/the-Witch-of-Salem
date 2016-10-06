@@ -60,12 +60,21 @@ public class PlayerCombat : PlayerComponent {
 
     public void DrawArrow()
     {
-
+        LookAtMouse();
+        psm.pm.Move(.5f, true);
+        if (Input.GetButtonUp("Fire2"))
+        {
+            psm.state = PlayerStateMachine.State.Walking;
+        }
     }
 
     public void ShootArrow()
     {
-
+        float str = 15;
+        Vector3 dir = psm.mouse.position - psm.transform.position;
+        dir.Normalize();
+        GameObject arrow = GameObject.Instantiate(psm.arrow, psm.bow.transform.position + dir, Quaternion.identity) as GameObject;
+        arrow.GetComponent<Arrow>().Shoot(dir, str);
     }
 
     public void Block()
