@@ -3,12 +3,20 @@ using System.Collections;
 
 public class RagdollSwitch : MonoBehaviour {
 
-    Rigidbody[] rbs;
-    bool ragdoll;
+    public Rigidbody[] rbs;
+    public Collider[] cols;
+    public Rigidbody mainRB;
+    public Collider mainCol;
+    public Animator anim;
+    public bool ragdoll;
 
     void Start()
     {
         rbs = GetComponentsInChildren<Rigidbody>();
+        cols = GetComponentsInChildren<Collider>();
+        mainRB = GetComponent<Rigidbody>();
+        mainCol = GetComponent<Collider>();
+        anim = GetComponentInChildren<Animator>();
         DisableRagdoll();
     }
 
@@ -33,8 +41,11 @@ public class RagdollSwitch : MonoBehaviour {
         for (int i = 0; i < rbs.Length; i++)
         {
             rbs[i].isKinematic = false;
+            cols[i].enabled = true;
         }
-        GetComponent<Animator>().enabled = false;
+        anim.enabled = false;
+        mainRB.isKinematic = true;
+        mainCol.enabled = false;
     }
 
     public void PlayFall()
@@ -58,7 +69,10 @@ public class RagdollSwitch : MonoBehaviour {
         for (int i = 0; i < rbs.Length; i++)
         {
             rbs[i].isKinematic = true;
+            cols[i].enabled = false;
         }
-        GetComponent<Animator>().enabled = true;
+        anim.enabled = true;
+        mainRB.isKinematic = false;
+        mainCol.enabled = true;
     }
 }
