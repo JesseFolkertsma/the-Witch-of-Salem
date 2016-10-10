@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GroundEnemy : MonoBehaviour {
+public class GroundEnemy : Enemy {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public override void Move(float movementSpeed)
+    {
+    }
 }
