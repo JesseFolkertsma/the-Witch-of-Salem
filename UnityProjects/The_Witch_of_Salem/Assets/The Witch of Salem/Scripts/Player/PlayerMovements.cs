@@ -28,9 +28,18 @@ public class PlayerMovements : PlayerComponent {
                 psm.dir.x = 1;
             }
 
-            if (psm.isFalling == false && Input.GetButtonDown("Jump"))
+            if (psm.isFalling == false)
             {
-                Jump();
+
+                if (Input.GetButtonDown("Control"))
+                {
+                    CombatRoll();
+                }
+
+                if (Input.GetButtonDown("Jump"))
+                {
+                    Jump();
+                }
             }
 
             if (Input.GetButtonDown("Fire2"))
@@ -43,11 +52,6 @@ public class PlayerMovements : PlayerComponent {
                 {
                     psm.state = PlayerStateMachine.State.Aiming;
                 }
-            }
-
-            if (Input.GetButtonDown("Control"))
-            {
-                CombatRoll();
             }
 
             if (Input.GetButtonDown("Fire1"))

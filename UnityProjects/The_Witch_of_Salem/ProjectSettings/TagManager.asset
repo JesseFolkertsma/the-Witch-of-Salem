@@ -8,6 +8,7 @@ TagManager:
   - Ledge
   - LookatObject
   - Mouse
+  - Waypoint
   layers:
   - Default
   - TransparentFX
