@@ -2,9 +2,7 @@
 using System.Collections;
 
 public class Golem : GroundEnemy {
-
-    public Animator anim;
-
+    
     float tempMS;
 
     bool attack = false;
@@ -13,7 +11,6 @@ public class Golem : GroundEnemy {
 
     void Start()
     {
-        anim = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         GEStart();
     }

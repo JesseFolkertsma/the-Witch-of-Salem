@@ -59,8 +59,6 @@ public class RagdollSwitch : MonoBehaviour {
         EnableRagdoll();
         yield return new WaitForSeconds(5f);
         DisableRagdoll();
-        rbs[0].isKinematic = false;
-        GetComponent<Animator>().SetTrigger("StandUp");
     }
 
     public void DisableRagdoll()

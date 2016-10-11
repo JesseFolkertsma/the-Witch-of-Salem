@@ -18,18 +18,34 @@ public class GroundEnemy : Enemy {
     public int currentwp;
     
     public Transform head;
-     Transform enemyModel;
+    Transform enemyModel;
+    public Animator anim;
 
     public float mSpeed;
     public float detectionRange;
     public float attackRange;
 
+    public bool walking;
+
+    public bool randomStops;
+    public Vector2 minMaxWalkTime;
+    public Vector2 minMaxStopTime;
+    float walkTime;
+    float stopTime;
+    float walkTimer;
+    float stopTimer;
+
     bool inRange;
     bool canAttack;
 
+    public GameObject ragdoll;
+
     public virtual void GEStart()
     {
+        anim = GetComponentInChildren<Animator>();
         enemyModel = transform.GetChild(0);
+        walkTime = Random.Range(minMaxWalkTime.x, minMaxWalkTime.y);
+        stopTime = Random.Range(minMaxStopTime.x, minMaxStopTime.y);
     }
 
     public virtual void GEUpdate()
@@ -44,6 +60,7 @@ public class GroundEnemy : Enemy {
                 FollowPlayer();
                 break;
         }
+        anim.SetBool("IsWalking", walking);
     }
 
     public virtual void CheckForPlayer(float detectRange, float attackRange)
@@ -65,6 +82,11 @@ public class GroundEnemy : Enemy {
 
     public virtual void Move(float movementSpeed, Vector3 target)
     {
+        if (movementSpeed > 0.1f)
+            walking = true;
+        else
+            walking = false;
+
         targetDir = CheckTargetDir(target);
         float rot = 0;
         Vector3 dir = new Vector3(0, 0, 0);
@@ -86,8 +108,29 @@ public class GroundEnemy : Enemy {
 
     public virtual void Patolling()
     {
-        Move(mSpeed, waypoints[currentwp].position);
-        if(inRange == true)
+
+        float speed = mSpeed;
+
+        if(randomStops == true)
+        {
+            walkTimer += 1 * Time.deltaTime;
+            if(walkTimer >= walkTime)
+            {
+                speed = 0;
+                stopTimer += 1 * Time.deltaTime;
+                if(stopTimer >= stopTime)
+                {
+                    walkTime = Random.Range(minMaxWalkTime.x, minMaxWalkTime.y);
+                    stopTime = Random.Range(minMaxStopTime.x, minMaxStopTime.y);
+                    walkTimer = 0;
+                    stopTimer = 0;
+                }
+            }
+        }
+
+        Move(speed, waypoints[currentwp].position);
+
+        if (inRange == true)
         {
             state = EnemyState.Following;
         }
@@ -106,6 +149,17 @@ public class GroundEnemy : Enemy {
         {
             Attack();
         }
+    }
+
+    public override void Die()
+    {
+        print("Death" + gameObject.name);
+        if (isDead == false)
+        {
+            Instantiate(ragdoll, transform.position, enemyModel.rotation);
+            Destroy(gameObject);
+        }
+        base.Die();
     }
 
     public virtual void Attack() { }

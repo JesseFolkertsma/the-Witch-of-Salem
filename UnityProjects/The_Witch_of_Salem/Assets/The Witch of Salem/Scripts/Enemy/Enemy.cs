@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour {
     public float health;
     public float movementSpeed;
     public bool isAgressive;
-    public bool isDead;
+    public bool isDead = false;
 
     public Transform player;
 
@@ -28,5 +28,10 @@ public class Enemy : MonoBehaviour {
         {
             return TargetDirection.Left;
         }
+    }
+    
+    public virtual void Die()
+    {
+        isDead = true;
     }
 }

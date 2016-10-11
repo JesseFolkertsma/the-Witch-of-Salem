@@ -5,9 +5,9 @@ public class Waypoint : MonoBehaviour {
     
     void OnTriggerEnter(Collider col)
     {
-        if (col.GetComponent<GroundEnemy>() != null)
+        if (col.attachedRigidbody.GetComponent<GroundEnemy>() != null)
         {
-            GroundEnemy ge = col.GetComponent<GroundEnemy>();
+            GroundEnemy ge = col.attachedRigidbody.GetComponent<GroundEnemy>();
             ge.currentwp++;
             if (ge.currentwp > ge.waypoints.Count - 1)
             {

@@ -42,10 +42,19 @@ public class PlayerCombat : PlayerComponent {
             Collider[] hits = Physics.OverlapSphere(psm.transform.position, 5f);
             for(int i = 0; i < hits.Length; i++)
             {
-                if(hits[i].GetComponent<RagdollSwitch>() != null)
+                if(hits[i].GetComponent<BreakableLootObject>() != null)
                 {
-                    hits[i].GetComponent<RagdollSwitch>().PlayFall();
+                    hits[i].GetComponent<BreakableLootObject>().Break(psm.transform.position);
                 }
+
+                if (hits[i].attachedRigidbody != null)
+                {
+                    if (hits[i].attachedRigidbody.GetComponent<Enemy>() != null)
+                    {
+                        hits[i].attachedRigidbody.GetComponent<Enemy>().Die();
+                    }
+                }
+
                 if (hits[i].GetComponent<Rigidbody>() != null)
                 {
                     hits[i].GetComponent<Rigidbody>().AddExplosionForce(1000, psm.transform.position, 5f, 10);
