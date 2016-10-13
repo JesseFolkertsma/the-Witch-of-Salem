@@ -1673,11 +1673,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< HEAD
-  m_RootOrder: 7
-=======
   m_RootOrder: 5
->>>>>>> origin/master
 --- !u!1001 &748937602
 Prefab:
   m_ObjectHideFlags: 0
@@ -3178,7 +3174,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1681925416}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-<<<<<<< HEAD
 --- !u!54 &1681925421
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3194,8 +3189,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
-=======
->>>>>>> origin/master
 --- !u!1 &1735555591
 GameObject:
   m_ObjectHideFlags: 0
