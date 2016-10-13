@@ -82,10 +82,12 @@ public class GroundEnemy : Enemy {
 
     public virtual void Move(float movementSpeed, Vector3 target)
     {
-        if (movementSpeed > 0.1f)
+        if (movementSpeed > 0.1f && !Physics.Raycast(transform.position + enemyModel.transform.forward / 2, enemyModel.transform.forward, 2))
             walking = true;
-        else
+        else {
             walking = false;
+            movementSpeed = 0;
+        }
 
         targetDir = CheckTargetDir(target);
         float rot = 0;

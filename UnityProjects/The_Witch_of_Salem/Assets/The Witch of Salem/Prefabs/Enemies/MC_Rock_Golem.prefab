@@ -340,7 +340,7 @@ GameObject:
   - 114: {fileID: 114000010198277478}
   m_Layer: 0
   m_Name: MC_Rock_Golem
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

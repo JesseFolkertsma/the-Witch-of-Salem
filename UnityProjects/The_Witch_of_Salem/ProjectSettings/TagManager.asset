@@ -9,6 +9,7 @@ TagManager:
   - LookatObject
   - Mouse
   - Waypoint
+  - Enemy
   layers:
   - Default
   - TransparentFX

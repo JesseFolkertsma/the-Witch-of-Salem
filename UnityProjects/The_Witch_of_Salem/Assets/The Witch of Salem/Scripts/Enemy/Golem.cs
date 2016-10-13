@@ -43,7 +43,7 @@ public class Golem : GroundEnemy {
     {
         mSpeed = 0;
         attack = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         mSpeed = tempMS;
         attack = false;
     }

@@ -28,15 +28,6 @@ public class PlayerMovements : PlayerComponent {
                 psm.dir.x = 1;
             }
 
-            if (psm.isFalling == false)
-            {
-
-                if (Input.GetButtonDown("Control"))
-                {
-                    CombatRoll();
-                }
-            }
-
             if (Input.GetButtonDown("Fire2"))
             {
                 if (psm.combatState == PlayerStateMachine.CombatState.Melee)
@@ -49,6 +40,18 @@ public class PlayerMovements : PlayerComponent {
                 }
             }
 
+            if (psm.isFalling == false)
+            {
+                if (Input.GetButtonDown("Control"))
+                {
+                    CombatRoll();
+                }
+                if (Input.GetButtonDown("Jump"))
+                {
+                    Jump();
+                }
+            }
+
             if (Input.GetButtonDown("Fire1"))
             {
                 psm.ToAttack();
@@ -57,18 +60,14 @@ public class PlayerMovements : PlayerComponent {
 
         if (psm.isFalling == false)
         {
-            if (Input.GetButtonDown("Jump"))
-            {
-                Jump();
-            }
-            psm.walkingPar.SetActive(true);
+            psm.wParSystem.enableEmission = true;
         }
         else
         {
-            psm.walkingPar.SetActive(false);
+            psm.wParSystem.enableEmission = false;
         }
 
-        moveSpeed = Mathf.Lerp(moveSpeed, speed, .05f);
+            moveSpeed = Mathf.Lerp(moveSpeed, speed, .05f);
         movement *= moveSpeed;
         psm.transform.Translate(new Vector3(movement.x, 0, 0) * psm.movementSpeed * Time.deltaTime);
     }

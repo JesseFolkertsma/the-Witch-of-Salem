@@ -37,6 +37,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public RaycastHit ray;
 
     public float movementSpeed;
+    public float checkForFloorRange = 1.1f;
     public float climbSpeed;
 
     public bool isFalling;
@@ -50,6 +51,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public Transform mouse;
 
     public GameObject walkingPar;
+    public ParticleSystem wParSystem;
     public GameObject smashParticles;
 
     void Awake()
@@ -59,6 +61,7 @@ public class PlayerStateMachine : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         walkingPar = Instantiate(walkingPar, transform.position - new Vector3(0, .7f, 0), Quaternion.identity) as GameObject;
         walkingPar.transform.parent = transform;
+        wParSystem = walkingPar.GetComponent<ParticleSystem>();
     }
 
     void Update ()
@@ -99,7 +102,7 @@ public class PlayerStateMachine : MonoBehaviour {
         pm.movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 
         //Check for falling
-        if (Physics.Raycast(transform.position, Vector3.down, 1.1f))
+        if (Physics.Raycast(transform.position, Vector3.down, checkForFloorRange))
         {
             isFalling = false;
             if(state == State.Falling)
