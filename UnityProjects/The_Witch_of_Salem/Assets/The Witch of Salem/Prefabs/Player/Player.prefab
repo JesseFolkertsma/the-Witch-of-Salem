@@ -187,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 1000014198568802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.8, z: 0.4}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013069928734}
@@ -252,7 +252,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011775114378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.76, y: -8.7, z: 0}
+  m_LocalPosition: {x: 6.19, y: 2.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -616,6 +616,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   rb: {fileID: 0}
   movementSpeed: 5
+  checkForFloorRange: 1.1
   climbSpeed: 4
   isFalling: 0
   isClimbing: 0
@@ -626,6 +627,7 @@ MonoBehaviour:
   arrow: {fileID: 1000012006826884, guid: 448a842abe435774f94ad15b95dc2492, type: 2}
   mouse: {fileID: 0}
   walkingPar: {fileID: 1000013560221478, guid: 8bc997d1908da754093d0ad0d0b6c123, type: 2}
+  wParSystem: {fileID: 0}
   smashParticles: {fileID: 1000012600757078, guid: 2ab9a9b4036e78d4283c50bc2cf54d93,
     type: 2}
 --- !u!136 &136000011268532058
