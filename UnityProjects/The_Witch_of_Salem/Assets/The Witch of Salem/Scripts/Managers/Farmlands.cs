@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Farmlands : MonoBehaviour {
+public class Farmlands : Level {
 
 	// Use this for initialization
 	void Start () {

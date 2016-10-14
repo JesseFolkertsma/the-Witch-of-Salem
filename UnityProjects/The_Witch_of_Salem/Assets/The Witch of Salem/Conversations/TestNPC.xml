@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Conversation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TextArray>
+    <Text>Text nummer 1</Text>
+    <Text>Text n2221</Text>
+    <Text>Weerk verdomme</Text>
+    <Text>Text nummer 4</Text>
+  </TextArray>
+</Conversation>

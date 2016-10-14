@@ -3,12 +3,32 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+    public static GameManager instance = null;
+
     public SaveLoadSystem slSystem;
     public EnemyManager eManager;
     public PopupMessages popup;
 
-	void Start()
+    public LevelManager lm;
+    public ConversationManager cm;
+
+    public string playerName;
+
+    void Awake()
     {
+        //Makes sure there is only one GameManager
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        lm = new LevelManager();
+        cm = GetComponent<ConversationManager>();
+
         slSystem = new SaveLoadSystem();
         popup = GameObject.Find("UI Manager").GetComponent<PopupMessages>();
     }

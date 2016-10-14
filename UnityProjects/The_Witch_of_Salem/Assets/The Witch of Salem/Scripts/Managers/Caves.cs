@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Caves : MonoBehaviour {
+public class Caves : Level {
 
 	// Use this for initialization
 	void Start () {

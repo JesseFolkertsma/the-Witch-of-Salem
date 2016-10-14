@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WitchTower : MonoBehaviour {
+public class WitchTower : Level {
 
 	// Use this for initialization
 	void Start () {

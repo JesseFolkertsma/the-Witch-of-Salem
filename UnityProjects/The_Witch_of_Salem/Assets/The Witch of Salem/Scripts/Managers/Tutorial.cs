@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tutorial : MonoBehaviour {
+public class Tutorial : Level {
 
 	// Use this for initialization
 	void Start () {
