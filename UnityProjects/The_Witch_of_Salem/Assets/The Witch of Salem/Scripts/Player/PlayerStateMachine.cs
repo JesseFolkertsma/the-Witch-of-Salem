@@ -5,6 +5,7 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public enum State
     {
+        CantMove,
         Walking,
         Running,
         Crouching,
@@ -24,6 +25,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public State state = State.Walking;
     public CombatState combatState = CombatState.Melee;
 
+    public PlayerStats ps = new PlayerStats();
     public PlayerMovements pm;
     public PlayerCombat pc;
     
@@ -43,6 +45,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public bool isFalling;
     public bool isClimbing;
     public bool jumpAttack;
+    public bool isDead;
 
     public Transform backBone;
     public GameObject shield;
@@ -53,6 +56,8 @@ public class PlayerStateMachine : MonoBehaviour {
     public GameObject walkingPar;
     public ParticleSystem wParSystem;
     public GameObject smashParticles;
+
+    public GameObject ragdoll;
 
     void Awake()
     {
@@ -88,6 +93,11 @@ public class PlayerStateMachine : MonoBehaviour {
             case State.Aiming:
                 pc.DrawArrow();
                 break;
+        }
+
+        if(ps.health <= 0)
+        {
+            Die();
         }
 
         if(jumpAttack == true)
@@ -196,6 +206,15 @@ public class PlayerStateMachine : MonoBehaviour {
         {
             combatState = CombatState.Melee;
             bow.SetActive(false);
+        }
+    }
+
+    public void Die()
+    {
+        if (isDead == false)
+        {
+            Instantiate(ragdoll, transform.position, transform.rotation);
+            isDead = true;
         }
     }
 }

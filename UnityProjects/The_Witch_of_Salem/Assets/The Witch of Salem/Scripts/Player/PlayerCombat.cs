@@ -51,7 +51,7 @@ public class PlayerCombat : PlayerComponent {
                 {
                     if (hits[i].attachedRigidbody.GetComponent<Enemy>() != null)
                     {
-                        hits[i].attachedRigidbody.GetComponent<Enemy>().Die();
+                        hits[i].attachedRigidbody.GetComponent<Enemy>().health -= 50;
                     }
                 }
 

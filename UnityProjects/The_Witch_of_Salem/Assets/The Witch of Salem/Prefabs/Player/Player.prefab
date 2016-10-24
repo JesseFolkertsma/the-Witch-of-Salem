@@ -630,6 +630,7 @@ MonoBehaviour:
   wParSystem: {fileID: 0}
   smashParticles: {fileID: 1000012600757078, guid: 2ab9a9b4036e78d4283c50bc2cf54d93,
     type: 2}
+  ragdoll: {fileID: 1000013879837844, guid: 3bd8fb9783148c049b2a97cf7d35de6c, type: 2}
 --- !u!136 &136000011268532058
 CapsuleCollider:
   m_ObjectHideFlags: 1

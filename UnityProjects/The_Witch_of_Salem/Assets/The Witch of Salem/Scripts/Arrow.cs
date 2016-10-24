@@ -23,6 +23,14 @@ public class Arrow : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
+        if (col.attachedRigidbody != null)
+        {
+            if (col.attachedRigidbody.GetComponent<Enemy>() != null)
+            {
+                col.attachedRigidbody.GetComponent<Enemy>().health -= 30;
+            }
+        }
+
         GameObject go = Instantiate(new GameObject(), transform.position - rb.velocity.normalized / 4, Quaternion.identity) as GameObject;
         go.name = "ArrowObject";
         go.transform.parent = col.transform;

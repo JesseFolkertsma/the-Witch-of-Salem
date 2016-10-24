@@ -61,6 +61,10 @@ public class GroundEnemy : Enemy {
                 break;
         }
         anim.SetBool("IsWalking", walking);
+        if(health <= 0)
+        {
+            Die();
+        }
     }
 
     public virtual void CheckForPlayer(float detectRange, float attackRange)
