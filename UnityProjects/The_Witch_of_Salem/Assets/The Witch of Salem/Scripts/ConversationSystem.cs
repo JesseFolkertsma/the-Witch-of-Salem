@@ -5,13 +5,17 @@ using System.Collections.Generic;
 public class ConversationSystem : MonoBehaviour {
 
     Conversation conv = new Conversation();
+
+    public string file = "TestNPC";
+
+    public int encounter;
+
     int i = 0;
 
     void Start()
     {
-        conv = new ConversationLoader().LoadText("TestNPC.xml");
+        conv = new ConversationLoader().LoadText(file + ".xml");
         //new ConversationLoader().SaveGame();
-        GameManager.instance.cm.DisplayText(conv.text[i]);
     }
 
     void Update()
@@ -25,6 +29,7 @@ public class ConversationSystem : MonoBehaviour {
             }
             else
             {
+                GameManager.instance.cm.Play(false);
                 print("No more text");
             }
         }
@@ -32,9 +37,15 @@ public class ConversationSystem : MonoBehaviour {
     
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Player")
+        if(col.attachedRigidbody.tag == "Player" && GameManager.instance.cm.isActive == false && encounter == 0)
         {
-
+            print("IK STA NAAST JE");
+            //if (Input.GetButtonDown("E")) {
+                print("PRAAT");
+                GameManager.instance.cm.Play(true);
+                encounter++;
+                GameManager.instance.cm.DisplayText(conv.text[i]);
+            //}
         }
     }
 }

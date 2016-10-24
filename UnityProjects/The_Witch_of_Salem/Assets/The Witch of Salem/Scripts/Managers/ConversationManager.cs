@@ -12,13 +12,31 @@ public class ConversationManager : MonoBehaviour {
     string displayText;
     string writingText;
 
+    public GameObject convCanvas;
+    public bool isActive = false;
+
     void Start()
     {
+        convCanvas = Instantiate(convCanvas) as GameObject;
         npcText = GameObject.Find("NpcText").GetComponent<Text>();
-        //DisplayText("Ik hou zoooooooooooo veel van pindakaas");
+        convCanvas.SetActive(false);
     }
 
-    void Update()
+    public void Play(bool b)
+    {
+        if (b == true)
+        {
+            convCanvas.SetActive(true);
+            isActive = true;
+        }
+        else
+        {
+            convCanvas.SetActive(false);
+            isActive = false;
+        }
+    }
+
+    void LateUpdate()
     {
         if(writing == true)
         {

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Conversation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TextArray>
-    <Text>Text nummer 1</Text>
-    <Text>Text n2221</Text>
-    <Text>Weerk verdomme</Text>
-    <Text>Text nummer 4</Text>
+    <Text>Hello how are you doing?</Text>
+    <Text>My name is TestNPC you can talk to me.</Text>
+    <Text>I know what to say using XML.</Text>
+    <Text>Why dont you shoot the rope on that bridge?</Text>
+    <Text>Goodbye!</Text>
+    <Text>hoi!</Text>
   </TextArray>
 </Conversation>
