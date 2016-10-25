@@ -58,6 +58,20 @@ public class PlayerMovements : PlayerComponent {
             }
         }
 
+        float rot = 0;
+
+        if(psm.dir.x < 0)
+        {
+            rot = -90;
+        }
+
+        if (psm.dir.x > 0)
+        {
+            rot = 90;
+        }
+
+        psm.model.rotation = Quaternion.Lerp(psm.model.rotation, Quaternion.Euler(0, rot, 0), Time.deltaTime * 5f);
+
         if (psm.isFalling == false)
         {
             psm.wParSystem.enableEmission = true;
@@ -67,7 +81,7 @@ public class PlayerMovements : PlayerComponent {
             psm.wParSystem.enableEmission = false;
         }
 
-            moveSpeed = Mathf.Lerp(moveSpeed, speed, .05f);
+        moveSpeed = Mathf.Lerp(moveSpeed, speed, Time.deltaTime * 2f);
         movement *= moveSpeed;
         psm.transform.Translate(new Vector3(movement.x, 0, 0) * psm.movementSpeed * Time.deltaTime);
     }
@@ -127,7 +141,7 @@ public class PlayerMovements : PlayerComponent {
             psm.isClimbing = true;
         }
 
-        moveSpeed = Mathf.Lerp(moveSpeed, 1, .05f);
+        moveSpeed = Mathf.Lerp(moveSpeed, 1, Time.deltaTime * 2f);
         movement *= moveSpeed;
         psm.transform.Translate(new Vector3(0, movement.y, 0) * psm.climbSpeed * Time.deltaTime);
     }
@@ -140,7 +154,7 @@ public class PlayerMovements : PlayerComponent {
             psm.isClimbing = true;
         }
 
-        moveSpeed = Mathf.Lerp(moveSpeed, 1, .05f);
+        moveSpeed = Mathf.Lerp(moveSpeed, 1, Time.deltaTime * 2f);
         movement *= moveSpeed;
         psm.transform.Translate(new Vector3(0, movement.y, 0) * psm.climbSpeed * Time.deltaTime);
 

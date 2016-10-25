@@ -14,7 +14,7 @@ public class IKTest : MonoBehaviour {
 
     public void OnAnimatorIK()
     {
-        anim.SetLookAtWeight(1, .3f, 1, 0, .5f);
+        anim.SetLookAtWeight(1, .5f, 1, 0, .5f);
         anim.SetLookAtPosition(box.position);
     }
 }

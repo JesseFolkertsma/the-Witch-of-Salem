@@ -19,15 +19,17 @@ public class PlayerStateMachine : MonoBehaviour {
     public enum CombatState
     {
         Melee,
-        Ranged
+        Ranged,
+        Unarmed
     };
 
     public State state = State.Walking;
     public CombatState combatState = CombatState.Melee;
 
-    public PlayerStats ps = new PlayerStats();
+    public PlayerStats ps;
     public PlayerMovements pm;
     public PlayerCombat pc;
+    public PlayerIK pIK;
     
     [HideInInspector]
     public Vector3 dir;
@@ -47,7 +49,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public bool jumpAttack;
     public bool isDead;
 
-    public Transform backBone;
+    public Transform model;
     public GameObject shield;
     public GameObject bow;
     public GameObject arrow;
@@ -64,9 +66,12 @@ public class PlayerStateMachine : MonoBehaviour {
         pm = new PlayerMovements(this);
         pc = new PlayerCombat(this);
         rb = GetComponent<Rigidbody>();
+        ps = GetComponent<PlayerStats>();
+        pIK = GetComponentInChildren<PlayerIK>();
         walkingPar = Instantiate(walkingPar, transform.position - new Vector3(0, .7f, 0), Quaternion.identity) as GameObject;
         walkingPar.transform.parent = transform;
         wParSystem = walkingPar.GetComponent<ParticleSystem>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update ()
@@ -110,9 +115,10 @@ public class PlayerStateMachine : MonoBehaviour {
     {
         //Setup movement and check witch direction player is facing
         pm.movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        anim.SetFloat("Movement", pm.movement.x);
 
         //Check for falling
-        if (Physics.Raycast(transform.position, Vector3.down, checkForFloorRange))
+        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, checkForFloorRange))
         {
             isFalling = false;
             if(state == State.Falling)
@@ -196,7 +202,7 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public void SwapWeapons()
     {
-        if(combatState == CombatState.Melee)
+        if(combatState == CombatState.Melee && ps.hasBow == true)
         {
             combatState = CombatState.Ranged;
             bow.SetActive(true);

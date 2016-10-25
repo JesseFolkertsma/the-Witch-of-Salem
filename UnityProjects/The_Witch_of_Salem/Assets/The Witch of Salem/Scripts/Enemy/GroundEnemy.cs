@@ -108,7 +108,7 @@ public class GroundEnemy : Enemy {
             dir.x = 1;
         }
 
-        enemyModel.transform.rotation = Quaternion.Lerp(enemyModel.transform.rotation, Quaternion.Euler(0, rot, 0), .1f);
+        enemyModel.transform.rotation = Quaternion.Lerp(enemyModel.transform.rotation, Quaternion.Euler(0, rot, 0), Time.deltaTime * 5f);
         transform.Translate(dir * movementSpeed * Time.deltaTime);
     }
 

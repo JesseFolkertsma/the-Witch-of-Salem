@@ -175,7 +175,7 @@ public class PlayerMovement : MonoBehaviour {
                 if (!Physics.Raycast(pm.playerMiddle.position + new Vector3(0, 1.5f, 0), transform.forward, 3f) && climbRay.transform.tag == "Ledge")
                 {
                     Climb();
-                    PlayerIK.instance.useIK = true;
+                    //PlayerIK.instance.useIK = true;
                 }
 
                 if (climbRay.transform.tag == "Ladder")
@@ -183,7 +183,7 @@ public class PlayerMovement : MonoBehaviour {
                     Climb();
                     if (!Physics.Raycast(pm.playerMiddle.position + new Vector3(0, 1.5f, 0), transform.forward, 3f))
                     {
-                        PlayerIK.instance.useIK = true;
+                        //PlayerIK.instance.useIK = true;
                     }
                 }
             }
@@ -222,7 +222,7 @@ public class PlayerMovement : MonoBehaviour {
             pospos = climbRay.transform.position + new Vector3(-climbRay.collider.bounds.extents.x, climbRay.collider.bounds.extents.y, 0);
         }
 
-        PlayerIK.instance.hPos = pospos;
+       // PlayerIK.instance.hPos = pospos;
 
         if (!Physics.Raycast(pm.playerMiddle.position + new Vector3(0, .1f, 0), transform.forward, .5f))
         {
@@ -232,7 +232,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void ExitClimb()
     {
-        PlayerIK.instance.useIK = false;
+       // PlayerIK.instance.useIK = false;
         pm.rb.isKinematic = false;
         canMove = true;
         isClimbing = false;
@@ -242,7 +242,7 @@ public class PlayerMovement : MonoBehaviour {
 
     IEnumerator ClimbUp()
     {
-        PlayerIK.instance.useIK = false;
+       // PlayerIK.instance.useIK = false;
         canClimb = false;
         pm.anim.applyRootMotion = true;
         pm.anim.SetTrigger("Climb");

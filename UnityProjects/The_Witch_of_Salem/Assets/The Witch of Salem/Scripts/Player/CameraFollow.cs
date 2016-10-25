@@ -5,7 +5,7 @@ public class CameraFollow : MonoBehaviour {
 
     public Transform camPos;
     public Camera cam;
-    public float damping = .1f;
+    public float damping = 5;
 
     void Start()
     {
@@ -16,8 +16,8 @@ public class CameraFollow : MonoBehaviour {
 
     void Update()
     {
-        camPos.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f, -12);
-        cam.transform.position = Vector3.Lerp(cam.transform.position, camPos.transform.position, damping);
+        camPos.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f, -10);
+        cam.transform.position = Vector3.Lerp(cam.transform.position, camPos.transform.position, Time.deltaTime * damping);
     }
 
 }

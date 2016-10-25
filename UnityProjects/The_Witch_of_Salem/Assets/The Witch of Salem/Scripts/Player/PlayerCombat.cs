@@ -5,6 +5,7 @@ public class PlayerCombat : PlayerComponent {
 
     PlayerStateMachine psm;
     bool canShoot = true;
+    bool lookAt;
     float str = 0;
     
     public PlayerCombat (PlayerStateMachine p)
@@ -31,8 +32,11 @@ public class PlayerCombat : PlayerComponent {
 
     public void JumpAttackInit()
     {
-        psm.rb.velocity = new Vector3(0, -10, 0);
-        psm.jumpAttack = true;
+        if (psm.ps.hasJumpAttack == true)
+        {
+            psm.rb.velocity = new Vector3(0, -10, 0);
+            psm.jumpAttack = true;
+        }
     }
 
     public void JumpAttack()
@@ -82,7 +86,7 @@ public class PlayerCombat : PlayerComponent {
         
         if (Input.GetButton("Fire1"))
         {
-            str = Mathf.Lerp(str, 20, .02f);
+            str = Mathf.Lerp(str, 20, Time.deltaTime * 1f);
             Debug.Log(str);
         }
         if (Input.GetButtonUp("Fire1"))
@@ -103,6 +107,7 @@ public class PlayerCombat : PlayerComponent {
 
     public void Block()
     {
+        psm.anim.SetLayerWeight(1, 1);
         LookAtMouse();
         psm.pm.Move(1, true);
         psm.shield.SetActive(true);
@@ -110,13 +115,13 @@ public class PlayerCombat : PlayerComponent {
         {
             psm.state = PlayerStateMachine.State.Walking;
             psm.shield.SetActive(false);
+            psm.anim.SetLayerWeight(1, 0);
         }
     }
 
     public void LookAtMouse()
     {
-        psm.backBone.LookAt(psm.mouse.position);
-
+        psm.pIK.UseIK(psm.mouse);
         if (psm.mouse.position.x > psm.transform.position.x)
         {
             psm.dir.x = 1;
