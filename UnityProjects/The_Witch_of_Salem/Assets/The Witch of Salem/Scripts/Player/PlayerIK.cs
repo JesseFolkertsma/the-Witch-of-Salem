@@ -22,7 +22,7 @@ public class PlayerIK : MonoBehaviour {
     {
         if (useIK == true)
         {
-            anim.SetLookAtWeight(1, .5f, 1, 0, .5f);
+            anim.SetLookAtWeight(1f, 0.3f, 1, 0, 0.5f);
             anim.SetLookAtPosition(mouse.position);
             useIK = false;
         }

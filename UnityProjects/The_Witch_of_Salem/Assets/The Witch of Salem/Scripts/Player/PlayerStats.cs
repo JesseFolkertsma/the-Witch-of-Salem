@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PlayerStats : MonoBehaviour{
-    public float health;
+    public int lives;
     public float swordDamage;
     public float arrowDamage;
     public int apples;

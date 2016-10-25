@@ -68,7 +68,7 @@ public class PlayerStateMachine : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         ps = GetComponent<PlayerStats>();
         pIK = GetComponentInChildren<PlayerIK>();
-        walkingPar = Instantiate(walkingPar, transform.position - new Vector3(0, .7f, 0), Quaternion.identity) as GameObject;
+        walkingPar = Instantiate(walkingPar, transform.position , Quaternion.identity) as GameObject;
         walkingPar.transform.parent = transform;
         wParSystem = walkingPar.GetComponent<ParticleSystem>();
         anim = GetComponentInChildren<Animator>();
@@ -100,7 +100,7 @@ public class PlayerStateMachine : MonoBehaviour {
                 break;
         }
 
-        if(ps.health <= 0)
+        if(ps.lives <= 0)
         {
             Die();
         }
