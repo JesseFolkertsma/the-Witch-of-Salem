@@ -10,10 +10,13 @@ public class LevelManager {
     public Forest forestInfo;
     public Caves cavesInfo;
     public WitchTower witchTowerInfo;
+    public TestLevel testInfo;
 
     GameManager gameManager;
 
-    public LevelManager() { }
+    public LevelManager() {
+        LoadLevel(5);
+    }
 
     public void LoadLevel(int level)
     {
@@ -32,6 +35,9 @@ public class LevelManager {
                 currentLevel = cavesInfo;
                 break;
             case 4:
+                currentLevel = witchTowerInfo;
+                break;
+            case 5:
                 currentLevel = witchTowerInfo;
                 break;
         }

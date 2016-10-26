@@ -15,7 +15,7 @@ public class ConversationManager : MonoBehaviour {
     public GameObject convCanvas;
     public bool isActive = false;
 
-    void Start()
+    public void Init()
     {
         convCanvas = Instantiate(convCanvas) as GameObject;
         npcText = GameObject.Find("NpcText").GetComponent<Text>();

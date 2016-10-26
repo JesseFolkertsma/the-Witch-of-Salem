@@ -3052,7 +3052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb6267f8e928ed4e89a182d09a1197f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  lives: 5
   swordDamage: 25
   arrowDamage: 25
   apples: 2
@@ -3060,7 +3060,7 @@ MonoBehaviour:
   explosiveArrows: 0
   comboLength: 2
   hasSword: 1
-  hasBow: 0
+  hasBow: 1
   hasJumpAttack: 1
   hasExplosives: 0
 --- !u!114 &114000013075775952
@@ -3076,7 +3076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camPos: {fileID: 0}
   cam: {fileID: 0}
-  damping: 1
+  damping: 5
 --- !u!114 &114000014072343284
 MonoBehaviour:
   m_ObjectHideFlags: 1

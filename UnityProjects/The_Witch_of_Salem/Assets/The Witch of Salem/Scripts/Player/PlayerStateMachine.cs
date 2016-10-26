@@ -100,7 +100,11 @@ public class PlayerStateMachine : MonoBehaviour {
                 break;
         }
 
-        if(ps.lives <= 0)
+        GameManager.instance.pUI.lives = ps.lives;
+        GameManager.instance.pUI.arrows = ps.arrows;
+        GameManager.instance.pUI.apples = ps.apples;
+
+        if (ps.lives <= 0)
         {
             Die();
         }
@@ -163,6 +167,15 @@ public class PlayerStateMachine : MonoBehaviour {
         if (Input.GetButtonDown("Fire3"))
         {
             SwapWeapons();
+        }
+
+        if (Input.GetButtonDown("Q"))
+        {
+            if (ps.apples > 0 && ps.lives < 5)
+            {
+                ps.lives++;
+                ps.apples--;
+            }
         }
     }
 

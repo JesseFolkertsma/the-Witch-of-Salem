@@ -42,6 +42,7 @@ public class GroundEnemy : Enemy {
 
     public virtual void GEStart()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponentInChildren<Animator>();
         enemyModel = transform.GetChild(0);
         walkTime = Random.Range(minMaxWalkTime.x, minMaxWalkTime.y);
@@ -61,7 +62,7 @@ public class GroundEnemy : Enemy {
                 break;
         }
         anim.SetBool("IsWalking", walking);
-        if(health <= 0)
+        if(lives <= 0)
         {
             Die();
         }

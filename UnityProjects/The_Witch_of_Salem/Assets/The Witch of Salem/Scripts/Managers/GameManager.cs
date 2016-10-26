@@ -6,11 +6,11 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
 
     public SaveLoadSystem slSystem;
-    public EnemyManager eManager;
     public PopupMessages popup;
 
     public LevelManager lm;
     public ConversationManager cm;
+    public PlayerUIManager pUI;
 
     public string playerName;
 
@@ -26,11 +26,16 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
+        DontDestroyOnLoad(gameObject);
+
         lm = new LevelManager();
         cm = GetComponent<ConversationManager>();
+        pUI = GetComponent<PlayerUIManager>();
+
+        pUI.UIStart();
 
         slSystem = new SaveLoadSystem();
-        popup = GameObject.Find("UI Manager").GetComponent<PopupMessages>();
+        popup = GetComponent<PopupMessages>();
     }
 
     void Update()
@@ -45,6 +50,8 @@ public class GameManager : MonoBehaviour {
             slSystem.LoadGame();
             popup.DisplayPopup("Quickloading", 2);
         }
+
+        pUI.UIUpdate();
     }
 
     public void LoadLevel()

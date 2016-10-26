@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerUI : MonoBehaviour {
+public class PlayerUIManager : MonoBehaviour {
 
     PlayerStateMachine psm;
 
@@ -16,7 +16,7 @@ public class PlayerUI : MonoBehaviour {
     public Text arrowsUI;
 
     public int lives;
-    int prevLives;
+    int prevLives = 0;
     public int apples;
     public int arrows;
 
@@ -31,7 +31,7 @@ public class PlayerUI : MonoBehaviour {
 
     public void UIUpdate()
     {
-        if (prevLives != psm.ps.lives)
+        if (prevLives != lives)
         {
             for (int i = 0; i < hearts.Count; i++)
             {
@@ -45,6 +45,10 @@ public class PlayerUI : MonoBehaviour {
                 }
             }
         }
-        prevLives = psm.ps.lives;
+
+        applesUI.text = apples.ToString();
+        arrowsUI.text = arrows.ToString();
+
+        prevLives = lives;
     }
 }

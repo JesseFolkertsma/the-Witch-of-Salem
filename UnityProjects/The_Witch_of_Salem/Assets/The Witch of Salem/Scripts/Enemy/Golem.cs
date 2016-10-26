@@ -11,7 +11,6 @@ public class Golem : GroundEnemy {
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         GEStart();
     }
 
@@ -34,6 +33,21 @@ public class Golem : GroundEnemy {
     IEnumerator WaitForEffect()
     {
         yield return new WaitForSeconds(1.7f);
+        Collider[] col = Physics.OverlapSphere(transform.position, 4);
+        bool hitPlayer = false;
+        for (int i = 0; i < col.Length; i++)
+        {
+            if(col[i].attachedRigidbody != null)
+            {
+                col[i].attachedRigidbody.AddExplosionForce(100, transform.position, 4);
+
+                if(col[i].attachedRigidbody.GetComponent<PlayerStateMachine>() != null && hitPlayer == false)
+                {
+                    col[i].attachedRigidbody.GetComponent<PlayerStateMachine>().ps.lives -= 2;
+                    hitPlayer = true;
+                }
+            }
+        }
 
         GameObject tpar = Instantiate(smashParticle, transform.position, transform.rotation * Quaternion.Euler(90, 0, 0)) as GameObject;
         Destroy(tpar, 3);

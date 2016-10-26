@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 9c42f8b1ab84cbf4f9fbd8f3bdb00870
+timeCreated: 1477475781
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - heartPanel: {instanceID: 0}
+  - fullHeart: {fileID: 21300000, guid: 347d2478a4b39fe4aa0c727c224c4383, type: 3}
+  - emptyHeart: {fileID: 21300000, guid: 8c887db1c623c4044b9fe1fa860862ca, type: 3}
+  - applesUI: {instanceID: 0}
+  - arrowsUI: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

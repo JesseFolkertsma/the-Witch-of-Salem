@@ -2,14 +2,8 @@
 using System.Collections;
 
 public class Level {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public EnemyManager em;
+    public int checkpoint;
+    //convmanager
+    //cratemanager
 }

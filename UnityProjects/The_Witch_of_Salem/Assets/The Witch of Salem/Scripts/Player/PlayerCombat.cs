@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerCombat : PlayerComponent {
 
@@ -7,6 +8,8 @@ public class PlayerCombat : PlayerComponent {
     bool canShoot = true;
     bool lookAt;
     float str = 0;
+
+    bool jumpAttackCD;
     
     public PlayerCombat (PlayerStateMachine p)
     {
@@ -32,7 +35,7 @@ public class PlayerCombat : PlayerComponent {
 
     public void JumpAttackInit()
     {
-        if (psm.ps.hasJumpAttack == true)
+        if (psm.ps.hasJumpAttack == true && jumpAttackCD == false)
         {
             psm.rb.velocity = new Vector3(0, -10, 0);
             psm.jumpAttack = true;
@@ -44,6 +47,9 @@ public class PlayerCombat : PlayerComponent {
         if(psm.isFalling == false)
         {
             Collider[] hits = Physics.OverlapSphere(psm.transform.position, 5f);
+            List<Enemy> enemies = new List<Enemy>();
+            enemies.Add(new Enemy());
+
             for(int i = 0; i < hits.Length; i++)
             {
                 if(hits[i].GetComponent<BreakableLootObject>() != null)
@@ -55,7 +61,11 @@ public class PlayerCombat : PlayerComponent {
                 {
                     if (hits[i].attachedRigidbody.GetComponent<Enemy>() != null)
                     {
-                        hits[i].attachedRigidbody.GetComponent<Enemy>().health -= 50;
+                        if (enemies[enemies.Count - 1] != hits[i].attachedRigidbody.GetComponent<Enemy>())
+                        {
+                            hits[i].attachedRigidbody.GetComponent<Enemy>().lives -= 2;
+                            enemies.Add(hits[i].attachedRigidbody.GetComponent<Enemy>());
+                        }
                     }
                 }
 
@@ -67,7 +77,15 @@ public class PlayerCombat : PlayerComponent {
             psm.jumpAttack = false;
             GameObject tpar  = MonoBehaviour.Instantiate(psm.smashParticles, psm.transform.position - new Vector3(0, .7f, 0), psm.transform.rotation * Quaternion.Euler(90,0,0)) as GameObject;
             MonoBehaviour.Destroy(tpar, 3);
+            psm.StartCoroutine(JumpAttackCD());
         }
+    }
+
+    IEnumerator JumpAttackCD()
+    {
+        jumpAttackCD = true;
+        yield return new WaitForSeconds(5);
+        jumpAttackCD = false;
     }
 
     public void PierceAttack()
@@ -77,27 +95,32 @@ public class PlayerCombat : PlayerComponent {
 
     public void DrawArrow()
     {
+        if (psm.ps.arrows > 0)
+        {
+            if (Input.GetButton("Fire1"))
+            {
+                str = Mathf.Lerp(str, 20, Time.deltaTime * 1f);
+                Debug.Log(str);
+            }
+            if (Input.GetButtonUp("Fire1"))
+            {
+                ShootArrow(str);
+                str = 0;
+            }
+        }
+
         LookAtMouse();
         psm.pm.Move(.5f, true);
+
         if (Input.GetButtonUp("Fire2"))
         {
             psm.state = PlayerStateMachine.State.Walking;
-        }
-        
-        if (Input.GetButton("Fire1"))
-        {
-            str = Mathf.Lerp(str, 20, Time.deltaTime * 1f);
-            Debug.Log(str);
-        }
-        if (Input.GetButtonUp("Fire1"))
-        {
-            ShootArrow(str);
-            str = 0;
         }
     }
 
     public void ShootArrow(float strenght)
     {
+        psm.ps.arrows--;
         Vector3 dir = psm.mouse.position - psm.transform.position;
         dir.Normalize();
         GameObject arrow = GameObject.Instantiate(psm.arrow, psm.bow.transform.position + dir, Quaternion.identity) as GameObject;
@@ -109,8 +132,7 @@ public class PlayerCombat : PlayerComponent {
     {
         psm.anim.SetLayerWeight(1, 1);
         LookAtMouse();
-        psm.pm.Move(1, true);
-        psm.shield.SetActive(true);
+        psm.pm.Move(.5f, true);
         if (Input.GetButtonUp("Fire2"))
         {
             psm.state = PlayerStateMachine.State.Walking;

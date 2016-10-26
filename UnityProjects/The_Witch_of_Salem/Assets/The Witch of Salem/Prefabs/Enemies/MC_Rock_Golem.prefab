@@ -2471,7 +2471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDir: 0
-  health: 100
+  lives: 5
   movementSpeed: 0
   isAgressive: 0
   isDead: 0

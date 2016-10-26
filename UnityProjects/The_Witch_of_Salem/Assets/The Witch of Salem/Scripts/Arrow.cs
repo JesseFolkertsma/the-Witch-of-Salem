@@ -23,20 +23,23 @@ public class Arrow : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.attachedRigidbody != null)
+        if (col.isTrigger == false)
         {
-            if (col.attachedRigidbody.GetComponent<Enemy>() != null)
+            if (col.attachedRigidbody != null)
             {
-                col.attachedRigidbody.GetComponent<Enemy>().health -= 30;
+                if (col.attachedRigidbody.GetComponent<Enemy>() != null)
+                {
+                    col.attachedRigidbody.GetComponent<Enemy>().lives -= 1;
+                }
             }
-        }
 
-        GameObject go = Instantiate(new GameObject(), transform.position - rb.velocity.normalized / 10, Quaternion.identity) as GameObject;
-        go.name = "ArrowObject";
-        go.transform.parent = col.transform;
-        GameObject ah = Instantiate(arrowHit, go.transform.position, transform.rotation) as GameObject;
-        ah.transform.parent = go.transform;
-        Destroy(go, 20f);
-        Destroy(gameObject);
+            GameObject go = Instantiate(new GameObject(), transform.position - rb.velocity.normalized / 10, Quaternion.identity) as GameObject;
+            go.name = "ArrowObject";
+            go.transform.parent = col.transform;
+            GameObject ah = Instantiate(arrowHit, go.transform.position, transform.rotation) as GameObject;
+            ah.transform.parent = go.transform;
+            Destroy(go, 20f);
+            Destroy(gameObject);
+        }
     }
 }

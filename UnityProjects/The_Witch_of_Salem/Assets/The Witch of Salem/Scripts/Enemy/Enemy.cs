@@ -11,7 +11,9 @@ public class Enemy : MonoBehaviour {
 
     public TargetDirection targetDir;
 
-    public float health;
+    public bool active;
+
+    public float lives;
     public float movementSpeed;
     public bool isAgressive;
     public bool isDead = false;

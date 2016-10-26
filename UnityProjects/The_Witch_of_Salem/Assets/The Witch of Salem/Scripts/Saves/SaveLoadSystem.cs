@@ -11,8 +11,7 @@ public class SaveLoadSystem {
 
     SaveFile SetupSaveFile()
     {
-        SaveFile file = new SaveFile();
-        file.playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        SaveFile file = new SaveFile(GameObject.FindGameObjectWithTag("Player").transform.position, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>(), GameManager.instance);
         return file;
     }
 
