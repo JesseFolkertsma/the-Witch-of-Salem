@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
 
     public string playerName;
 
+    public int currentLevel;
+    public int currentCheckpoint = 0;
+
     void Awake()
     {
         //Makes sure there is only one GameManager
@@ -36,6 +39,8 @@ public class GameManager : MonoBehaviour {
 
         slSystem = new SaveLoadSystem();
         popup = GetComponent<PopupMessages>();
+
+        currentLevel = 5;
     }
 
     void Update()

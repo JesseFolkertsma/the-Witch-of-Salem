@@ -14,7 +14,8 @@ public class Golem : GroundEnemy {
         GEStart();
     }
 
-	void Update () {
+	void Update ()
+    {
         GEUpdate();
 	}
 

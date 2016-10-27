@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <SaveFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <playerPos>
-    <x>1.62167</x>
-    <y>1.5</y>
-    <z>0</z>
+    <x>-25.6572342</x>
+    <y>0.433104038</y>
+    <z>-0.0005675568</z>
   </playerPos>
+  <lives>5</lives>
+  <apples>2</apples>
+  <arrows>7</arrows>
+  <currentlevel>5</currentlevel>
 </SaveFile>

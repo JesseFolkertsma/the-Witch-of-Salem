@@ -22,6 +22,8 @@ public class PlayerUIManager : MonoBehaviour {
 
     public void UIStart()
     {
+        heartPanel = GameObject.Find("HealthPanel");
+
         Image[] im = heartPanel.GetComponentsInChildren<Image>();
         for(int i = 0; i < im.Length; i++)
         {

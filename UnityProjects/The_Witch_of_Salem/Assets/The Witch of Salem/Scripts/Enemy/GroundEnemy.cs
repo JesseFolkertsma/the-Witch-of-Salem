@@ -115,28 +115,29 @@ public class GroundEnemy : Enemy {
 
     public virtual void Patolling()
     {
-
-        float speed = mSpeed;
-
-        if(randomStops == true)
+        if (waypoints[0] != null)
         {
-            walkTimer += 1 * Time.deltaTime;
-            if(walkTimer >= walkTime)
+            float speed = mSpeed;
+
+            if (randomStops == true)
             {
-                speed = 0;
-                stopTimer += 1 * Time.deltaTime;
-                if(stopTimer >= stopTime)
+                walkTimer += 1 * Time.deltaTime;
+                if (walkTimer >= walkTime)
                 {
-                    walkTime = Random.Range(minMaxWalkTime.x, minMaxWalkTime.y);
-                    stopTime = Random.Range(minMaxStopTime.x, minMaxStopTime.y);
-                    walkTimer = 0;
-                    stopTimer = 0;
+                    speed = 0;
+                    stopTimer += 1 * Time.deltaTime;
+                    if (stopTimer >= stopTime)
+                    {
+                        walkTime = Random.Range(minMaxWalkTime.x, minMaxWalkTime.y);
+                        stopTime = Random.Range(minMaxStopTime.x, minMaxStopTime.y);
+                        walkTimer = 0;
+                        stopTimer = 0;
+                    }
                 }
             }
+
+            Move(speed, waypoints[currentwp].position);
         }
-
-        Move(speed, waypoints[currentwp].position);
-
         if (inRange == true)
         {
             state = EnemyState.Following;

@@ -38,9 +38,8 @@ public class LevelManager {
                 currentLevel = witchTowerInfo;
                 break;
             case 5:
-                currentLevel = witchTowerInfo;
+                currentLevel = testInfo;
                 break;
         }
     }
-
 }

@@ -11,13 +11,17 @@ public class SaveLoadSystem {
 
     SaveFile SetupSaveFile()
     {
-        SaveFile file = new SaveFile(GameObject.FindGameObjectWithTag("Player").transform.position, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>(), GameManager.instance);
+        SaveFile file = new SaveFile(GameObject.FindGameObjectWithTag("Player").transform.position, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>(), GameManager.instance.currentCheckpoint);
         return file;
     }
 
     void SetupLoad(SaveFile file)
     {
         GameObject.FindGameObjectWithTag("Player").transform.position = file.playerPos;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().lives = file.lives;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().apples = file.apples;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().arrows = file.arrows;
+        SetupLevel(file.currentlevel, file.currentCheckpoint);
     }
 
 	public void SaveGame()
@@ -38,5 +42,10 @@ public class SaveLoadSystem {
         stream.Close();
 
         SetupLoad(file);
+    }
+
+    public void SetupLevel(int level, int checkpoint)
+    {
+
     }
 }

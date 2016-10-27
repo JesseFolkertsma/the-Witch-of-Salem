@@ -20,17 +20,20 @@ public class ConversationSystem : MonoBehaviour {
 
     void Update()
     {
-        if(Input.GetButtonDown("Fire1") && GameManager.instance.cm.writing == false)
+        if (GameManager.instance.cm.isActive)
         {
-            i++;
-            if (i <= conv.text.Count - 1)
+            if (Input.GetButtonDown("Fire1") && GameManager.instance.cm.writing == false)
             {
-                GameManager.instance.cm.DisplayText(conv.text[i]);
-            }
-            else
-            {
-                GameManager.instance.cm.Play(false);
-                print("No more text");
+                i++;
+                if (i <= conv.text.Count - 1)
+                {
+                    GameManager.instance.cm.DisplayText(conv.text[i]);
+                }
+                else
+                {
+                    GameManager.instance.cm.Play(false);
+                    print("No more text");
+                }
             }
         }
     }
