@@ -58,9 +58,4 @@ public class GameManager : MonoBehaviour {
 
         pUI.UIUpdate();
     }
-
-    public void LoadLevel()
-    {
-
-    }
 }

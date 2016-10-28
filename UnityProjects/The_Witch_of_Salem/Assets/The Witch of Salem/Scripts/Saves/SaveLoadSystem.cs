@@ -46,6 +46,60 @@ public class SaveLoadSystem {
 
     public void SetupLevel(int level, int checkpoint)
     {
+        switch (level)
+        {
+            case 0:
+                SetupTutorial(checkpoint);
+                break;
+            case 1:
+                SetupFarmlands(checkpoint);
+                break;
+            case 2:
+                SetupForest(checkpoint);
+                break;
+            case 3:
+                SetupCaves(checkpoint);
+                break;
+            case 4:
+                SetupWitchTower(checkpoint);
+                break;
+            case 5:
+                SetupTest(checkpoint);
+                break;
+        }
+    }
 
+    void SetupTutorial(int checkpoint)
+    {
+
+    }
+
+    void SetupFarmlands(int checkpoint)
+    {
+
+    }
+
+    void SetupForest(int checkpoint)
+    {
+
+    }
+    void SetupCaves(int checkpoint)
+    {
+
+    }
+    void SetupWitchTower(int checkpoint)
+    {
+
+    }
+    void SetupTest(int checkpoint)
+    {
+        if(checkpoint >= 1)
+        {
+            GameObject.Find("M_Bridge").GetComponent<BridgeRope>().BreakRope();
+            if(checkpoint >= 2)
+            {
+
+            }
+        }
     }
 }

@@ -5,6 +5,15 @@ using System.Collections.Generic;
 public class BridgeRope : MonoBehaviour {
 
     public List<Rigidbody> ropePieces;
+    public bool broken;
+
+    void Start()
+    {
+        if (broken)
+        {
+            BreakRope();
+        }
+    }
 
     void OnTriggerEnter(Collider col)
     {
@@ -23,5 +32,6 @@ public class BridgeRope : MonoBehaviour {
         }
         GetComponent<Animator>().SetTrigger("HitRope");
         Destroy(GetComponent<BoxCollider>());
+        broken = true;
     }
 }
