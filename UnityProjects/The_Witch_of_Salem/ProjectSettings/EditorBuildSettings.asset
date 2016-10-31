@@ -7,3 +7,5 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/The Witch of Salem/Scenes/Test Level.unity
+  - enabled: 1
+    path: Assets/The Witch of Salem/Scenes/LoadingScreen.unity
