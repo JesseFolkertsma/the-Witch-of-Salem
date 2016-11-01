@@ -13,7 +13,8 @@ public class LoadScreen : MonoBehaviour {
     {
         loadbar.fillAmount = 0;
         text.SetActive(false);
-        aSync = SceneManager.LoadSceneAsync("Test Level");
+        aSync = SceneManager.LoadSceneAsync("TestLevel");
+        //aSync = SceneManager.LoadSceneAsync(GameManager.instance.currentLevel);
     }
 
     void Update()

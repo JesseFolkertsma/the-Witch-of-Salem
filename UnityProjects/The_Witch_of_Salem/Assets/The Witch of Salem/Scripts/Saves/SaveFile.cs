@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Xml.Serialization;
 
+[System.Serializable]
 public class SaveFile  {
 
     public Vector3 playerPos;
@@ -27,7 +29,6 @@ public class SaveFile  {
         arrows = playerS.arrows;
         currentlevel = 5;
         currentCheckpoint = ccp;
-        //testInfo = lvl;
     }
 
     public SaveFile() { }

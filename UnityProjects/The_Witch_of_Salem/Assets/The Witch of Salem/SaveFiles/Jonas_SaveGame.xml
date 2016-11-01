@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<SaveFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <playerPos>
+    <x>-26.0253716</x>
+    <y>0.358722925</y>
+    <z>0.0009588571</z>
+  </playerPos>
+  <lives>5</lives>
+  <apples>2</apples>
+  <arrows>10</arrows>
+  <currentlevel>5</currentlevel>
+  <currentCheckpoint>1</currentCheckpoint>
+</SaveFile>

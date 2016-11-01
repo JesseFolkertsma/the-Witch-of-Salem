@@ -63,6 +63,7 @@ public class PlayerStateMachine : MonoBehaviour {
 
     void Awake()
     {
+        GameManager.instance.InitPlayer();
         pm = new PlayerMovements(this);
         pc = new PlayerCombat(this);
         rb = GetComponent<Rigidbody>();

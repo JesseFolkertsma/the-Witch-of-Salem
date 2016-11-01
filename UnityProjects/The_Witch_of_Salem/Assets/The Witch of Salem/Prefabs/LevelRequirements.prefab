@@ -530,8 +530,9 @@ GameObject:
   - 224: {fileID: 224000013302073664}
   - 222: {fileID: 222000013308504874}
   - 114: {fileID: 114000010820820686}
+  - 114: {fileID: 114000013948041168}
   m_Layer: 5
-  m_Name: Amount
+  m_Name: AmountApples
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,8 +1205,9 @@ GameObject:
   - 224: {fileID: 224000013380292352}
   - 222: {fileID: 222000010591829046}
   - 114: {fileID: 114000011959157566}
+  - 114: {fileID: 114000010892503638}
   m_Layer: 5
-  m_Name: Amount
+  m_Name: AmountArrows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1449,7 +1451,7 @@ GameObject:
   - 222: {fileID: 222000010487537342}
   - 114: {fileID: 114000012961730446}
   m_Layer: 5
-  m_Name: Apple
+  m_Name: Apples
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4691,6 +4693,20 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!114 &114000010892503638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011953250796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114000010935884330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5229,6 +5245,20 @@ MonoBehaviour:
   m_Text: 'Popup Message
 
 '
+--- !u!114 &114000013948041168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010863097166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114000014085555452
 MonoBehaviour:
   m_ObjectHideFlags: 1

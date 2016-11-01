@@ -49,7 +49,7 @@ public class PlayerCombat : PlayerComponent {
             Collider[] hits = Physics.OverlapSphere(psm.transform.position, 5f);
             List<Enemy> enemies = new List<Enemy>();
             enemies.Add(new Enemy());
-
+            
             for(int i = 0; i < hits.Length; i++)
             {
                 if(hits[i].GetComponent<BreakableLootObject>() != null)

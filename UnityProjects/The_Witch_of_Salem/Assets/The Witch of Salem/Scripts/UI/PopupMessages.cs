@@ -6,8 +6,9 @@ public class PopupMessages : MonoBehaviour {
 
     public Text popupText;
 
-    void Start()
+    public void Init()
     {
+        popupText = GameObject.Find("PopupText").GetComponent<Text>();
         popupText.CrossFadeAlpha(0, 0, false);
     }
 
