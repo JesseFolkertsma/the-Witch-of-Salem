@@ -61,7 +61,7 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public GameObject ragdoll;
 
-    void Awake()
+    void Start()
     {
         GameManager.instance.InitPlayer();
         pm = new PlayerMovements(this);
@@ -99,6 +99,9 @@ public class PlayerStateMachine : MonoBehaviour {
             case State.Aiming:
                 pc.DrawArrow();
                 break;
+            case State.Attacking:
+                pc.WhileAttacking();
+                break;
         }
 
         GameManager.instance.pUI.lives = ps.lives;
@@ -121,6 +124,9 @@ public class PlayerStateMachine : MonoBehaviour {
         //Setup movement and check witch direction player is facing
         pm.movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         anim.SetFloat("Movement", pm.movement.x);
+
+
+        anim.SetInteger("Combo", pc.currentCombo);
 
         //Check for falling
         if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, checkForFloorRange))
@@ -187,7 +193,8 @@ public class PlayerStateMachine : MonoBehaviour {
             switch (state)
             {
                 case State.Walking:
-                    pc.BasicAttack();
+                    pc.ComboAttack(Random.Range(1, 4));
+                    state = State.Attacking;
                     break;
                 case State.Running:
                     pc.SprintAttack();
@@ -199,7 +206,7 @@ public class PlayerStateMachine : MonoBehaviour {
                     pc.JumpAttackInit();
                     break;
                 case State.Blocking:
-                    pc.BasicAttack();
+                    pc.ComboAttack(Random.Range(1, 4));
                     break;
             }
         }

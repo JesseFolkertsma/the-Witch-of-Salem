@@ -6,10 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/The Witch of Salem/Scenes/TestMenu.unity
+    path: Assets/The Witch of Salem/Scenes/Tests/TestMenu.unity
   - enabled: 1
     path: Assets/The Witch of Salem/Scenes/LoadingScreen.unity
   - enabled: 1
-    path: Assets/The Witch of Salem/Scenes/TestLevel.unity
+    path: Assets/The Witch of Salem/Scenes/Tests/TestLevel.unity
   - enabled: 0
     path: Assets/The Witch of Salem/Scenes/MainMenu.unity
+  - enabled: 1
+    path: Assets/The Witch of Salem/Scenes/Tests/TestHouse.unity

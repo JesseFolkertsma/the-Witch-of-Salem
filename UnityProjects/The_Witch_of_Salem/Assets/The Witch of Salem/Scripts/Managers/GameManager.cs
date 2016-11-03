@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour {
         popup.Init();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStateMachine>().ps = playerS;
         GameObject.FindGameObjectWithTag("Player").transform.position = loadPos;
-        slSystem.SetupLevel(slSystem.sFile.currentlevel, slSystem.sFile.currentCheckpoint);
+        //slSystem.SetupLevel(slSystem.sFile.currentlevel, slSystem.sFile.currentCheckpoint);
     }
 
     void Update()
