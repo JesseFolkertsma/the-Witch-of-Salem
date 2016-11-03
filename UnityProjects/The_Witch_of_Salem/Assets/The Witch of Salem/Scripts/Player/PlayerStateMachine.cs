@@ -124,8 +124,7 @@ public class PlayerStateMachine : MonoBehaviour {
         //Setup movement and check witch direction player is facing
         pm.movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         anim.SetFloat("Movement", pm.movement.x);
-
-
+        anim.SetBool("IsFalling", isFalling);
         anim.SetInteger("Combo", pc.currentCombo);
 
         //Check for falling
