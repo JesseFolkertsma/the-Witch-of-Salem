@@ -104,6 +104,7 @@ public class PlayerCombat : PlayerComponent {
         {
             psm.rb.velocity = new Vector3(0, -10, 0);
             psm.jumpAttack = true;
+            psm.anim.SetTrigger("JumpAttack");
         }
     }
 
@@ -140,7 +141,7 @@ public class PlayerCombat : PlayerComponent {
                 }
             }
             psm.jumpAttack = false;
-            GameObject tpar  = MonoBehaviour.Instantiate(psm.smashParticles, psm.transform.position - new Vector3(0, .7f, 0), psm.transform.rotation * Quaternion.Euler(90,0,0)) as GameObject;
+            GameObject tpar  = MonoBehaviour.Instantiate(psm.smashParticles, psm.transform.position + new Vector3(0, .7f, 0), psm.transform.rotation * Quaternion.Euler(90,0,0)) as GameObject;
             MonoBehaviour.Destroy(tpar, 3);
             psm.StartCoroutine(JumpAttackCD());
         }
