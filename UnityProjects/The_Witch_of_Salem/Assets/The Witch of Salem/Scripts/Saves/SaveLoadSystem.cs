@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -9,39 +10,60 @@ public class SaveLoadSystem {
 
     string savePath = "/The Witch of Salem/SaveFiles/";
 
+    public GameManager gm;
+
+    public SaveFile sFile;
+
     SaveFile SetupSaveFile()
     {
-        SaveFile file = new SaveFile(GameObject.FindGameObjectWithTag("Player").transform.position, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>(), GameManager.instance.currentCheckpoint);
+        SaveFile file = new SaveFile(GameObject.FindGameObjectWithTag("Player").transform.position, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>(), gm.currentCheckpoint);
         return file;
     }
 
     void SetupLoad(SaveFile file)
     {
-        GameObject.FindGameObjectWithTag("Player").transform.position = file.playerPos;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().lives = file.lives;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().apples = file.apples;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().arrows = file.arrows;
-        SetupLevel(file.currentlevel, file.currentCheckpoint);
+        gm.loadPos = file.playerPos;
+        gm.playerS.lives = file.lives;
+        gm.playerS.apples = file.apples;
+        gm.playerS.arrows = file.arrows;
+        gm.currentLevel = file.currentlevel;
+        gm.currentCheckpoint = file.currentCheckpoint;
+        //SetupLevel(file.currentlevel, file.currentCheckpoint);
     }
 
-	public void SaveGame()
+    public void NewGame()
+    {
+        LoadGame("NewGame");
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoadScene(string pn)
+    {
+        LoadGame(pn);
+        SceneManager.LoadScene(1);
+    }
+
+	public void SaveGame(string pn)
     {
         SaveFile file = SetupSaveFile();
 
         XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
-        FileStream stream = new FileStream(Application.dataPath + savePath + "SaveGame.xml", FileMode.Create);
+        //FileStream stream = new FileStream(Application.dataPath + savePath + pn + "_SaveGame.xml", FileMode.Create);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Create);
         serializer.Serialize(stream, file);
         stream.Close();
     }
 
-    public void LoadGame()
+    public void LoadGame(string pn)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
-        FileStream stream = new FileStream(Application.dataPath + savePath + "SaveGame.xml", FileMode.Open);
+        //FileStream stream = new FileStream(Application.dataPath + savePath + pn + "_SaveGame.xml", FileMode.Open);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Open);
         SaveFile file = serializer.Deserialize(stream) as SaveFile;
         stream.Close();
 
         SetupLoad(file);
+        sFile = file;
     }
 
     public void SetupLevel(int level, int checkpoint)

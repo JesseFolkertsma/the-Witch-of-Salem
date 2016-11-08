@@ -10,20 +10,85 @@ public class PlayerCombat : PlayerComponent {
     float str = 0;
 
     bool jumpAttackCD;
+
+    bool waitForNextAttack;
+
+    public int currentCombo;
+
+    Coroutine activeAttack;
     
     public PlayerCombat (PlayerStateMachine p)
     {
         psm = p;
     }
 
-	public void BasicAttack()
+	void BasicAttack()
     {
-        RaycastHit hit;
-        if(Physics.Raycast(psm.transform.position, psm.dir, out hit, 3f))
+        Debug.Log("Attack");
+
+        if (psm.dir.x > 0)
         {
-            if(hit.rigidbody != null)
+            psm.rb.velocity += new Vector3(5, 0, 0);
+        }
+        if (psm.dir.x < 0)
+        {
+            psm.rb.velocity += new Vector3(-5, 0, 0);
+        }
+    }
+
+    public void ComboAttack(int combo)
+    {
+        if (combo == 4)
+        {
+            combo = 1;
+        }
+
+        currentCombo = combo;
+
+        psm.anim.SetTrigger("Attack");
+
+        switch (combo)
+        {
+            case 1:
+                activeAttack = psm.StartCoroutine(WaitForAttackEffect(.7f, 1));
+                break;
+            case 2:
+                activeAttack = psm.StartCoroutine(WaitForAttackEffect(.6f, 1));
+                break;
+            case 3:
+                activeAttack = psm.StartCoroutine(WaitForAttackEffect(.8f, 1));
+                break;
+        }
+    }
+
+    IEnumerator WaitForAttackEffect(float effect, float nextAttack)
+    {
+        yield return new WaitForSeconds(effect);
+
+        BasicAttack();
+
+        waitForNextAttack = true;
+
+        yield return new WaitForSeconds(nextAttack);
+
+        waitForNextAttack = false;
+
+        Debug.Log("StopAttacking");
+
+        psm.state = PlayerStateMachine.State.Walking;
+        currentCombo = 0;
+    }
+
+    public void WhileAttacking()
+    {
+        if (waitForNextAttack)
+        {
+            if (Input.GetButtonDown("Fire1"))
             {
-                hit.rigidbody.AddForce(psm.dir * 100);
+                psm.StopCoroutine(activeAttack);
+                waitForNextAttack = false;
+                Debug.Log("HEY");
+                ComboAttack(currentCombo + 1);
             }
         }
     }
@@ -39,6 +104,7 @@ public class PlayerCombat : PlayerComponent {
         {
             psm.rb.velocity = new Vector3(0, -10, 0);
             psm.jumpAttack = true;
+            psm.anim.SetTrigger("JumpAttack");
         }
     }
 
@@ -49,7 +115,7 @@ public class PlayerCombat : PlayerComponent {
             Collider[] hits = Physics.OverlapSphere(psm.transform.position, 5f);
             List<Enemy> enemies = new List<Enemy>();
             enemies.Add(new Enemy());
-
+            
             for(int i = 0; i < hits.Length; i++)
             {
                 if(hits[i].GetComponent<BreakableLootObject>() != null)
@@ -75,7 +141,7 @@ public class PlayerCombat : PlayerComponent {
                 }
             }
             psm.jumpAttack = false;
-            GameObject tpar  = MonoBehaviour.Instantiate(psm.smashParticles, psm.transform.position - new Vector3(0, .7f, 0), psm.transform.rotation * Quaternion.Euler(90,0,0)) as GameObject;
+            GameObject tpar  = MonoBehaviour.Instantiate(psm.smashParticles, psm.transform.position + new Vector3(0, .7f, 0), psm.transform.rotation * Quaternion.Euler(90,0,0)) as GameObject;
             MonoBehaviour.Destroy(tpar, 3);
             psm.StartCoroutine(JumpAttackCD());
         }
@@ -136,7 +202,6 @@ public class PlayerCombat : PlayerComponent {
         if (Input.GetButtonUp("Fire2"))
         {
             psm.state = PlayerStateMachine.State.Walking;
-            psm.shield.SetActive(false);
             psm.anim.SetLayerWeight(1, 0);
         }
     }

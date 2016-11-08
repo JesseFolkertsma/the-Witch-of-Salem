@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
 
+    public PlayerStats playerS;
+
     public SaveLoadSystem slSystem;
     public PopupMessages popup;
 
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour {
 
     public int currentLevel;
     public int currentCheckpoint = 0;
+
+    public Vector3 loadPos;
 
     void Awake()
     {
@@ -29,30 +33,42 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
+        playerS = new PlayerStats();
+
         DontDestroyOnLoad(gameObject);
 
         lm = new LevelManager();
         cm = GetComponent<ConversationManager>();
         pUI = GetComponent<PlayerUIManager>();
 
-        pUI.UIStart();
 
         slSystem = new SaveLoadSystem();
+        slSystem.gm = this;
         popup = GetComponent<PopupMessages>();
 
         currentLevel = 5;
+    }
+
+    public void InitPlayer()
+    {
+        pUI.UIStart();
+        cm.Init();
+        popup.Init();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStateMachine>().ps = playerS;
+        GameObject.FindGameObjectWithTag("Player").transform.position = loadPos;
+        //slSystem.SetupLevel(slSystem.sFile.currentlevel, slSystem.sFile.currentCheckpoint);
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Save"))
         {
-            slSystem.SaveGame();
+            slSystem.SaveGame(playerName);
             popup.DisplayPopup("Quicksaving", 2);
         }
         if (Input.GetButtonDown("Load"))
         {
-            slSystem.LoadGame();
+            slSystem.LoadGame(playerName);
             popup.DisplayPopup("Quickloading", 2);
         }
 

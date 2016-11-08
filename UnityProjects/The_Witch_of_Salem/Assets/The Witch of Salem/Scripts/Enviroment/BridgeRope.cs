@@ -33,5 +33,6 @@ public class BridgeRope : MonoBehaviour {
         GetComponent<Animator>().SetTrigger("HitRope");
         Destroy(GetComponent<BoxCollider>());
         broken = true;
+        //GameManager.instance.lm.testInfo.bridgeDown = true;
     }
 }

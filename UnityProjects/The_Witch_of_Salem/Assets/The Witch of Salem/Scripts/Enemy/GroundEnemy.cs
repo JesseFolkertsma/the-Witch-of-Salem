@@ -146,7 +146,6 @@ public class GroundEnemy : Enemy {
 
     public virtual void FollowPlayer()
     {
-        print("OMNOMNOMNOMNOM");
         Move(mSpeed, player.position);
         head.LookAt(player);
         if(inRange == false)

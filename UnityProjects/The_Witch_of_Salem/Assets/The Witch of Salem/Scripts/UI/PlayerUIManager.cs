@@ -20,9 +20,14 @@ public class PlayerUIManager : MonoBehaviour {
     public int apples;
     public int arrows;
 
+    bool active;
+
     public void UIStart()
     {
+        active = true;
         heartPanel = GameObject.Find("HealthPanel");
+        applesUI = GameObject.Find("AmountApples").GetComponent<Text>();
+        arrowsUI = GameObject.Find("AmountArrows").GetComponent<Text>();
 
         Image[] im = heartPanel.GetComponentsInChildren<Image>();
         for(int i = 0; i < im.Length; i++)
@@ -33,24 +38,27 @@ public class PlayerUIManager : MonoBehaviour {
 
     public void UIUpdate()
     {
-        if (prevLives != lives)
+        if (active)
         {
-            for (int i = 0; i < hearts.Count; i++)
+            if (prevLives != lives)
             {
-                if (i <= lives)
+                for (int i = 0; i < hearts.Count; i++)
                 {
-                    hearts[i].sprite = fullHeart;
-                }
-                else
-                {
-                    hearts[i].sprite = emptyHeart;
+                    if (i <= lives)
+                    {
+                        hearts[i].sprite = fullHeart;
+                    }
+                    else
+                    {
+                        hearts[i].sprite = emptyHeart;
+                    }
                 }
             }
+
+            applesUI.text = apples.ToString();
+            arrowsUI.text = arrows.ToString();
+
+            prevLives = lives;
         }
-
-        applesUI.text = apples.ToString();
-        arrowsUI.text = arrows.ToString();
-
-        prevLives = lives;
     }
 }
