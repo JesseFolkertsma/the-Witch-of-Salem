@@ -50,8 +50,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public bool isDead;
 
     public Transform model;
-    public GameObject shield;
-    public GameObject bow;
+    public JonasWeapons weapons;
     public GameObject arrow;
     public Transform mouse;
 
@@ -225,13 +224,13 @@ public class PlayerStateMachine : MonoBehaviour {
         if(combatState == CombatState.Melee && ps.hasBow == true)
         {
             combatState = CombatState.Ranged;
-            bow.SetActive(true);
+            //bow.SetActive(true);
         }
 
         else if (combatState == CombatState.Ranged)
         {
             combatState = CombatState.Melee;
-            bow.SetActive(false);
+           // bow.SetActive(false);
         }
     }
 

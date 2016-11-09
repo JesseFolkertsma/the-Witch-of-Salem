@@ -14,3 +14,12 @@ public class PlayerStats : MonoBehaviour{
     public bool hasJumpAttack;
     public bool hasExplosives;
 }
+[System.Serializable]
+public class JonasWeapons
+{
+    public GameObject startSword;
+    public GameObject endSword;
+    public GameObject startShield;
+    public GameObject endShield;
+    public GameObject bow;
+}

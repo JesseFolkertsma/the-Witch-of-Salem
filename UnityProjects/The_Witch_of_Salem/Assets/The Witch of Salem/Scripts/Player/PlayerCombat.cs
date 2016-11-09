@@ -161,6 +161,8 @@ public class PlayerCombat : PlayerComponent {
 
     public void DrawArrow()
     {
+        //psm.
+        psm.anim.SetLayerWeight(3, 1);
         if (psm.ps.arrows > 0)
         {
             if (Input.GetButton("Fire1"))
@@ -174,6 +176,7 @@ public class PlayerCombat : PlayerComponent {
                 str = 0;
             }
         }
+        psm.anim.SetFloat("DrawStrenght", str);
 
         LookAtMouse();
         psm.pm.Move(.5f, true);
@@ -181,6 +184,7 @@ public class PlayerCombat : PlayerComponent {
         if (Input.GetButtonUp("Fire2"))
         {
             psm.state = PlayerStateMachine.State.Walking;
+            psm.anim.SetLayerWeight(3, 0);
         }
     }
 
@@ -189,7 +193,7 @@ public class PlayerCombat : PlayerComponent {
         psm.ps.arrows--;
         Vector3 dir = psm.mouse.position - psm.transform.position;
         dir.Normalize();
-        GameObject arrow = GameObject.Instantiate(psm.arrow, psm.bow.transform.position + dir, Quaternion.identity) as GameObject;
+        GameObject arrow = GameObject.Instantiate(psm.arrow, psm.weapons.bow.transform.position + dir, Quaternion.identity) as GameObject;
         arrow.GetComponent<Arrow>().Shoot(dir, strenght);
         Debug.Log("Shoot");
     }

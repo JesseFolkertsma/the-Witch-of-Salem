@@ -69,7 +69,7 @@ half _Shininess;
 
 void surf (Input IN, inout SurfaceOutput o) {
 	fixed4 tex = tex2D(_MainTex, IN.uv_MainTex);
-	o.Albedo = tex.rgb * _Color.rgb * IN.vertexColor.r;
+	o.Albedo = tex.rgb * _Color.rgb * IN.vertexColor.b;
 	o.Gloss = tex.a;
 	o.Alpha = tex.a * _Color.a;
 	o.Specular = _Shininess;

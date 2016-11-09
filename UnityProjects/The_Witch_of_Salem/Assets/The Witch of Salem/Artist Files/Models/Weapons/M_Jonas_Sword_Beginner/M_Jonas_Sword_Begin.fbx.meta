@@ -1,34 +1,17 @@
 fileFormatVersion: 2
-guid: 92ae1f347dc837e4aa41b4381f7b2c58
-timeCreated: 1474974458
+guid: 5cd0d8049cfe1ab4b89fba541fa1fa56
+timeCreated: 1478700426
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: 2_LP
-    100002: 3_LP
-    100004: 4_LP
-    100006: Blade_LP
-    100008: //RootNode
-    400000: 2_LP
-    400002: 3_LP
-    400004: 4_LP
-    400006: Blade_LP
-    400008: //RootNode
-    2300000: 2_LP
-    2300002: 3_LP
-    2300004: 4_LP
-    2300006: Blade_LP
-    3300000: 2_LP
-    3300002: 3_LP
-    3300004: 4_LP
-    3300006: Blade_LP
-    4300000: 4_LP
-    4300002: 2_LP
-    4300004: Blade_LP
-    4300006: 3_LP
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: M_Jonas_Sword_002.001
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
