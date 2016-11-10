@@ -22,4 +22,5 @@ public class JonasWeapons
     public GameObject startShield;
     public GameObject endShield;
     public GameObject bow;
+    public Transform bowpos1, bowpos2;
 }

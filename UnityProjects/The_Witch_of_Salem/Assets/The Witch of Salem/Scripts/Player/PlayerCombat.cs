@@ -16,6 +16,8 @@ public class PlayerCombat : PlayerComponent {
     public int currentCombo;
 
     Coroutine activeAttack;
+
+    public Animator bowAnim;
     
     public PlayerCombat (PlayerStateMachine p)
     {
@@ -161,8 +163,7 @@ public class PlayerCombat : PlayerComponent {
 
     public void DrawArrow()
     {
-        //psm.
-        psm.anim.SetLayerWeight(3, 1);
+        psm.anim.SetBool("AimBow", true);
         if (psm.ps.arrows > 0)
         {
             if (Input.GetButton("Fire1"))
@@ -177,14 +178,15 @@ public class PlayerCombat : PlayerComponent {
             }
         }
         psm.anim.SetFloat("DrawStrenght", str);
+        bowAnim.SetFloat("Blend", str);
 
-        LookAtMouse();
+        LookAtMouse(1);
         psm.pm.Move(.5f, true);
 
         if (Input.GetButtonUp("Fire2"))
         {
             psm.state = PlayerStateMachine.State.Walking;
-            psm.anim.SetLayerWeight(3, 0);
+            psm.anim.SetBool("AimBow", false);
         }
     }
 
@@ -201,7 +203,7 @@ public class PlayerCombat : PlayerComponent {
     public void Block()
     {
         psm.anim.SetLayerWeight(1, 1);
-        LookAtMouse();
+        LookAtMouse(.3f);
         psm.pm.Move(.5f, true);
         if (Input.GetButtonUp("Fire2"))
         {
@@ -210,9 +212,9 @@ public class PlayerCombat : PlayerComponent {
         }
     }
 
-    public void LookAtMouse()
+    public void LookAtMouse(float str)
     {
-        psm.pIK.UseIK(psm.mouse);
+        psm.pIK.UseIK(psm.mouse, str);
         if (psm.mouse.position.x > psm.transform.position.x)
         {
             psm.dir.x = 1;

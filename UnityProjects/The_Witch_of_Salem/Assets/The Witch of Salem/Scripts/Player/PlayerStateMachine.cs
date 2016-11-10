@@ -60,6 +60,8 @@ public class PlayerStateMachine : MonoBehaviour {
 
     public GameObject ragdoll;
 
+    Transform playerM;
+
     void Start()
     {
         GameManager.instance.InitPlayer();
@@ -72,6 +74,8 @@ public class PlayerStateMachine : MonoBehaviour {
         walkingPar.transform.parent = transform;
         wParSystem = walkingPar.GetComponent<ParticleSystem>();
         anim = GetComponentInChildren<Animator>();
+        playerM = transform.FindChild("PlayerMiddle");
+        pc.bowAnim = weapons.bow.GetComponent<Animator>();
     }
 
     void Update ()
@@ -224,13 +228,19 @@ public class PlayerStateMachine : MonoBehaviour {
         if(combatState == CombatState.Melee && ps.hasBow == true)
         {
             combatState = CombatState.Ranged;
-            //bow.SetActive(true);
+            anim.SetLayerWeight(2, 1);
+            weapons.bow.SetActive(true);
+            weapons.endSword.SetActive(false);
+            weapons.endShield.SetActive(false);
         }
 
         else if (combatState == CombatState.Ranged)
         {
             combatState = CombatState.Melee;
-           // bow.SetActive(false);
+            anim.SetLayerWeight(2, 0);
+            weapons.bow.SetActive(false);
+            weapons.endSword.SetActive(true);
+            weapons.endShield.SetActive(true);
         }
     }
 
