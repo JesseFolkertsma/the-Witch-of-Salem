@@ -10,7 +10,6 @@ public class PlayerStateMachine : MonoBehaviour {
         Running,
         Crouching,
         Climbing,
-        Falling,
         Attacking,
         Blocking,
         Aiming
@@ -57,6 +56,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public GameObject walkingPar;
     public ParticleSystem wParSystem;
     public GameObject smashParticles;
+    public GameObject blood;
 
     public GameObject ragdoll;
 
@@ -80,31 +80,31 @@ public class PlayerStateMachine : MonoBehaviour {
 
     void Update ()
     {
-        PlayerInput();
-
-        switch (state)
+        if (state != State.CantMove)
         {
-            case State.Walking:
-                pm.Walk();
-                break;
-            case State.Running:
-                pm.Run();
-                break;
-            case State.Crouching:
-                pm.Crouch();
-                break;
-            case State.Falling:
-                pm.Falling();
-                break;
-            case State.Blocking:
-                pc.Block();
-                break;
-            case State.Aiming:
-                pc.DrawArrow();
-                break;
-            case State.Attacking:
-                pc.WhileAttacking();
-                break;
+            PlayerInput();
+
+            switch (state)
+            {
+                case State.Walking:
+                    pm.Walk();
+                    break;
+                case State.Running:
+                    pm.Run();
+                    break;
+                case State.Crouching:
+                    pm.Crouch();
+                    break;
+                case State.Blocking:
+                    pc.Block();
+                    break;
+                case State.Aiming:
+                    pc.DrawArrow();
+                    break;
+                case State.Attacking:
+                    pc.WhileAttacking();
+                    break;
+            }
         }
 
         GameManager.instance.pUI.lives = ps.lives;
@@ -134,18 +134,10 @@ public class PlayerStateMachine : MonoBehaviour {
         if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, checkForFloorRange))
         {
             isFalling = false;
-            if(state == State.Falling)
-            {
-                state = State.Walking;
-            }
         }
         else
         {
             isFalling = true;
-            if(isClimbing == false)
-            {
-                state = State.Falling;
-            }
         }
 
         //Check for climbable object
@@ -192,6 +184,12 @@ public class PlayerStateMachine : MonoBehaviour {
     {
         if (combatState == CombatState.Melee)
         {
+            if (isFalling)
+            {
+                pc.JumpAttackInit();
+                return;
+            }
+
             switch (state)
             {
                 case State.Walking:
@@ -203,9 +201,6 @@ public class PlayerStateMachine : MonoBehaviour {
                     break;
                 case State.Crouching:
                     print("Cant attack while crouching!");
-                    break;
-                case State.Falling:
-                    pc.JumpAttackInit();
                     break;
                 case State.Blocking:
                     pc.ComboAttack(Random.Range(1, 4));

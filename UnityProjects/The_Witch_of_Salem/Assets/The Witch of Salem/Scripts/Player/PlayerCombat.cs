@@ -27,14 +27,41 @@ public class PlayerCombat : PlayerComponent {
 	void BasicAttack()
     {
         Debug.Log("Attack");
+        Collider[] hits;
 
         if (psm.dir.x > 0)
         {
             psm.rb.velocity += new Vector3(5, 0, 0);
+            hits = Physics.OverlapBox(psm.transform.position + new Vector3(1, 1.25f, 0), new Vector3(1, .5f, .5f));
         }
-        if (psm.dir.x < 0)
+        else
         {
             psm.rb.velocity += new Vector3(-5, 0, 0);
+            hits = Physics.OverlapBox(psm.transform.position + new Vector3(-1, 1.25f, 0), new Vector3(1, .5f, .5f));
+        }
+
+        Debug.Log(hits.Length);
+
+        List<Enemy> e = new List<Enemy>();
+
+        for (int i =0;i< hits.Length; i++)
+        {
+            if(hits[i].attachedRigidbody != null)
+            {
+
+                hits[i].attachedRigidbody.AddExplosionForce(500, psm.transform.position + new Vector3(0, 1.25f, 0), 3);
+
+                if (hits[i].attachedRigidbody.GetComponent<Enemy>() != null)
+                {
+                    if (!e.Contains(hits[i].attachedRigidbody.GetComponent<Enemy>()))
+                    {
+                        e.Add(hits[i].attachedRigidbody.GetComponent<Enemy>());
+                        hits[i].attachedRigidbody.GetComponent<Enemy>().lives -= 1;
+                        MonoBehaviour.Instantiate(psm.blood, hits[i].ClosestPointOnBounds(psm.transform.position), Quaternion.identity);
+                    }
+
+                }
+            }
         }
     }
 
@@ -85,6 +112,7 @@ public class PlayerCombat : PlayerComponent {
     {
         if (waitForNextAttack)
         {
+            psm.pm.Move(.2f, true);
             if (Input.GetButtonDown("Fire1"))
             {
                 psm.StopCoroutine(activeAttack);

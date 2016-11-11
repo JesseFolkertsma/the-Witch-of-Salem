@@ -1172,7 +1172,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
 --- !u!54 &326042568
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2517,7 +2517,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 49.994003, y: -18.96, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &1090713074
 GameObject:
   m_ObjectHideFlags: 0
@@ -2723,7 +2723,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013207203014, guid: 72aa395a4beece148943e243a8740024, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000012541677224, guid: 72aa395a4beece148943e243a8740024, type: 2}
       propertyPath: m_Name
@@ -2769,7 +2769,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000014280149236, guid: 12ac1234d5ba90f468ae2d3923ae2a1d, type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1000011196350212, guid: 12ac1234d5ba90f468ae2d3923ae2a1d, type: 2}
       propertyPath: m_Name
@@ -2916,7 +2916,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013634578982, guid: 9b53d638213ae474f855b6e76ecaa757, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114000010198277478, guid: 9b53d638213ae474f855b6e76ecaa757,
         type: 2}
@@ -3197,11 +3197,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012450191152, guid: 869c58a5cb82ad1468547a932239605f, type: 2}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1000011779974540, guid: 869c58a5cb82ad1468547a932239605f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 869c58a5cb82ad1468547a932239605f, type: 2}
@@ -3572,7 +3572,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
 --- !u!114 &1758875334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5102,6 +5102,7 @@ MonoBehaviour:
   wParSystem: {fileID: 0}
   smashParticles: {fileID: 1000012600757078, guid: 2ab9a9b4036e78d4283c50bc2cf54d93,
     type: 2}
+  blood: {fileID: 0}
   ragdoll: {fileID: 1000013879837844, guid: 3bd8fb9783148c049b2a97cf7d35de6c, type: 2}
 --- !u!54 &2096004618
 Rigidbody:
@@ -5227,7 +5228,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
 --- !u!114 &2118960201
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4435,6 +4435,7 @@ MonoBehaviour:
   wParSystem: {fileID: 0}
   smashParticles: {fileID: 1000012600757078, guid: 2ab9a9b4036e78d4283c50bc2cf54d93,
     type: 2}
+  blood: {fileID: 1000012604729014, guid: 94d08d063300cd04ba4c235f6ebf7117, type: 2}
   ragdoll: {fileID: 1000011196350212, guid: 12ac1234d5ba90f468ae2d3923ae2a1d, type: 2}
 --- !u!114 &114000013481997710
 MonoBehaviour:

@@ -17,6 +17,25 @@ public class PlayerMovements : PlayerComponent {
 
     public void Move (float speed, bool combat)
     {
+        if(psm.isFalling)
+        {
+            speed = .5f;
+            psm.wParSystem.enableEmission = false;
+        }
+        else
+        {
+            psm.wParSystem.enableEmission = true;
+
+            if (Input.GetButtonDown("Control"))
+            {
+                CombatRoll();
+            }
+            if (Input.GetButtonDown("Jump"))
+            {
+                Jump();
+            }
+        }
+
         if (combat == false)
         {
             if (movement.x < 0)
@@ -40,18 +59,6 @@ public class PlayerMovements : PlayerComponent {
                 }
             }
 
-            if (psm.isFalling == false)
-            {
-                if (Input.GetButtonDown("Control"))
-                {
-                    CombatRoll();
-                }
-                if (Input.GetButtonDown("Jump"))
-                {
-                    Jump();
-                }
-            }
-
             if (Input.GetButtonDown("Fire1"))
             {
                 psm.ToAttack();
@@ -71,15 +78,6 @@ public class PlayerMovements : PlayerComponent {
         }
 
         psm.model.rotation = Quaternion.Lerp(psm.model.rotation, Quaternion.Euler(0, rot, 0), Time.deltaTime * 5f);
-
-        if (psm.isFalling == false)
-        {
-            psm.wParSystem.enableEmission = true;
-        }
-        else
-        {
-            psm.wParSystem.enableEmission = false;
-        }
 
         moveSpeed = Mathf.Lerp(moveSpeed, speed, Time.deltaTime * 2f);
         movement *= moveSpeed;
