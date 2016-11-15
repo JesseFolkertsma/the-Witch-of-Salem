@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 76e4e44b867d217479dafdf795d1d436
-timeCreated: 1478267267
+timeCreated: 1479212207
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -9,8 +9,8 @@ SubstanceImporter:
     name: SUB_Dirt
     prototypeName: SUB_Dirt
     shaderName: 
-    shader: {fileID: 4800000, guid: 0a4b0bce1e250a14bb534d70bce205fa, type: 3}
-    shaderKeywords: _NORMALMAP _PARALLAXMAP
+    shader: {fileID: 4800000, guid: e940ad6ef36960741b2ca16288ca1cf2, type: 3}
+    shaderKeywords: 
     renderQueue: -1
     lightmapFlags: 5
     inputs:
@@ -130,9 +130,9 @@ SubstanceImporter:
       serializedVersion: 2
       texEnvs:
       - first:
-          name: _BumpMap
+          name: _DispTex
         second:
-          texture: {instanceID: 0}
+          texture: {fileID: 1269434833, guid: ae14864329ede65468f470496aff7bd1, type: 3}
           scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - first:
@@ -142,9 +142,9 @@ SubstanceImporter:
           scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - first:
-          name: _ParallaxMap
+          name: _NormalMap
         second:
-          texture: {instanceID: 0}
+          texture: {fileID: -1845467290, guid: b13a6a3b4cf8abe4ba89a8c4eca11302, type: 3}
           scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       floats:
@@ -158,6 +158,12 @@ SubstanceImporter:
           name: _DetailNormalMapScale
         second: 1
       - first:
+          name: _DispOffset
+        second: 0.5
+      - first:
+          name: _Displacement
+        second: 0.419
+      - first:
           name: _DstBlend
         second: 0
       - first:
@@ -166,6 +172,9 @@ SubstanceImporter:
       - first:
           name: _GlossMapScale
         second: 1
+      - first:
+          name: _GlossPow
+        second: 0.5
       - first:
           name: _Glossiness
         second: 0.5
@@ -183,13 +192,19 @@ SubstanceImporter:
         second: 1
       - first:
           name: _Parallax
-        second: 0.222
+        second: 0
       - first:
           name: _Shininess
         second: 0.078125
       - first:
+          name: _Smoothness
+        second: 0.5
+      - first:
           name: _SmoothnessTextureChannel
         second: 0
+      - first:
+          name: _SpecPow
+        second: 0.5
       - first:
           name: _SpecularHighlights
         second: 1
@@ -239,12 +254,12 @@ SubstanceImporter:
       material: {instanceID: 0}
       baseUID: 1784246014
     - shaderProp:
-        name: _BumpMap
-      material: {instanceID: 0}
+        name: _NormalMap
+      material: {fileID: -1696493780, guid: b13a6a3b4cf8abe4ba89a8c4eca11302, type: 3}
       baseUID: 1784246012
     - shaderProp:
-        name: _ParallaxMap
-      material: {instanceID: 0}
+        name: _DispTex
+      material: {fileID: -1696493780, guid: ae14864329ede65468f470496aff7bd1, type: 3}
       baseUID: 1771025550
     buildTargetSettings:
     - serializedVersion: 2

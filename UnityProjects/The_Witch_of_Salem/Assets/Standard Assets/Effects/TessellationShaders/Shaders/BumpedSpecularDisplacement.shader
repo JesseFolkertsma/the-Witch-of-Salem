@@ -25,6 +25,7 @@ struct appdata {
 	float2 texcoord : TEXCOORD0;
 	float2 texcoord1 : TEXCOORD1;
 	float2 texcoord2 : TEXCOORD2;
+	float4 vertColor : COLOR;
 };
 
 float _EdgeLength;
@@ -57,7 +58,7 @@ void vert(inout appdata_full v, out Input o) {
 
 void disp (inout appdata v)
 {
-	float d = tex2Dlod(_ParallaxMap, float4(v.texcoord.xy,0,0)).a * _Parallax * _VertexAlpha;
+	float d = tex2Dlod(_ParallaxMap, float4(v.texcoord.xy,0,0)).a * _Parallax * v.vertColor.g;
 	v.vertex.xyz += v.normal * d;
 }
 
@@ -69,7 +70,7 @@ half _Shininess;
 
 void surf (Input IN, inout SurfaceOutput o) {
 	fixed4 tex = tex2D(_MainTex, IN.uv_MainTex);
-	o.Albedo = tex.rgb * _Color.rgb * IN.vertexColor.b;
+	o.Albedo = tex.rgb * _Color.rgb;
 	o.Gloss = tex.a;
 	o.Alpha = tex.a * _Color.a;
 	o.Specular = _Shininess;

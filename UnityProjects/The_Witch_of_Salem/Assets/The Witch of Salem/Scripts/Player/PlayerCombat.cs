@@ -12,6 +12,7 @@ public class PlayerCombat : PlayerComponent {
     bool jumpAttackCD;
 
     bool waitForNextAttack;
+    bool waitForAttack;
 
     public int currentCombo;
 
@@ -31,12 +32,10 @@ public class PlayerCombat : PlayerComponent {
 
         if (psm.dir.x > 0)
         {
-            psm.rb.velocity += new Vector3(5, 0, 0);
             hits = Physics.OverlapBox(psm.transform.position + new Vector3(1, 1.25f, 0), new Vector3(1, .5f, .5f));
         }
         else
         {
-            psm.rb.velocity += new Vector3(-5, 0, 0);
             hits = Physics.OverlapBox(psm.transform.position + new Vector3(-1, 1.25f, 0), new Vector3(1, .5f, .5f));
         }
 
@@ -44,7 +43,7 @@ public class PlayerCombat : PlayerComponent {
 
         List<Enemy> e = new List<Enemy>();
 
-        for (int i =0;i< hits.Length; i++)
+        for (int i = 0;i < hits.Length; i++)
         {
             if(hits[i].attachedRigidbody != null)
             {
@@ -92,7 +91,11 @@ public class PlayerCombat : PlayerComponent {
 
     IEnumerator WaitForAttackEffect(float effect, float nextAttack)
     {
+        waitForAttack = true;
+
         yield return new WaitForSeconds(effect);
+
+        waitForAttack = false;
 
         BasicAttack();
 
@@ -110,6 +113,18 @@ public class PlayerCombat : PlayerComponent {
 
     public void WhileAttacking()
     {
+        if (waitForAttack)
+        {
+            if(psm.dir.x < 0)
+            {
+                psm.transform.Translate(Vector3.left * Time.deltaTime * 2);
+            }
+            else
+            {
+                psm.transform.Translate(Vector3.right * Time.deltaTime * 2);
+            }
+        }
+        
         if (waitForNextAttack)
         {
             psm.pm.Move(.2f, true);
