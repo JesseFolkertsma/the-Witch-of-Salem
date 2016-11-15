@@ -76,6 +76,7 @@ public class PlayerStateMachine : MonoBehaviour {
         anim = GetComponentInChildren<Animator>();
         playerM = transform.FindChild("PlayerMiddle");
         pc.bowAnim = weapons.bow.GetComponent<Animator>();
+        weapons.bow.SetActive(false);
     }
 
     void Update ()
@@ -230,6 +231,15 @@ public class PlayerStateMachine : MonoBehaviour {
         }
 
         else if (combatState == CombatState.Ranged)
+        {
+            combatState = CombatState.Melee;
+            anim.SetLayerWeight(2, 0);
+            weapons.bow.SetActive(false);
+            weapons.endSword.SetActive(true);
+            weapons.endShield.SetActive(true);
+        }
+
+        else if(combatState == CombatState.Unarmed && ps.hasSword)
         {
             combatState = CombatState.Melee;
             anim.SetLayerWeight(2, 0);

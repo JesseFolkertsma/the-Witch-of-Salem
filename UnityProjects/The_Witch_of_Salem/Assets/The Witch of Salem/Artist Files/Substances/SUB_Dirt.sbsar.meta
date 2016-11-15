@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 guid: ae14864329ede65468f470496aff7bd1
+<<<<<<< HEAD
 timeCreated: 1479211253
+=======
+timeCreated: 1479212732
+>>>>>>> origin/master
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -297,10 +301,10 @@ SubstanceImporter:
     name: SUB_Dirt (NO leaves)
     prototypeName: SUB_Dirt
     shaderName: 
-    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+    shader: {fileID: 4800000, guid: e940ad6ef36960741b2ca16288ca1cf2, type: 3}
     shaderKeywords: 
     renderQueue: -1
-    lightmapFlags: 5
+    lightmapFlags: 1
     inputs:
     - name: $outputsize
       value:
@@ -418,31 +422,7 @@ SubstanceImporter:
       serializedVersion: 2
       texEnvs:
       - first:
-          name: _BumpMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailAlbedoMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailMask
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailNormalMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _EmissionMap
+          name: _DispTex
         second:
           texture: {instanceID: 0}
           scale: {x: 1, y: 1}
@@ -454,19 +434,7 @@ SubstanceImporter:
           scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - first:
-          name: _MetallicGlossMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _OcclusionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _ParallaxMap
+          name: _NormalMap
         second:
           texture: {instanceID: 0}
           scale: {x: 1, y: 1}
@@ -482,11 +450,23 @@ SubstanceImporter:
           name: _DetailNormalMapScale
         second: 1
       - first:
+          name: _DispOffset
+        second: 0.5
+      - first:
+          name: _Displacement
+        second: 1
+      - first:
           name: _DstBlend
         second: 0
       - first:
+          name: _EdgeLength
+        second: 50
+      - first:
           name: _GlossMapScale
         second: 1
+      - first:
+          name: _GlossPow
+        second: 0.5
       - first:
           name: _Glossiness
         second: 0.5
@@ -508,6 +488,9 @@ SubstanceImporter:
       - first:
           name: _SmoothnessTextureChannel
         second: 0
+      - first:
+          name: _SpecPow
+        second: 0.5
       - first:
           name: _SpecularHighlights
         second: 1
@@ -553,18 +536,6 @@ SubstanceImporter:
         name: _MainTex
       material: {instanceID: 0}
       baseUID: 1784246014
-    - shaderProp:
-        name: _BumpMap
-      material: {instanceID: 0}
-      baseUID: 1784246012
-    - shaderProp:
-        name: _MetallicGlossMap
-      material: {instanceID: 0}
-      baseUID: 1784246008
-    - shaderProp:
-        name: _ParallaxMap
-      material: {instanceID: 0}
-      baseUID: 1771025550
     buildTargetSettings:
     - serializedVersion: 2
       buildTarget: 
