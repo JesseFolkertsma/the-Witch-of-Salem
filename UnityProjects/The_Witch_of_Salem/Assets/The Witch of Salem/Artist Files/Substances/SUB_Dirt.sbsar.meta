@@ -1,14 +1,6 @@
 fileFormatVersion: 2
 guid: ae14864329ede65468f470496aff7bd1
-<<<<<<< HEAD
-timeCreated: 1479213620
-=======
-<<<<<<< HEAD
-timeCreated: 1479211253
-=======
-timeCreated: 1479212732
->>>>>>> origin/master
->>>>>>> origin/master
+timeCreated: 1479306697
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -18,10 +10,66 @@ SubstanceImporter:
     prototypeName: SUB_Dirt
     shaderName: 
     shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
+    shaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
     renderQueue: -1
-    lightmapFlags: 5
+    lightmapFlags: 1
     inputs:
+    - name: Dirt_Height_Contrast
+      value:
+        scalar[0]: 0.233
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Dirt_Height
+      value:
+        scalar[0]: 151
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Oak_Leaf_1_General_Opacity
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Oak_Leaf_2_General_Opacity
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Maple_Leaf_General_Opacity
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Height_Leaves
+      value:
+        scalar[0]: 0.401
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: General_Roughness
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Leaves_Lightness
+      value:
+        scalar[0]: 0.488
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
     - name: $outputsize
       value:
         scalar[0]: 8
@@ -38,86 +86,28 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Dirt_Lightness
       value:
-<<<<<<< HEAD
-        scalar[0]: 0.5
-=======
-        scalar[0]: 0
->>>>>>> origin/master
+        scalar[0]: 0.395
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Dirt_Saturation
       value:
-<<<<<<< HEAD
         scalar[0]: 0.5
-=======
-        scalar[0]: 0
->>>>>>> origin/master
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Dirt_Noise_Normal_Intensity
       value:
-<<<<<<< HEAD
         scalar[0]: 3
-=======
-        scalar[0]: 0
->>>>>>> origin/master
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Height
-      value:
-        scalar[0]: 203.71
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Height_Contrast
-      value:
-        scalar[0]: 0.28
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Oak_Leaf_1_General_Opacity
-      value:
-        scalar[0]: 1
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Oak_Leaf_2_General_Opacity
-      value:
-        scalar[0]: 1
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Maple_Leaf_General_Opacity
-      value:
-        scalar[0]: 1
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Alder_Leaf_General_Opacity
       value:
-<<<<<<< HEAD
-        scalar[0]: 1
-=======
-        scalar[0]: 0.395
->>>>>>> origin/master
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Height_Leaves
-      value:
-        scalar[0]: 0.14
+        scalar[0]: 0
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -125,24 +115,6 @@ SubstanceImporter:
     - name: Leaves_Saturation
       value:
         scalar[0]: 0.5
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Leaves_Lightness
-      value:
-<<<<<<< HEAD
-        scalar[0]: 0.5
-=======
-        scalar[0]: 0
->>>>>>> origin/master
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: General_Roughness
-      value:
-        scalar[0]: 1
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -225,6 +197,9 @@ SubstanceImporter:
           name: _DstBlend
         second: 0
       - first:
+          name: _EdgeLength
+        second: 10
+      - first:
           name: _GlossMapScale
         second: 1
       - first:
@@ -244,7 +219,10 @@ SubstanceImporter:
         second: 1
       - first:
           name: _Parallax
-        second: 0.02
+        second: 0.0486
+      - first:
+          name: _Shininess
+        second: 0.078125
       - first:
           name: _SmoothnessTextureChannel
         second: 0
@@ -267,6 +245,9 @@ SubstanceImporter:
       - first:
           name: _EmissionColor
         second: {r: 0, g: 0, b: 0, a: 1}
+      - first:
+          name: _SpecColor
+        second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     textureParameters:
     - name: SUB_Dirt_basecolor
       alphaSource: 6
@@ -313,13 +294,13 @@ SubstanceImporter:
       textureFormat: 0
       loadingBehavior: 1
   - serializedVersion: 16
-    name: SUB_Dirt_1
+    name: SUB_Dirt (NO leaves)
     prototypeName: SUB_Dirt
     shaderName: 
-    shader: {fileID: 4800000, guid: e940ad6ef36960741b2ca16288ca1cf2, type: 3}
+    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
     shaderKeywords: 
     renderQueue: -1
-    lightmapFlags: 1
+    lightmapFlags: 5
     inputs:
     - name: $outputsize
       value:
@@ -372,28 +353,28 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Oak_Leaf_1_General_Opacity
       value:
-        scalar[0]: 1
+        scalar[0]: 0
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Oak_Leaf_2_General_Opacity
       value:
-        scalar[0]: 1
+        scalar[0]: 0
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Maple_Leaf_General_Opacity
       value:
-        scalar[0]: 1
+        scalar[0]: 0
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Alder_Leaf_General_Opacity
       value:
-        scalar[0]: 1
+        scalar[0]: 0
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -407,14 +388,14 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Leaves_Saturation
       value:
-        scalar[0]: 0.5
+        scalar[0]: 0
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Leaves_Lightness
       value:
-        scalar[0]: 0.5
+        scalar[0]: 0.397
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -437,7 +418,31 @@ SubstanceImporter:
       serializedVersion: 2
       texEnvs:
       - first:
-          name: _DispTex
+          name: _BumpMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _DetailAlbedoMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _DetailMask
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _DetailNormalMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _EmissionMap
         second:
           texture: {instanceID: 0}
           scale: {x: 1, y: 1}
@@ -449,7 +454,19 @@ SubstanceImporter:
           scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - first:
-          name: _NormalMap
+          name: _MetallicGlossMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _OcclusionMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _ParallaxMap
         second:
           texture: {instanceID: 0}
           scale: {x: 1, y: 1}
@@ -465,23 +482,11 @@ SubstanceImporter:
           name: _DetailNormalMapScale
         second: 1
       - first:
-          name: _DispOffset
-        second: 0.5
-      - first:
-          name: _Displacement
-        second: 1
-      - first:
           name: _DstBlend
         second: 0
       - first:
-          name: _EdgeLength
-        second: 15
-      - first:
           name: _GlossMapScale
         second: 1
-      - first:
-          name: _GlossPow
-        second: 0.5
       - first:
           name: _Glossiness
         second: 0.5
@@ -504,9 +509,6 @@ SubstanceImporter:
           name: _SmoothnessTextureChannel
         second: 0
       - first:
-          name: _SpecPow
-        second: 0.5
-      - first:
           name: _SpecularHighlights
         second: 1
       - first:
@@ -526,22 +528,22 @@ SubstanceImporter:
           name: _EmissionColor
         second: {r: 0, g: 0, b: 0, a: 1}
     textureParameters:
-    - name: SUB_Dirt_1_basecolor
+    - name: SUB_Dirt (NO leaves)_basecolor
       alphaSource: 6
       filterMode: 1
       aniso: 1
       wrapMode: 0
-    - name: SUB_Dirt_1_normal
+    - name: SUB_Dirt (NO leaves)_normal
       alphaSource: 0
       filterMode: 1
       aniso: 1
       wrapMode: 0
-    - name: SUB_Dirt_1_metallic
+    - name: SUB_Dirt (NO leaves)_metallic
       alphaSource: 7
       filterMode: 1
       aniso: 1
       wrapMode: 0
-    - name: SUB_Dirt_1_Height
+    - name: SUB_Dirt (NO leaves)_Height
       alphaSource: 0
       filterMode: 1
       aniso: 1
@@ -551,6 +553,18 @@ SubstanceImporter:
         name: _MainTex
       material: {instanceID: 0}
       baseUID: 1784246014
+    - shaderProp:
+        name: _BumpMap
+      material: {instanceID: 0}
+      baseUID: 1784246012
+    - shaderProp:
+        name: _MetallicGlossMap
+      material: {instanceID: 0}
+      baseUID: 1784246008
+    - shaderProp:
+        name: _ParallaxMap
+      material: {instanceID: 0}
+      baseUID: 1771025550
     buildTargetSettings:
     - serializedVersion: 2
       buildTarget: 
@@ -809,6 +823,285 @@ SubstanceImporter:
       aniso: 1
       wrapMode: 0
     - name: SUB_Dirt_1_Height
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    textureAssignments:
+    - shaderProp:
+        name: _MainTex
+      material: {instanceID: 0}
+      baseUID: 1784246014
+    - shaderProp:
+        name: _BumpMap
+      material: {instanceID: 0}
+      baseUID: 1784246012
+    - shaderProp:
+        name: _MetallicGlossMap
+      material: {instanceID: 0}
+      baseUID: 1784246008
+    - shaderProp:
+        name: _ParallaxMap
+      material: {instanceID: 0}
+      baseUID: 1771025550
+    buildTargetSettings:
+    - serializedVersion: 2
+      buildTarget: 
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      loadingBehavior: 1
+  - serializedVersion: 16
+    name: SUB_Dirt_2
+    prototypeName: SUB_Dirt
+    shaderName: 
+    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+    shaderKeywords: 
+    renderQueue: -1
+    lightmapFlags: 5
+    inputs:
+    - name: $outputsize
+      value:
+        scalar[0]: 8
+        scalar[1]: 8
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: $randomseed
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Dirt_Lightness
+      value:
+        scalar[0]: 0.474
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Dirt_Saturation
+      value:
+        scalar[0]: 0.506
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Dirt_Noise_Normal_Intensity
+      value:
+        scalar[0]: 3
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Dirt_Height
+      value:
+        scalar[0]: 195.7
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Dirt_Height_Contrast
+      value:
+        scalar[0]: 0.577
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Oak_Leaf_1_General_Opacity
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Oak_Leaf_2_General_Opacity
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Maple_Leaf_General_Opacity
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Alder_Leaf_General_Opacity
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Height_Leaves
+      value:
+        scalar[0]: 0.14
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Leaves_Saturation
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: Leaves_Lightness
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    - name: General_Roughness
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+    materialInformation:
+      serializedVersion: 5
+      offset: {x: 0, y: 0}
+      scale: {x: 1, y: 1}
+      generateMipmaps: 1
+      generateAllOutputs: 0
+      animationUpdateRate: 0
+    materialProperties:
+      serializedVersion: 2
+      texEnvs:
+      - first:
+          name: _BumpMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _DetailAlbedoMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _DetailMask
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _DetailNormalMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _EmissionMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _MainTex
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _MetallicGlossMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _OcclusionMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - first:
+          name: _ParallaxMap
+        second:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      floats:
+      - first:
+          name: _BumpScale
+        second: 1
+      - first:
+          name: _Cutoff
+        second: 0.5
+      - first:
+          name: _DetailNormalMapScale
+        second: 1
+      - first:
+          name: _DstBlend
+        second: 0
+      - first:
+          name: _GlossMapScale
+        second: 1
+      - first:
+          name: _Glossiness
+        second: 0.5
+      - first:
+          name: _GlossyReflections
+        second: 1
+      - first:
+          name: _Metallic
+        second: 0
+      - first:
+          name: _Mode
+        second: 0
+      - first:
+          name: _OcclusionStrength
+        second: 1
+      - first:
+          name: _Parallax
+        second: 0.02
+      - first:
+          name: _SmoothnessTextureChannel
+        second: 0
+      - first:
+          name: _SpecularHighlights
+        second: 1
+      - first:
+          name: _SrcBlend
+        second: 1
+      - first:
+          name: _UVSec
+        second: 0
+      - first:
+          name: _ZWrite
+        second: 1
+      colors:
+      - first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      - first:
+          name: _EmissionColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+    textureParameters:
+    - name: SUB_Dirt_2_basecolor
+      alphaSource: 6
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: SUB_Dirt_2_normal
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: SUB_Dirt_2_metallic
+      alphaSource: 7
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: SUB_Dirt_2_Height
       alphaSource: 0
       filterMode: 1
       aniso: 1
