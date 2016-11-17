@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e1d52f7ecb0fcfd41a4bf8fb32781521
-timeCreated: 1479304425
+timeCreated: 1479391359
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -63,7 +63,7 @@ SubstanceImporter:
           name: _BumpMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 44, y: 4}
+          scale: {x: 4, y: 2}
           offset: {x: 0, y: 0}
       - first:
           name: _DetailAlbedoMap
@@ -99,7 +99,7 @@ SubstanceImporter:
           name: _MetallicGlossMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 44, y: 4}
+          scale: {x: 4, y: 2}
           offset: {x: 0, y: 0}
       - first:
           name: _OcclusionMap
@@ -210,9 +210,9 @@ SubstanceImporter:
     prototypeName: SUB_Grass
     shaderName: 
     shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
+    shaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP
     renderQueue: -1
-    lightmapFlags: 5
+    lightmapFlags: 1
     inputs:
     - name: $outputsize
       value:
@@ -252,7 +252,7 @@ SubstanceImporter:
     materialInformation:
       serializedVersion: 5
       offset: {x: 0, y: 0}
-      scale: {x: 2, y: 2}
+      scale: {x: 3, y: 3}
       generateMipmaps: 1
       generateAllOutputs: 0
       animationUpdateRate: 0
@@ -263,7 +263,7 @@ SubstanceImporter:
           name: _BumpMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
+          scale: {x: 3, y: 2}
           offset: {x: 0, y: 0}
       - first:
           name: _DetailAlbedoMap
@@ -287,19 +287,19 @@ SubstanceImporter:
           name: _EmissionMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
+          scale: {x: 3, y: 3}
           offset: {x: 0, y: 0}
       - first:
           name: _MainTex
         second:
           texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
+          scale: {x: 3, y: 3}
           offset: {x: 0, y: 0}
       - first:
           name: _MetallicGlossMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
+          scale: {x: 3, y: 2}
           offset: {x: 0, y: 0}
       - first:
           name: _OcclusionMap
