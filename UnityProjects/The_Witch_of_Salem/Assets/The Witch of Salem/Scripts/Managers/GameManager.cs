@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
 
     public PlayerStats playerS;
 
+    public bool loadGameOnStart;
+
     public SaveLoadSystem slSystem;
     public PopupMessages popup;
 
@@ -54,9 +56,12 @@ public class GameManager : MonoBehaviour {
         pUI.UIStart();
         cm.Init();
         popup.Init();
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStateMachine>().ps = playerS;
-        GameObject.FindGameObjectWithTag("Player").transform.position = loadPos;
-        //slSystem.SetupLevel(slSystem.sFile.currentlevel, slSystem.sFile.currentCheckpoint);
+        if (loadGameOnStart)
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStateMachine>().ps = playerS;
+            GameObject.FindGameObjectWithTag("Player").transform.position = loadPos;
+            //slSystem.SetupLevel(slSystem.sFile.currentlevel, slSystem.sFile.currentCheckpoint);
+        }
     }
 
     void Update()

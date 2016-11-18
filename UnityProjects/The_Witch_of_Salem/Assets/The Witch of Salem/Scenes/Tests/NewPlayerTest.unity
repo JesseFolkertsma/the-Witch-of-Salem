@@ -1106,7 +1106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pMangager: {fileID: 0}
-  pInput: {fileID: 0}
 --- !u!4 &537804159
 Transform:
   m_ObjectHideFlags: 0
@@ -1473,6 +1472,7 @@ MonoBehaviour:
   useRootMovement: 1
   isDead: 0
   isFalling: 0
+  walkingDirection: 0
   swordDamage: 0
   arrowDamage: 0
 --- !u!1 &807898880

@@ -57,6 +57,10 @@ public class PlayerMovements : PlayerComponent {
     {
         float runSpeed = 1;
         bool attacking = false;
+        if (Input.GetButton("Shift"))
+        {
+            runSpeed = 1.5f;
+        }
         switch (psm.state)
         {
             case PlayerStateMachine.State.Blocking:
@@ -133,6 +137,21 @@ public class PlayerMovements : PlayerComponent {
                 psm.anim.SetLayerWeight(1, 0);
                 break;
         }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            if (psm.combatState == PlayerStateMachine.CombatState.Melee)
+            {
+                psm.state = PlayerStateMachine.State.Blocking;
+            }
+            if (psm.combatState == PlayerStateMachine.CombatState.Ranged)
+            {
+                psm.state = PlayerStateMachine.State.Aiming;
+            }
+        }
+        if (Input.GetButtonDown("Fire1"))
+        {
+            psm.ToAttack();
+        }
         Move(fallSpeed);
     }
 
@@ -202,6 +221,7 @@ public class PlayerMovements : PlayerComponent {
             }
             psm.anim.SetTrigger("Roll");
             psm.StartCoroutine(CombatRollCD());
+            psm.anim.SetBool("Rolling", true);
         }
     }
 
@@ -210,6 +230,7 @@ public class PlayerMovements : PlayerComponent {
         canCombatRoll = false;
         yield return new WaitForSeconds(1f);
         psm.ResetPlayer();
+        psm.anim.SetBool("Rolling", false);
         yield return new WaitForSeconds(1f);
         canCombatRoll = true;
     }

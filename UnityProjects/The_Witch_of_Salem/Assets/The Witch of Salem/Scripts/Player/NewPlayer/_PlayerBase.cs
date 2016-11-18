@@ -94,6 +94,10 @@ public class _PlayerBase : MonoBehaviour
             {
                 baseState = BaseState.Climbing;
             }
+            else
+            {
+
+            }
         }
     }
 

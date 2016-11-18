@@ -68,6 +68,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: Rolling
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1214,6 +1220,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: IsFalling
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Rolling
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102000012746363636}
   m_Solo: 0
@@ -1995,10 +2004,10 @@ AnimatorStateMachine:
     m_Position: {x: 138, y: 439, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102000012746363636}
-    m_Position: {x: 12, y: 84, z: 0}
+    m_Position: {x: 0, y: 72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102000011378076320}
-    m_Position: {x: 288, y: 24, z: 0}
+    m_Position: {x: 264, y: 72, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1101000012692692786}

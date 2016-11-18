@@ -163,10 +163,12 @@ public class PlayerStateMachine : MonoBehaviour {
         if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, checkForFloorRange))
         {
             isFalling = false;
+            baseState = BaseState.Running;
         }
         else
         {
             isFalling = true;
+            baseState = BaseState.Falling;
         }
 
         //Check for climbable object
