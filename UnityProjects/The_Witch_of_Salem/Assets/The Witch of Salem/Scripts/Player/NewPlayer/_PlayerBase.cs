@@ -9,12 +9,13 @@ public class _PlayerBase : MonoBehaviour
         CantMove,
         Grounded,
         Climbing,
+        Hanging,
         Falling
     };
 
     public BaseState baseState = BaseState.Grounded;
     public int lives;
-    public float movementSpeed;
+    public float movementSpeed, climbSpeed;
     public float jumpHeight;
     public Animator anim;
     public Rigidbody rb;
@@ -22,15 +23,14 @@ public class _PlayerBase : MonoBehaviour
     public _PlayerMouse mouse;
     public LayerMask lm;
 
-    public float xInput;
+    public float xInput, yInput;
     public bool useRootMovement = true;
     public bool isDead;
-    public bool isFalling;
+    public bool isFalling, canClimbUp;
 
     bool canJump;
 
     public int walkingDirection;
-
     public int GetMouseDirection
     {
         get
@@ -60,12 +60,15 @@ public class _PlayerBase : MonoBehaviour
     public virtual void InputHandler()
     {
         xInput = Input.GetAxis("Horizontal");
-        //Animator Parameters
-        anim.SetFloat("Movement", xInput);
+        yInput = Input.GetAxis("Vertical");
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
+            ClimbUp();
         }
+        //Animator Parameters
+        anim.SetFloat("Movement", xInput);
+        anim.SetFloat("ClimbingY", yInput);
     }
 
     public virtual void Checks()
@@ -88,22 +91,27 @@ public class _PlayerBase : MonoBehaviour
         Debug.DrawRay(transform.position + Vector3.up * 1.2f, Vector3.right * walkingDirection, Color.blue);
 
         RaycastHit climbHit;
-        if(Physics.Raycast(transform.position + Vector3.up, Vector3.right * walkingDirection, out climbHit, 5, lm))
+        if(Physics.Raycast(transform.position + Vector3.up, Vector3.right * walkingDirection, out climbHit, .4f, lm))
         {
-            if(Physics.Raycast(transform.position + Vector3.up * 1.2f, Vector3.right * walkingDirection, 5, lm))
+            if (climbHit.transform.tag == "Ladder" && baseState != BaseState.Climbing)
             {
                 baseState = BaseState.Climbing;
             }
-            else
+            else if (climbHit.transform.tag == "Ledge" && baseState != BaseState.Hanging)
             {
-
+                HangOnLedge();
             }
         }
+    }
+    
+    public virtual void ResetStates()
+    {
+        baseState = BaseState.Grounded;
     }
 
     public virtual void Move(float moveSpeed)
     {
-        transform.Translate(new Vector3(xInput, 0, 0) * moveSpeed * Time.fixedDeltaTime);
+        transform.Translate(new Vector3(xInput, 0, 0) * moveSpeed * movementSpeed * Time.fixedDeltaTime);
         if(xInput > 0.1)
         {
             TurnPlayer(true, 1);
@@ -154,8 +162,38 @@ public class _PlayerBase : MonoBehaviour
     {
         if (useRootMovement)
         {
-
+            anim.SetLayerWeight(4, 1);
+            Vector3 climbVector = new Vector3(0, yInput * climbSpeed / 100, 0);
+            transform.Translate(climbVector);
+            rb.useGravity = false;
+            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
+            if (!Physics.Raycast(transform.position + Vector3.up * 1.2f, Vector3.right * walkingDirection, 1f, lm))
+            {
+                HangOnLedge();
+                print("GO CLIMB");
+            }
         }
+    }
+
+    public virtual void HangOnLedge()
+    {
+        rb.useGravity = false;
+        baseState = BaseState.Hanging;
+        rb.velocity = Vector3.zero;
+    }
+
+    public virtual void ClimbUp()
+    {
+        if (baseState == BaseState.Hanging)
+        {
+            anim.SetTrigger("ClimbUp");
+        }
+    }
+
+    public virtual void DropFromClimb()
+    {
+
     }
 
     public virtual void Falling()
@@ -168,9 +206,10 @@ public class _PlayerBase : MonoBehaviour
 
     public virtual void Jump()
     {
-        if (canJump && baseState != BaseState.Falling)
+        if (canJump && baseState == BaseState.Grounded)
         {
             rb.velocity += Vector3.up * jumpHeight;
+            anim.SetTrigger("Jump");
         }
     }
 
@@ -180,5 +219,31 @@ public class _PlayerBase : MonoBehaviour
         {
             isDead = true;
         }
+    }
+
+    public void StartClimbEvent()
+    {
+        ActivateRootMotion();
+    }
+
+    public void StopClimbEvent()
+    {
+        DeActivateRootMotion();
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        anim.SetLayerWeight(4, 0);
+        ResetStates();
+        transform.position = new Vector3(model.transform.position.x, model.transform.position.y, 0);
+        model.transform.position = transform.position;
+    }
+
+    public void ActivateRootMotion()
+    {
+        anim.applyRootMotion = true;
+    }
+
+    public void DeActivateRootMotion()
+    {
+        anim.applyRootMotion = false;
     }
 }

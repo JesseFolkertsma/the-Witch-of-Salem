@@ -3,13 +3,20 @@ using System.Collections;
 
 public class _JonasAnimEvents : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    _PlayerBase pBase;
+
+    void Start()
+    {
+        pBase = GetComponentInParent<_PlayerBase>();
+    }
+
+    public void StartClimbing()
+    {
+        pBase.StartClimbEvent();
+    }
+
+    public void StopClimbing()
+    {
+        pBase.StopClimbEvent();
+    }
 }

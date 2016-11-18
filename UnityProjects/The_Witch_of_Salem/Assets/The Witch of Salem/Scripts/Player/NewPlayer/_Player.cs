@@ -35,6 +35,7 @@ public class _Player : _PlayerBaseCombat {
                 Grounded();
                 break;
             case BaseState.Climbing:
+                Climbing();
                 break;
             case BaseState.Falling:
                 break;

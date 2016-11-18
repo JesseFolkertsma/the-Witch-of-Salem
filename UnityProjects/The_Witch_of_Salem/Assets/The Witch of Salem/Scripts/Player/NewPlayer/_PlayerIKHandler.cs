@@ -2,14 +2,14 @@
 using System.Collections;
 
 public class _PlayerIKHandler : MonoBehaviour {
+    _PlayerBase pBase;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Start()
+    {
+        pBase = GetComponentInParent<_PlayerBase>();
+    }
+
+    void OnAnimatorIK()
+    {
+    }
 }
