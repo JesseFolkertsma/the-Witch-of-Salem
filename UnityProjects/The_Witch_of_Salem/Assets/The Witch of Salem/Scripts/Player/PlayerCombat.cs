@@ -10,13 +10,16 @@ public class PlayerCombat : PlayerComponent {
     float str = 0;
 
     bool jumpAttackCD;
-
-    bool waitForNextAttack;
+    
     bool waitForAttack;
+    public bool checkForHit;
+    public bool attacking;
 
     public int currentCombo;
+    public float waitForAttackTime;
+    Coroutine wait;
 
-    Coroutine activeAttack;
+    public List<Enemy> eHits = new List<Enemy>();
 
     public Animator bowAnim;
     
@@ -25,42 +28,14 @@ public class PlayerCombat : PlayerComponent {
         psm = p;
     }
 
-	void BasicAttack()
+    public void CombatUpdate()
     {
-        Debug.Log("Attack");
-        Collider[] hits;
-
-        if (psm.dir.x > 0)
+        if (Input.GetButton("Fire1") && waitForAttack)
         {
-            hits = Physics.OverlapBox(psm.transform.position + new Vector3(1, 1.25f, 0), new Vector3(1, .5f, .5f));
-        }
-        else
-        {
-            hits = Physics.OverlapBox(psm.transform.position + new Vector3(-1, 1.25f, 0), new Vector3(1, .5f, .5f));
-        }
-
-        Debug.Log(hits.Length);
-
-        List<Enemy> e = new List<Enemy>();
-
-        for (int i = 0;i < hits.Length; i++)
-        {
-            if(hits[i].attachedRigidbody != null)
-            {
-
-                hits[i].attachedRigidbody.AddExplosionForce(500, psm.transform.position + new Vector3(0, 1.25f, 0), 3);
-
-                if (hits[i].attachedRigidbody.GetComponent<Enemy>() != null)
-                {
-                    if (!e.Contains(hits[i].attachedRigidbody.GetComponent<Enemy>()))
-                    {
-                        e.Add(hits[i].attachedRigidbody.GetComponent<Enemy>());
-                        hits[i].attachedRigidbody.GetComponent<Enemy>().lives -= 1;
-                        MonoBehaviour.Instantiate(psm.blood, hits[i].ClosestPointOnBounds(psm.transform.position), Quaternion.identity);
-                    }
-
-                }
-            }
+            waitForAttack = false;
+            Debug.Log("HEY");
+            ComboAttack(currentCombo + 1);
+            psm.StopCoroutine(wait);
         }
     }
 
@@ -70,72 +45,50 @@ public class PlayerCombat : PlayerComponent {
         {
             combo = 1;
         }
-
         currentCombo = combo;
-
+        attacking = true;
+        waitForAttack = false;
         psm.anim.SetTrigger("Attack");
-
-        switch (combo)
-        {
-            case 1:
-                activeAttack = psm.StartCoroutine(WaitForAttackEffect(.7f, 1));
-                break;
-            case 2:
-                activeAttack = psm.StartCoroutine(WaitForAttackEffect(.6f, 1));
-                break;
-            case 3:
-                activeAttack = psm.StartCoroutine(WaitForAttackEffect(.8f, 1));
-                break;
-        }
     }
 
-    IEnumerator WaitForAttackEffect(float effect, float nextAttack)
+    public void CheckForHit()
+    {
+        checkForHit = true;
+        Debug.Log("CHecking for hits");
+    }
+
+    public void StopCheckForHit()
+    {
+        checkForHit = false;
+        eHits.Clear();
+        Debug.Log("Stop checking for hits");
+    }
+
+    public void ActivateWait()
+    {
+        wait = psm.StartCoroutine(WaitforAttack());
+    }
+
+    IEnumerator WaitforAttack()
     {
         waitForAttack = true;
-
-        yield return new WaitForSeconds(effect);
-
+        yield return new WaitForSeconds(1);
         waitForAttack = false;
-
-        BasicAttack();
-
-        waitForNextAttack = true;
-
-        yield return new WaitForSeconds(nextAttack);
-
-        waitForNextAttack = false;
-
-        Debug.Log("StopAttacking");
-
-        psm.state = PlayerStateMachine.State.Walking;
-        currentCombo = 0;
+        ExitComboLoop();
     }
 
-    public void WhileAttacking()
+    void ExitComboLoop()
     {
-        if (waitForAttack)
-        {
-            if(psm.dir.x < 0)
-            {
-                psm.transform.Translate(Vector3.left * Time.deltaTime * 2);
-            }
-            else
-            {
-                psm.transform.Translate(Vector3.right * Time.deltaTime * 2);
-            }
-        }
-        
-        if (waitForNextAttack)
-        {
-            psm.pm.Move(.2f, true);
-            if (Input.GetButtonDown("Fire1"))
-            {
-                psm.StopCoroutine(activeAttack);
-                waitForNextAttack = false;
-                Debug.Log("HEY");
-                ComboAttack(currentCombo + 1);
-            }
-        }
+        Debug.Log("Stop waiting");
+        psm.state = PlayerStateMachine.State.Idle;
+        attacking = false;
+        waitForAttack = false;
+    }
+
+    public void Stagger()
+    {
+        StopCheckForHit();
+        ExitComboLoop();
     }
 
     public void SprintAttack()
@@ -224,11 +177,10 @@ public class PlayerCombat : PlayerComponent {
         bowAnim.SetFloat("Blend", str);
 
         LookAtMouse(1);
-        psm.pm.Move(.5f, true);
 
         if (Input.GetButtonUp("Fire2"))
         {
-            psm.state = PlayerStateMachine.State.Walking;
+            psm.state = PlayerStateMachine.State.Idle;
             psm.anim.SetBool("AimBow", false);
         }
     }
@@ -247,10 +199,9 @@ public class PlayerCombat : PlayerComponent {
     {
         psm.anim.SetLayerWeight(1, 1);
         LookAtMouse(.3f);
-        psm.pm.Move(.5f, true);
         if (Input.GetButtonUp("Fire2"))
         {
-            psm.state = PlayerStateMachine.State.Walking;
+            psm.state = PlayerStateMachine.State.Idle;
             psm.anim.SetLayerWeight(1, 0);
         }
     }
@@ -258,13 +209,6 @@ public class PlayerCombat : PlayerComponent {
     public void LookAtMouse(float str)
     {
         psm.pIK.UseIK(psm.mouse, str);
-        if (psm.mouse.position.x > psm.transform.position.x)
-        {
-            psm.dir.x = 1;
-        }
-        else
-        {
-            psm.dir.x = -1;
-        }
     }
+
 }

@@ -3,17 +3,23 @@ using System.Collections;
 
 public class PlayerStateMachine : MonoBehaviour {
 
-    public enum State
+    public enum BaseState
     {
         CantMove,
-        Walking,
         Running,
-        Crouching,
+        Falling,
         Climbing,
-        Attacking,
-        Blocking,
-        Aiming
     };
+
+    public enum State
+    {
+        Idle,
+        Blocking,
+        Attacking,
+        Aiming,
+        JumpAttacking,
+        Rolling
+    }
 
     public enum CombatState
     {
@@ -22,16 +28,14 @@ public class PlayerStateMachine : MonoBehaviour {
         Unarmed
     };
 
-    public State state = State.Walking;
+    public BaseState baseState = BaseState.Running;
+    public State state = State.Idle;
     public CombatState combatState = CombatState.Melee;
 
     public PlayerStats ps;
     public PlayerMovements pm;
     public PlayerCombat pc;
     public PlayerIK pIK;
-    
-    [HideInInspector]
-    public Vector3 dir;
 
     [HideInInspector]
     public Animator anim;
@@ -47,7 +51,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public bool isClimbing;
     public bool jumpAttack;
     public bool isDead;
-
+    public bool dirMouseBased;
     public Transform model;
     public JonasWeapons weapons;
     public GameObject arrow;
@@ -81,29 +85,18 @@ public class PlayerStateMachine : MonoBehaviour {
 
     void Update ()
     {
-        if (state != State.CantMove)
+        if (baseState != BaseState.CantMove)
         {
             PlayerInput();
+            pc.CombatUpdate();
 
-            switch (state)
+            switch (baseState)
             {
-                case State.Walking:
-                    pm.Walk();
-                    break;
-                case State.Running:
+                case BaseState.Running:
                     pm.Run();
                     break;
-                case State.Crouching:
-                    pm.Crouch();
-                    break;
-                case State.Blocking:
-                    pc.Block();
-                    break;
-                case State.Aiming:
-                    pc.DrawArrow();
-                    break;
-                case State.Attacking:
-                    pc.WhileAttacking();
+                case BaseState.Falling:
+                    pm.Falling();
                     break;
             }
         }
@@ -123,12 +116,47 @@ public class PlayerStateMachine : MonoBehaviour {
         }
     }
 
+    public int Direction ()
+    {
+        int dir = 0;
+        if (dirMouseBased)
+        {
+            if (mouse.position.x > transform.position.x)
+            {
+                dir = 1;
+            }
+            else
+            {
+                dir = -1;
+            }
+        }
+        else if(!dirMouseBased)
+        {
+            if (pm.movement.x < 0)
+            {
+                dir = -1;
+            }
+            else if (pm.movement.x > 0)
+            {
+                dir = 1;
+            }
+        }
+        return dir;
+    }
+
+    public void ResetPlayer()
+    {
+        state = State.Idle;
+        baseState = BaseState.Running;
+    }
+
     void PlayerInput()
     {
         //Setup movement and check witch direction player is facing
         pm.movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         anim.SetFloat("Movement", pm.movement.x);
         anim.SetBool("IsFalling", isFalling);
+        anim.SetBool("Attacking", pc.attacking);
         anim.SetInteger("Combo", pc.currentCombo);
 
         //Check for falling
@@ -142,17 +170,17 @@ public class PlayerStateMachine : MonoBehaviour {
         }
 
         //Check for climbable object
-        if (Physics.Raycast(transform.position, dir, out ray, .5f))
+        if (Physics.Raycast(transform.position, new Vector3(Direction(),0,0), out ray, .5f))
         {
             if(ray.transform.tag == "Ladder")
             {
-                state = State.Climbing;
+                baseState = BaseState.Climbing;
                 pm.Climb();
             }
 
-            if(!Physics.Raycast(transform.position + new Vector3(0,1.5f,0), dir, .5f) && ray.transform.tag == "Ledge")
+            if(!Physics.Raycast(transform.position + new Vector3(0,1.5f,0), new Vector3(Direction(), 0, 0), .5f) && ray.transform.tag == "Ledge")
             {
-                state = State.Climbing;
+                baseState = BaseState.Climbing;
                 pm.Climb();
             }
             else if (ray.transform.tag == "Ledge")
@@ -191,29 +219,11 @@ public class PlayerStateMachine : MonoBehaviour {
                 return;
             }
 
-            switch (state)
+            switch (baseState)
             {
-                case State.Walking:
+                case BaseState.Running:
                     pc.ComboAttack(Random.Range(1, 4));
                     state = State.Attacking;
-                    break;
-                case State.Running:
-                    pc.SprintAttack();
-                    break;
-                case State.Crouching:
-                    print("Cant attack while crouching!");
-                    break;
-                case State.Blocking:
-                    pc.ComboAttack(Random.Range(1, 4));
-                    break;
-            }
-        }
-
-        if(combatState == CombatState.Ranged)
-        {
-            switch (state)
-            {
-                case State.Aiming:
                     break;
             }
         }
@@ -255,6 +265,29 @@ public class PlayerStateMachine : MonoBehaviour {
         {
             Instantiate(ragdoll, transform.position, transform.rotation);
             isDead = true;
+        }
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (pc.checkForHit)
+        {
+            if (col.attachedRigidbody)
+            {
+                if (col.attachedRigidbody.GetComponent<Enemy>())
+                {
+                    Enemy e = col.attachedRigidbody.GetComponent<Enemy>();
+                    if (!pc.eHits.Contains(e))
+                    {
+                        pc.eHits.Add(e);
+                        e.lives -= 1;
+                    }
+                }
+                if (col.attachedRigidbody.GetComponent<BreakableLootObject>())
+                {
+                    col.attachedRigidbody.GetComponent<BreakableLootObject>().Break(weapons.endSword.transform.position);
+                }
+            }
         }
     }
 }

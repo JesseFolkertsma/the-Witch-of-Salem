@@ -315,7 +315,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.39332944
+        functionName: CheckForHit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 756d143b2ef0f30438ec015ab9bb8061,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6727748
+        functionName: StopCheckForHit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 756d143b2ef0f30438ec015ab9bb8061,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8219896
+        functionName: ActivateWait
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 756d143b2ef0f30438ec015ab9bb8061,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -592,7 +616,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.65706795
+        functionName: CheckForHit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 756d143b2ef0f30438ec015ab9bb8061,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8691101
+        functionName: StopCheckForHit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 756d143b2ef0f30438ec015ab9bb8061,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9607332
+        functionName: ActivateWait
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 756d143b2ef0f30438ec015ab9bb8061,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -869,7 +917,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.43979052
+        functionName: CheckForHit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 756d143b2ef0f30438ec015ab9bb8061,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.64397895
+        functionName: StopCheckForHit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 756d143b2ef0f30438ec015ab9bb8061,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.82984287
+        functionName: ActivateWait
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 756d143b2ef0f30438ec015ab9bb8061,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
