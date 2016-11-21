@@ -25,12 +25,10 @@ struct appdata {
 	float2 texcoord : TEXCOORD0;
 	float2 texcoord1 : TEXCOORD1;
 	float2 texcoord2 : TEXCOORD2;
-	float4 vertColor : COLOR;
 };
 
 float _EdgeLength;
 float _Parallax;
-float _VertexAlpha;
 
 float4 tessEdge (appdata v0, appdata v1, appdata v2)
 {
@@ -39,26 +37,9 @@ float4 tessEdge (appdata v0, appdata v1, appdata v2)
 
 sampler2D _ParallaxMap;
 
-struct Input {
-	float2 uv_MainTex;
-	float2 uv_BumpMap;
-	float4 vertexColor;
-};
-
-struct v2f {
-	float4 pos : SV_POSITION;
-	fixed4 color : COLOR;
-};
-
-void vert(inout appdata_full v, out Input o) {
-	UNITY_INITIALIZE_OUTPUT(Input, o);
-	//o.customColor = v.color;
-	o.vertexColor = v.color;
-}
-
 void disp (inout appdata v)
 {
-	float d = tex2Dlod(_ParallaxMap, float4(v.texcoord.xy,0,0)).a * _Parallax * v.vertColor.g;
+	float d = tex2Dlod(_ParallaxMap, float4(v.texcoord.xy,0,0)).a * _Parallax;
 	v.vertex.xyz += v.normal * d;
 }
 
@@ -67,6 +48,10 @@ sampler2D _BumpMap;
 fixed4 _Color;
 half _Shininess;
 
+struct Input {
+	float2 uv_MainTex;
+	float2 uv_BumpMap;
+};
 
 void surf (Input IN, inout SurfaceOutput o) {
 	fixed4 tex = tex2D(_MainTex, IN.uv_MainTex);
