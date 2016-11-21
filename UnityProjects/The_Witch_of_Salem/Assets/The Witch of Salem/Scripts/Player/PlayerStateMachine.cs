@@ -28,9 +28,17 @@ public class PlayerStateMachine : MonoBehaviour {
         Unarmed
     };
 
+    public enum VelocityState
+    {
+        Limited,
+        Normal,
+        Extreme
+    };
+
     public BaseState baseState = BaseState.Running;
     public State state = State.Idle;
     public CombatState combatState = CombatState.Melee;
+    public VelocityState velocityState = VelocityState.Limited;
 
     public PlayerStats ps;
     public PlayerMovements pm;
@@ -41,6 +49,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public Animator anim;
     [HideInInspector]
     public Rigidbody rb;
+    public AudioSource audioS;
     public RaycastHit ray;
 
     public float movementSpeed;
@@ -52,6 +61,7 @@ public class PlayerStateMachine : MonoBehaviour {
     public bool jumpAttack;
     public bool isDead;
     public bool dirMouseBased;
+    public bool canJump;
     public Transform model;
     public JonasWeapons weapons;
     public GameObject arrow;
@@ -63,8 +73,11 @@ public class PlayerStateMachine : MonoBehaviour {
     public GameObject blood;
 
     public GameObject ragdoll;
+    public AudioClip switchweapons;
+    public AudioClip swing;
 
     Transform playerM;
+    public Collider holdCol;
 
     void Start()
     {
@@ -81,6 +94,7 @@ public class PlayerStateMachine : MonoBehaviour {
         playerM = transform.FindChild("PlayerMiddle");
         pc.bowAnim = weapons.bow.GetComponent<Animator>();
         weapons.bow.SetActive(false);
+        audioS = GetComponent<AudioSource>();
     }
 
     void Update ()
@@ -98,6 +112,9 @@ public class PlayerStateMachine : MonoBehaviour {
                 case BaseState.Falling:
                     pm.Falling();
                     break;
+                case BaseState.Climbing:
+                    pm.ClimbLedge();
+                    break;
             }
         }
 
@@ -113,6 +130,35 @@ public class PlayerStateMachine : MonoBehaviour {
         if(jumpAttack == true)
         {
             pc.JumpAttack();
+        }
+        LimitVelocity();
+    }
+
+    void LimitVelocity()
+    {
+        switch (velocityState)
+        {
+            case VelocityState.Limited:
+                if (rb.velocity.x > 5)
+                {
+                    rb.velocity = new Vector3(5, rb.velocity.y, 0);
+                }
+                if (rb.velocity.x < -5)
+                {
+                    rb.velocity = new Vector3(-5, rb.velocity.y, 0);
+                }
+                if (rb.velocity.y > 10)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, 10, 0);
+                }
+                if (rb.velocity.y < -10)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, -10, 0);
+                }
+                break;
+            case VelocityState.Extreme:
+                rb.velocity *= 2;
+                break;
         }
     }
 
@@ -152,6 +198,15 @@ public class PlayerStateMachine : MonoBehaviour {
 
     void PlayerInput()
     {
+        if (Input.GetButtonDown("Alt"))
+        {
+            transform.position += Vector3.up * .5f;
+        }
+        if (Input.GetButtonDown("P"))
+        {
+            transform.position = new Vector3(11,8,0);
+        }
+
         //Setup movement and check witch direction player is facing
         pm.movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         anim.SetFloat("Movement", pm.movement.x);
@@ -160,39 +215,46 @@ public class PlayerStateMachine : MonoBehaviour {
         anim.SetInteger("Combo", pc.currentCombo);
 
         //Check for falling
-        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, checkForFloorRange))
+        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, checkForFloorRange + .5f) && baseState != BaseState.Climbing)
         {
             isFalling = false;
             baseState = BaseState.Running;
         }
-        else
+        else if (!Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, checkForFloorRange + .5f) && baseState != BaseState.Climbing)
         {
             isFalling = true;
             baseState = BaseState.Falling;
         }
 
+        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, checkForFloorRange))
+        {
+            canJump = true;
+        }
+        else
+        {
+            canJump = false;
+        }
+
+        Debug.DrawRay(transform.position + Vector3.up * 1, new Vector3(Direction(), 0, 0), Color.green);
+        Debug.DrawRay(transform.position + Vector3.up * 1.5f, new Vector3(Direction(), 0, 0), Color.red);
+
         //Check for climbable object
-        if (Physics.Raycast(transform.position, new Vector3(Direction(),0,0), out ray, .5f))
+        if (Physics.Raycast(transform.position + Vector3.up * 1, new Vector3(Direction(),0,0), out ray, .5f))
         {
             if(ray.transform.tag == "Ladder")
             {
                 baseState = BaseState.Climbing;
-                pm.Climb();
             }
 
-            if(!Physics.Raycast(transform.position + new Vector3(0,1.5f,0), new Vector3(Direction(), 0, 0), .5f) && ray.transform.tag == "Ledge")
+            if(!Physics.Raycast(transform.position + Vector3.up * 1.5f, new Vector3(Direction(), 0, 0), .5f) && ray.transform.tag == "Ledge")
             {
                 baseState = BaseState.Climbing;
-                pm.Climb();
-            }
-            else if (ray.transform.tag == "Ledge")
-            {
-                pm.DropClimb();
+                holdCol = ray.collider;
             }
         }
-        else if(isClimbing == true)
+        else
         {
-            pm.ClimbUp();
+            pIK.UseHandIK(Vector3.zero, false);
         }
 
         //Stuff for weaponswapping
@@ -259,6 +321,8 @@ public class PlayerStateMachine : MonoBehaviour {
             weapons.endSword.SetActive(true);
             weapons.endShield.SetActive(true);
         }
+        audioS.clip = switchweapons;
+        audioS.Play();
     }
 
     public void Die()
@@ -282,7 +346,7 @@ public class PlayerStateMachine : MonoBehaviour {
                     if (!pc.eHits.Contains(e))
                     {
                         pc.eHits.Add(e);
-                        e.lives -= 1;
+                        e.TakeDamage(1);
                     }
                 }
                 if (col.attachedRigidbody.GetComponent<BreakableLootObject>())

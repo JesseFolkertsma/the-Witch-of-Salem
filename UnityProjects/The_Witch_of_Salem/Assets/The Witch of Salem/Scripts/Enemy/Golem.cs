@@ -9,9 +9,15 @@ public class Golem : GroundEnemy {
 
     public GameObject smashParticle;
 
+    public AudioSource audioS;
+
+    public AudioClip smash;
+    public AudioClip getHit;
+
     void Start()
     {
         GEStart();
+        audioS = GetComponent<AudioSource>();
     }
 
 	void Update ()
@@ -31,9 +37,18 @@ public class Golem : GroundEnemy {
         }
     }
 
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        audioS.clip = getHit;
+        audioS.Play();
+    }
+
     IEnumerator WaitForEffect()
     {
         yield return new WaitForSeconds(1.7f);
+        audioS.clip = smash;
+        audioS.Play();
         Collider[] col = Physics.OverlapSphere(transform.position, 4);
         bool hitPlayer = false;
         for (int i = 0; i < col.Length; i++)

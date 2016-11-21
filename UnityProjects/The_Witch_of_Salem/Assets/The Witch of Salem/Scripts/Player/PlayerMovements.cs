@@ -78,7 +78,6 @@ public class PlayerMovements : PlayerComponent {
                 break;
             case PlayerStateMachine.State.Attacking:
                 psm.anim.SetLayerWeight(1, 0);
-                psm.dirMouseBased = true;
                 attacking = true;
                 runSpeed = .1f;
                 break;
@@ -157,15 +156,29 @@ public class PlayerMovements : PlayerComponent {
 
     public void ClimbLedge()
     {
-        if (psm.isClimbing == false)
+
+        psm.rb.isKinematic = true;
+        psm.anim.SetLayerWeight(4, 1);
+        if (Input.GetButtonDown("Jump"))
         {
-            psm.rb.isKinematic = true;
-            psm.isClimbing = true;
+            ClimbUp();
         }
 
-        moveSpeed = Mathf.Lerp(moveSpeed, 1, Time.deltaTime * 2f);
-        movement *= moveSpeed;
-        psm.transform.Translate(new Vector3(0, movement.y, 0) * psm.climbSpeed * Time.deltaTime);
+        Vector3 pos;
+
+        if(psm.holdCol.transform.position.x < psm.transform.position.x)
+        {
+            pos = psm.holdCol.bounds.center + new Vector3(psm.holdCol.bounds.extents.x, psm.holdCol.bounds.extents.y, 0);
+            psm.model.transform.rotation = Quaternion.Euler(0, -90, 0);
+            psm.transform.position = psm.holdCol.bounds.center + new Vector3(psm.holdCol.bounds.extents.x + .3f, psm.holdCol.bounds.extents.y - 2f, 0);
+        }
+        else
+        {
+            pos = psm.holdCol.bounds.center + new Vector3(-psm.holdCol.bounds.extents.x, psm.holdCol.bounds.extents.y, 0);
+            psm.model.transform.rotation = Quaternion.Euler(0, 90, 0);
+            psm.transform.position = psm.holdCol.bounds.center + new Vector3(-psm.holdCol.bounds.extents.x - .3f, psm.holdCol.bounds.extents.y - 2f, 0);
+        }
+        //psm.pIK.UseHandIK(pos, true);
     }
 
     public void Climb()
@@ -194,10 +207,25 @@ public class PlayerMovements : PlayerComponent {
 
     public void ClimbUp()
     {
+        psm.anim.SetTrigger("ClimbUp");
+    }
+
+    public void StartClimbEvent()
+    {
+        psm.anim.applyRootMotion = true;
+        psm.pIK.UseHandIK(Vector3.zero, false);
+    }
+
+    public void StopClimbEvent()
+    {
+        psm.anim.applyRootMotion = false;
+        psm.rb.useGravity = true;
         psm.rb.isKinematic = false;
-        psm.isClimbing = false;
-        psm.transform.position += new Vector3(psm.Direction(), 1, 0);
+        psm.anim.SetLayerWeight(4, 0);
         psm.baseState = PlayerStateMachine.BaseState.Running;
+        psm.transform.position = new Vector3(psm.model.transform.position.x, psm.model.transform.position.y, 0);
+        psm.model.transform.position = psm.transform.position;
+        psm.pIK.UseHandIK(Vector3.zero, false);
     }
 
     public void DropClimb()
@@ -222,6 +250,7 @@ public class PlayerMovements : PlayerComponent {
             psm.anim.SetTrigger("Roll");
             psm.StartCoroutine(CombatRollCD());
             psm.anim.SetBool("Rolling", true);
+            psm.pc.ResetCombatState();
         }
     }
 
@@ -237,7 +266,11 @@ public class PlayerMovements : PlayerComponent {
 
     public void Jump()
     {
-        Vector3 jump = new Vector3(movement.x * 3, 7, 0);
-        psm.rb.velocity += jump;
+        if (psm.canJump)
+        {
+            Vector3 jump = new Vector3(movement.x * 3, 7, 0);
+            psm.rb.velocity += jump;
+            psm.pc.ResetCombatState();
+        }
     }
 }

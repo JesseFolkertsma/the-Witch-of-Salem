@@ -55,6 +55,8 @@ public class PlayerCombat : PlayerComponent {
     {
         checkForHit = true;
         Debug.Log("CHecking for hits");
+        psm.audioS.clip = psm.swing;
+        psm.audioS.Play();
     }
 
     public void StopCheckForHit()
@@ -72,7 +74,7 @@ public class PlayerCombat : PlayerComponent {
     IEnumerator WaitforAttack()
     {
         waitForAttack = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.4f);
         waitForAttack = false;
         ExitComboLoop();
     }
@@ -183,6 +185,11 @@ public class PlayerCombat : PlayerComponent {
             psm.state = PlayerStateMachine.State.Idle;
             psm.anim.SetBool("AimBow", false);
         }
+    }
+
+    public void ResetCombatState()
+    {
+        psm.state = PlayerStateMachine.State.Idle;
     }
 
     public void ShootArrow(float strenght)

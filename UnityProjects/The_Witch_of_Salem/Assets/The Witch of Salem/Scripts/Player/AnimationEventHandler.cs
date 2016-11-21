@@ -25,4 +25,14 @@ public class AnimationEventHandler : MonoBehaviour {
         psm.pc.ActivateWait();
     }
 
+    public void StartClimbing()
+    {
+        psm.pm.StartClimbEvent();
+    }
+
+    public void StopClimbing()
+    {
+        psm.pm.StopClimbEvent();
+    }
+
 }

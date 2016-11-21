@@ -338,6 +338,7 @@ GameObject:
   - 4: {fileID: 4000013634578982}
   - 54: {fileID: 54000013336637502}
   - 114: {fileID: 114000010198277478}
+  - 82: {fileID: 82000010498573936}
   m_Layer: 0
   m_Name: MC_Rock_Golem
   m_TagString: Enemy
@@ -2190,8 +2191,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011024673424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.845766, y: 0.5, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 65.676796, y: -13.554043, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -2442,6 +2443,80 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0081257215, y: 0.009427842, z: 0.008169837}
   m_Center: {x: 0.0040628607, y: 0.0019074259, z: -0.0017432952}
+--- !u!82 &82000010498573936
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011024673424}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95000012096083068
 Animator:
   serializedVersion: 3
@@ -2494,6 +2569,9 @@ MonoBehaviour:
   ragdoll: {fileID: 1000011024673424, guid: f02204b118697424da94cdffdedf44ea, type: 2}
   smashParticle: {fileID: 1000012600757078, guid: 2ab9a9b4036e78d4283c50bc2cf54d93,
     type: 2}
+  audioS: {fileID: 0}
+  smash: {fileID: 8300000, guid: 7afc2679f80c72143a39b825e9a4f7f9, type: 3}
+  getHit: {fileID: 8300000, guid: cdc95f6c10d1e2b419b713f4685366c3, type: 3}
 --- !u!135 &135000010403153028
 SphereCollider:
   m_ObjectHideFlags: 1
