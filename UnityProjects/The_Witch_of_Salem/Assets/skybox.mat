@@ -168,7 +168,7 @@ Material:
       second: 2
     - first:
         name: _SunSize
-      second: 0.04
+      second: 0.516
     - first:
         name: _UVSec
       second: 0
