@@ -8,12 +8,6 @@ AnimatorController:
   m_Name: Jonas Animator Controller
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Movement
-    m_Type: 1
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: Combo
     m_Type: 3
     m_DefaultFloat: 0
@@ -50,12 +44,6 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Attacking
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: Jump
     m_Type: 9
     m_DefaultFloat: 0
@@ -82,6 +70,18 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: ClimbUp
     m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Movement
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Attacking
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -809,8 +809,8 @@ AnimatorStateTransition:
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.8913044
+  m_TransitionOffset: 0.25988722
+  m_ExitTime: 1.1549577
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

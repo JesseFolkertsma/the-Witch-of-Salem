@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class _PlayerBase : MonoBehaviour
 {
@@ -22,11 +23,14 @@ public class _PlayerBase : MonoBehaviour
     public Transform model;
     public _PlayerMouse mouse;
     public LayerMask lm;
+    public _PlayerIKHandler ikHandler;
 
     public float xInput, yInput;
     public bool useRootMovement = true;
     public bool isDead;
     public bool isFalling, canClimbUp;
+
+    public Vector3 holdPos;
 
     bool canJump;
 
@@ -55,6 +59,7 @@ public class _PlayerBase : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         model = transform.GetChild(0);
+        ikHandler = GetComponentInChildren<_PlayerIKHandler>();
     }
 
     public virtual void InputHandler()
@@ -69,6 +74,7 @@ public class _PlayerBase : MonoBehaviour
         //Animator Parameters
         anim.SetFloat("Movement", xInput);
         anim.SetFloat("ClimbingY", yInput);
+        anim.SetBool("IsFalling", isFalling);
     }
 
     public virtual void Checks()
@@ -80,19 +86,39 @@ public class _PlayerBase : MonoBehaviour
 
         if(Physics.Raycast(transform.position + Vector3.up, Vector3.down, 1.1f, lm))
         {
-            isFalling = false;
+            if (baseState != BaseState.Climbing && baseState != BaseState.Hanging)
+            {
+                isFalling = false;
+                baseState = BaseState.Grounded;
+            }
         }
         else
         {
-            isFalling = true;
+            if (baseState != BaseState.Climbing && baseState != BaseState.Hanging)
+            {
+                isFalling = true;
+                baseState = BaseState.Falling;
+            }
         }
 
         Debug.DrawRay(transform.position + Vector3.up, Vector3.right * walkingDirection, Color.red);
         Debug.DrawRay(transform.position + Vector3.up * 1.2f, Vector3.right * walkingDirection, Color.blue);
 
         RaycastHit climbHit;
-        if(Physics.Raycast(transform.position + Vector3.up, Vector3.right * walkingDirection, out climbHit, .4f, lm))
+        if(Physics.Raycast(transform.position + Vector3.up, Vector3.right * walkingDirection, out climbHit, .3f, lm))
         {
+            float offset;
+            if(climbHit.transform.position.x > transform.position.x)
+            {
+                offset = 2;
+            }
+            else
+            {
+                offset = -2;
+            }
+
+            holdPos = climbHit.collider.ClosestPointOnBounds(transform.position) + Vector3.right * offset;
+
             if (climbHit.transform.tag == "Ladder" && baseState != BaseState.Climbing)
             {
                 baseState = BaseState.Climbing;
@@ -171,7 +197,6 @@ public class _PlayerBase : MonoBehaviour
             if (!Physics.Raycast(transform.position + Vector3.up * 1.2f, Vector3.right * walkingDirection, 1f, lm))
             {
                 HangOnLedge();
-                print("GO CLIMB");
             }
         }
     }
@@ -181,6 +206,7 @@ public class _PlayerBase : MonoBehaviour
         rb.useGravity = false;
         baseState = BaseState.Hanging;
         rb.velocity = Vector3.zero;
+        print("GO CLIMB");
     }
 
     public virtual void ClimbUp()
@@ -208,7 +234,7 @@ public class _PlayerBase : MonoBehaviour
     {
         if (canJump && baseState == BaseState.Grounded)
         {
-            rb.velocity += Vector3.up * jumpHeight;
+            rb.velocity += Vector3.up * jumpHeight + Vector3.right * xInput * 4;
             anim.SetTrigger("Jump");
         }
     }

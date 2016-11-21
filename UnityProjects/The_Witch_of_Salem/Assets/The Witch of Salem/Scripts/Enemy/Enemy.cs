@@ -31,6 +31,11 @@ public class Enemy : MonoBehaviour {
             return TargetDirection.Left;
         }
     }
+
+    public virtual void TakeDamage(int damage)
+    {
+        lives -= damage;
+    }
     
     public virtual void Die()
     {

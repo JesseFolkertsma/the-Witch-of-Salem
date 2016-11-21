@@ -3,11 +3,11 @@ using System.Collections;
 
 public class _JonasAnimEvents : MonoBehaviour {
 
-    _PlayerBase pBase;
+    _Player pBase;
 
     void Start()
     {
-        pBase = GetComponentInParent<_PlayerBase>();
+        pBase = GetComponentInParent<_Player>();
     }
 
     public void StartClimbing()
@@ -18,5 +18,20 @@ public class _JonasAnimEvents : MonoBehaviour {
     public void StopClimbing()
     {
         pBase.StopClimbEvent();
+    }
+
+    public void CheckForHit()
+    {
+        pBase.StartAttackEvent();
+    }
+
+    public void StopCheckForHit()
+    {
+        pBase.StopAttackEvent();
+    }
+
+    public void ActivateWait()
+    {
+        pBase.WaitForNextAttackEvent();
     }
 }

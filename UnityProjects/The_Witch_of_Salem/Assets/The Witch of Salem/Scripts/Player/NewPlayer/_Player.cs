@@ -25,6 +25,17 @@ public class _Player : _PlayerBaseCombat {
         }
     }
 
+    void LateUpdate()
+    {
+        if(baseState != BaseState.CantMove)
+        {
+            if(baseState == BaseState.Hanging)
+            {
+                ikHandler.UseIKHands(holdPos);
+            }
+        }
+    }
+
     void CheckState()
     {
         switch (baseState)
@@ -38,6 +49,7 @@ public class _Player : _PlayerBaseCombat {
                 Climbing();
                 break;
             case BaseState.Falling:
+                Falling();
                 break;
         }
     }
