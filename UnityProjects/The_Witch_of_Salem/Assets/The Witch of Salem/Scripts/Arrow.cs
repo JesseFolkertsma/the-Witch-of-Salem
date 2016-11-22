@@ -29,7 +29,7 @@ public class Arrow : MonoBehaviour {
             {
                 if (col.attachedRigidbody.GetComponent<Enemy>() != null)
                 {
-                    col.attachedRigidbody.GetComponent<Enemy>().lives -= 1;
+                    col.attachedRigidbody.GetComponent<Enemy>().TakeDamage(1);
                 }
             }
 
