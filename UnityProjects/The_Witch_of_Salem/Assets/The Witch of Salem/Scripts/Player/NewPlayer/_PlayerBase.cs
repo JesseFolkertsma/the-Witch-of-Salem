@@ -102,10 +102,10 @@ public class _PlayerBase : MonoBehaviour
         }
 
         Debug.DrawRay(transform.position + Vector3.up, Vector3.right * walkingDirection, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * 1.2f, Vector3.right * walkingDirection, Color.blue);
+        Debug.DrawRay(transform.position + Vector3.up * 2f, Vector3.right * walkingDirection, Color.blue);
 
         RaycastHit climbHit;
-        if(Physics.Raycast(transform.position + Vector3.up, Vector3.right * walkingDirection, out climbHit, .3f, lm))
+        if(Physics.Raycast(transform.position + Vector3.up, Vector3.right * walkingDirection, out climbHit, .4f, lm))
         {
             float offset;
             if(climbHit.transform.position.x > transform.position.x)
@@ -117,9 +117,9 @@ public class _PlayerBase : MonoBehaviour
                 offset = -2;
             }
 
-            holdPos = climbHit.collider.ClosestPointOnBounds(transform.position) + Vector3.right * offset;
+            holdPos = climbHit.collider.ClosestPointOnBounds(transform.position + Vector3.up * 5 + -model.transform.forward ) + Vector3.right * offset;
 
-            if (climbHit.transform.tag == "Ladder" && baseState != BaseState.Climbing)
+            if (climbHit.transform.tag == "Ladder" && baseState != BaseState.Climbing && baseState != BaseState.Hanging) 
             {
                 baseState = BaseState.Climbing;
             }
@@ -135,16 +135,23 @@ public class _PlayerBase : MonoBehaviour
         baseState = BaseState.Grounded;
     }
 
-    public virtual void Move(float moveSpeed)
+    public virtual void Move(float moveSpeed, bool turnToMouse)
     {
         transform.Translate(new Vector3(xInput, 0, 0) * moveSpeed * movementSpeed * Time.fixedDeltaTime);
-        if(xInput > 0.1)
+        if (turnToMouse)
         {
-            TurnPlayer(true, 1);
+            TurnPlayer(true, GetMouseDirection);
         }
-        else if (xInput < -.1f)
+        else
         {
-            TurnPlayer(true, -1);
+            if (xInput > 0.1)
+            {
+                TurnPlayer(true, 1);
+            }
+            else if (xInput < -.1f)
+            {
+                TurnPlayer(true, -1);
+            }
         }
     }
 
@@ -179,7 +186,7 @@ public class _PlayerBase : MonoBehaviour
     {
         if (useRootMovement)
         {
-            Move(5);
+            Move(5, false);
             canJump = true;
         }
     }
@@ -189,12 +196,13 @@ public class _PlayerBase : MonoBehaviour
         if (useRootMovement)
         {
             anim.SetLayerWeight(4, 1);
+            TurnPlayer(false, walkingDirection);
             Vector3 climbVector = new Vector3(0, yInput * climbSpeed / 100, 0);
             transform.Translate(climbVector);
             rb.useGravity = false;
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
-            if (!Physics.Raycast(transform.position + Vector3.up * 2.5f, Vector3.right * walkingDirection, 1f, lm))
+            if (!Physics.Raycast(transform.position + Vector3.up * 2, Vector3.right * walkingDirection, 1f, lm))
             {
                 HangOnLedge();
             }
@@ -203,6 +211,7 @@ public class _PlayerBase : MonoBehaviour
 
     public virtual void HangOnLedge()
     {
+        TurnPlayer(false, walkingDirection);
         rb.useGravity = false;
         baseState = BaseState.Hanging;
         rb.velocity = Vector3.zero;
@@ -226,7 +235,7 @@ public class _PlayerBase : MonoBehaviour
     {
         if (useRootMovement)
         {
-            Move(1);
+            Move(1, false);
         }
     }
 
@@ -236,6 +245,19 @@ public class _PlayerBase : MonoBehaviour
         {
             rb.velocity += Vector3.up * jumpHeight + Vector3.right * xInput * 4;
             anim.SetTrigger("Jump");
+        }
+        if(baseState == BaseState.Climbing || baseState == BaseState.Hanging)
+        {
+            if(!Mathf.Approximately(xInput, 0))
+            {
+                TurnPlayer(false, -1 * walkingDirection);
+                DeActivateRootMotion();
+                rb.useGravity = true;
+                rb.isKinematic = false;
+                anim.SetLayerWeight(4, 0);
+                ResetStates();
+                rb.velocity += Vector3.up * 3 + Vector3.right * xInput * 6;
+            }
         }
     }
 
@@ -259,7 +281,7 @@ public class _PlayerBase : MonoBehaviour
         rb.isKinematic = false;
         anim.SetLayerWeight(4, 0);
         ResetStates();
-        transform.position = new Vector3(model.transform.position.x, model.transform.position.y, 0);
+        transform.position = new Vector3(model.transform.position.x, model.transform.position.y + 1, 0);
         model.transform.position = transform.position;
     }
 

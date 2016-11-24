@@ -3227,7 +3227,7 @@ MonoBehaviour:
   holdPos: {x: 0, y: 0, z: 0}
   walkingDirection: 0
   combatState: 7
-  currentWeapon: 0
+  currentWeapon: 1
   swordDamage: 0
   arrowDamage: 0
   comboInt: 0

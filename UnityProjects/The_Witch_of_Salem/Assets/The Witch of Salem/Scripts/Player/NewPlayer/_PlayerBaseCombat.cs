@@ -11,6 +11,7 @@ public class _PlayerBaseCombat : _PlayerBase {
         Rolling,
         Blocking,
         Aiming,
+        ChargeBow,
         Attacking,
         PierceAttack,
         Idle
@@ -42,12 +43,29 @@ public class _PlayerBaseCombat : _PlayerBase {
         base.InputHandler();
         if (Input.GetButtonDown("Fire1"))
         {
-            Attack();
+            LeftMouseDown();
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            LeftMouseUp();
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            RightMouseDown();
+        }
+        if (Input.GetButtonUp("Fire2"))
+        {
+            RightMouseUp();
+        }
+        if (Input.GetButtonDown("Fire3"))
+        {
+            SwitchWeapons();
         }
         if (Input.GetButtonDown("Control"))
         {
             CombatRoll();
         }
+
         //Animator parameters
         anim.SetInteger("Combo", comboInt);
         anim.SetBool("Attacking", attacking);
@@ -78,26 +96,76 @@ public class _PlayerBaseCombat : _PlayerBase {
         lives -= damage;
     }
 
-    public void Attack()
+    public void LeftMouseDown()
     {
-        if (baseState == BaseState.Grounded)
+        if (currentWeapon == Weapon.Sword)
         {
-            if(combatState == CombatState.Idle)
+            if (baseState == BaseState.Grounded)
             {
-                ComboAttack(Random.Range(1,4));
+                if (combatState == CombatState.Idle)
+                {
+                    ComboAttack(Random.Range(1, 4));
+                }
+                if (combatState == CombatState.Attacking && waitForNextAttack)
+                {
+                    ComboAttack(comboInt + 1);
+                }
             }
-            if(combatState == CombatState.Attacking && waitForNextAttack)
+            else if (baseState == BaseState.Falling)
             {
-                ComboAttack(comboInt + 1);
+                if (combatState == CombatState.Idle)
+                {
+                    JumpAttack();
+                }
             }
         }
-        else if(baseState == BaseState.Falling)
+        else if (currentWeapon == Weapon.Bow)
         {
-            if(combatState == CombatState.Idle)
+            if (combatState == CombatState.Aiming)
             {
-                JumpAttack();
+                combatState = CombatState.ChargeBow;
             }
         }
+    }
+
+    public void LeftMouseUp()
+    {
+        if(combatState == CombatState.ChargeBow)
+        {
+            ShootArrow();
+            combatState = CombatState.Aiming;
+        }
+    }
+
+    public void RightMouseDown()
+    {
+        if(currentWeapon == Weapon.Bow)
+        {
+            combatState = CombatState.Aiming;
+        }
+    }
+
+    public void RightMouseUp()
+    {
+        if(combatState == CombatState.Aiming || combatState == CombatState.ChargeBow)
+        {
+            combatState = CombatState.Idle;
+        }
+    }
+
+    public void AimBow()
+    {
+        Move(2f, true);
+    }
+
+    public void ChargeBow()
+    {
+        AimBow();
+    }
+
+    public void ShootArrow()
+    {
+
     }
 
     public void JumpAttack()
@@ -131,6 +199,18 @@ public class _PlayerBaseCombat : _PlayerBase {
         combatState = CombatState.Attacking;
         attacking = true;
         anim.SetTrigger("Attack");
+    }
+
+    public void SwitchWeapons()
+    {
+        if(currentWeapon == Weapon.Sword)
+        {
+            currentWeapon = Weapon.Bow;
+        }
+        else if (currentWeapon == Weapon.Bow)
+        {
+            currentWeapon = Weapon.Sword;
+        }
     }
 
     public void StartAttackEvent()

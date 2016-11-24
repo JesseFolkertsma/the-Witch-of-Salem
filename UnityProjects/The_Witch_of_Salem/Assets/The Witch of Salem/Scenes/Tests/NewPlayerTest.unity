@@ -196,7 +196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0258e315fb1f5b742a2386a998a26be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pMangager: {fileID: 0}
 --- !u!4 &537804159
 Transform:
   m_ObjectHideFlags: 0
@@ -248,6 +247,10 @@ Prefab:
     - target: {fileID: 4000013634578982, guid: 9b53d638213ae474f855b6e76ecaa757, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011024673424, guid: 9b53d638213ae474f855b6e76ecaa757, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b53d638213ae474f855b6e76ecaa757, type: 2}
@@ -538,6 +541,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013681992676, guid: d74fc667f7fb32849a81516ee1979d49,
+        type: 2}
+      propertyPath: mouse
+      value: 
+      objectReference: {fileID: 977521463}
     - target: {fileID: 1000014094166236, guid: d74fc667f7fb32849a81516ee1979d49, type: 2}
       propertyPath: m_Name
       value: NewPlayer

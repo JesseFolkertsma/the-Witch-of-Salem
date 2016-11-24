@@ -591,7 +591,7 @@ ModelImporter:
       - path: metarig/hips/thigh.R/shin.R/heel.R/heel.02.R/heel.02.R_end
         weight: 0
       maskType: 0
-      maskSource: {instanceID: 0}
+      maskSource: {fileID: 101100000, guid: ddf1a0665f6e7084fb7f6092f74a5ffd, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: ComboAttack02
@@ -892,7 +892,7 @@ ModelImporter:
       - path: metarig/hips/thigh.R/shin.R/heel.R/heel.02.R/heel.02.R_end
         weight: 0
       maskType: 0
-      maskSource: {instanceID: 0}
+      maskSource: {fileID: 101100000, guid: ddf1a0665f6e7084fb7f6092f74a5ffd, type: 2}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: ComboAttack03

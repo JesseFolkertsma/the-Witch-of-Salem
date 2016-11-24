@@ -33,6 +33,10 @@ public class _Player : _PlayerBaseCombat {
             {
                 ikHandler.UseIKHands(holdPos);
             }
+            if(combatState == CombatState.Aiming || combatState == CombatState.ChargeBow)
+            {
+                ikHandler.UseIKLookat(mouse.GetPosition, .5f);
+            }
         }
     }
 
@@ -50,6 +54,15 @@ public class _Player : _PlayerBaseCombat {
                 break;
             case BaseState.Falling:
                 Falling();
+                break;
+        }
+        switch (combatState)
+        {
+            case CombatState.Aiming:
+                AimBow();
+                break;
+            case CombatState.ChargeBow:
+                AimBow();
                 break;
         }
     }
