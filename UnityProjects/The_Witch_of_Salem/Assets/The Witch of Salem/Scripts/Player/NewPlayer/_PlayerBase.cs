@@ -194,7 +194,7 @@ public class _PlayerBase : MonoBehaviour
             rb.useGravity = false;
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
-            if (!Physics.Raycast(transform.position + Vector3.up * 1.2f, Vector3.right * walkingDirection, 1f, lm))
+            if (!Physics.Raycast(transform.position + Vector3.up * 2.5f, Vector3.right * walkingDirection, 1f, lm))
             {
                 HangOnLedge();
             }
