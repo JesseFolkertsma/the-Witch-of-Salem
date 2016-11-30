@@ -36,13 +36,13 @@ Material:
     m_Floats:
     - first:
         name: _Cull
-      second: 0
+      second: 1
     - first:
         name: _Cutoff
       second: 0.33
     - first:
         name: _WindQuality
-      second: 4
+      second: 2
     m_Colors:
     - first:
         name: _Color
