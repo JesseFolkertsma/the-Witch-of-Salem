@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ae14864329ede65468f470496aff7bd1
-timeCreated: 1480531471
+timeCreated: 1480590958
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -1405,8 +1405,8 @@ SubstanceImporter:
     buildTargetSettings:
     - serializedVersion: 2
       buildTarget: 
-      textureWidth: 1024
-      textureHeight: 1024
+      textureWidth: 512
+      textureHeight: 512
       textureFormat: 0
       loadingBehavior: 1
   - serializedVersion: 16
