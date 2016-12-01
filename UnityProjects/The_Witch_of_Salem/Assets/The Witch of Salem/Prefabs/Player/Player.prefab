@@ -3169,9 +3169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f50959ed6dabbf49b2d58bb54d96b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 0
+  lives: 5
   maxLives: 5
-  apples: 0
+  apples: 5
   baseState: 1
   movementSpeed: 1
   climbSpeed: 3
@@ -3190,11 +3190,11 @@ MonoBehaviour:
   useRootMovement: 1
   isDead: 0
   walkingDirection: 0
-  combatState: 7
+  combatState: 8
   currentWeapon: 1
   swordDamage: 0
   arrowDamage: 0
-  arrows: 0
+  arrows: 10
   sword: {fileID: 1000010239635816}
   shield: {fileID: 1000011035962538}
   bow: {fileID: 1000011545593108}
