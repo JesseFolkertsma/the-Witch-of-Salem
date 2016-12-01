@@ -53,13 +53,13 @@ public class Golem : GroundEnemy {
         bool hitPlayer = false;
         for (int i = 0; i < col.Length; i++)
         {
-            if(col[i].attachedRigidbody != null)
+            if(col[i].attachedRigidbody)
             {
                 col[i].attachedRigidbody.AddExplosionForce(100, transform.position, 4);
 
-                if(col[i].attachedRigidbody.GetComponent<PlayerStateMachine>() != null && hitPlayer == false)
+                if(col[i].attachedRigidbody.GetComponent<_PlayerBaseCombat>() && hitPlayer == false)
                 {
-                    col[i].attachedRigidbody.GetComponent<PlayerStateMachine>().ps.lives -= 2;
+                    col[i].attachedRigidbody.GetComponent<_PlayerBaseCombat>().TakeDamage(2);
                     hitPlayer = true;
                 }
             }

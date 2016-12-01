@@ -14,8 +14,11 @@ public class _PlayerBase : MonoBehaviour
         Falling
     };
 
-    public BaseState baseState = BaseState.Grounded;
     public int lives;
+    public int maxLives = 5;
+    public int apples;
+
+    public BaseState baseState = BaseState.Grounded;
     public float movementSpeed, climbSpeed;
     public float jumpHeight;
     public Animator anim;
@@ -24,13 +27,13 @@ public class _PlayerBase : MonoBehaviour
     public _PlayerMouse mouse;
     public LayerMask lm;
     public _PlayerIKHandler ikHandler;
+    public Vector3 holdPos;
 
     public float xInput, yInput;
     public bool useRootMovement = true;
     public bool isDead;
-    public bool isFalling, canClimbUp;
+    bool isFalling, canClimbUp;
 
-    public Vector3 holdPos;
 
     bool canJump;
 
@@ -54,7 +57,7 @@ public class _PlayerBase : MonoBehaviour
         }
     }
 
-    public void BaseStart()
+    public virtual void BaseStart()
     {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -70,6 +73,10 @@ public class _PlayerBase : MonoBehaviour
         {
             Jump();
             ClimbUp();
+        }
+        if (Input.GetButtonDown("Q"))
+        {
+            Heal(1, true);
         }
         //Animator Parameters
         anim.SetFloat("Movement", xInput);
@@ -135,9 +142,30 @@ public class _PlayerBase : MonoBehaviour
         baseState = BaseState.Grounded;
     }
 
+    public void Heal(int _lives, bool useApple)
+    {
+        if (lives < maxLives)
+        {
+            if (apples > 0 && useApple)
+            {
+                lives += _lives;
+                apples--;
+            }
+            if (!useApple)
+            {
+                lives += _lives;
+            }
+        }
+        if(lives > maxLives)
+        {
+            lives = maxLives;
+        }
+        _UIManager.instance.UpdateUI();
+    }
+
     public virtual void Move(float moveSpeed, bool turnToMouse)
     {
-        transform.Translate(new Vector3(xInput, 0, 0) * moveSpeed * movementSpeed * Time.fixedDeltaTime);
+        transform.Translate(new Vector3(xInput, 0, 0) * moveSpeed * movementSpeed * Time.deltaTime);
         if (turnToMouse)
         {
             TurnPlayer(true, GetMouseDirection);
@@ -248,8 +276,9 @@ public class _PlayerBase : MonoBehaviour
         }
         if(baseState == BaseState.Climbing || baseState == BaseState.Hanging)
         {
-            if(!Mathf.Approximately(xInput, 0))
+            if(xInput * walkingDirection < 0)
             {
+                print(xInput * walkingDirection);
                 TurnPlayer(false, -1 * walkingDirection);
                 DeActivateRootMotion();
                 rb.useGravity = true;

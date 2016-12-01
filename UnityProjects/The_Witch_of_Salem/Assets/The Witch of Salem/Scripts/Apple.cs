@@ -9,8 +9,8 @@ public class Apple : MonoBehaviour {
         {
             if(col.collider.attachedRigidbody.tag == "Player")
             {
-                col.collider.attachedRigidbody.GetComponent<PlayerStateMachine>().ps.apples++;
-                GameManager.instance.popup.DisplayPopup("Picked up apple", 2f);
+                col.collider.attachedRigidbody.GetComponent<_Player>().apples++;
+                _UIManager.instance.DisplayPopup("Picked up apple", 2f);
                 Destroy(gameObject);
             }
         }

@@ -62,17 +62,23 @@ public class GroundEnemy : Enemy {
                 break;
         }
         anim.SetBool("IsWalking", walking);
-        if(lives <= 0)
+        if(lives < 1)
         {
             Die();
         }
+        data.lives = lives;
     }
-
+    bool engaged;
     public virtual void CheckForPlayer(float detectRange, float attackRange)
     {
         if (Vector3.Distance(transform.position, player.position) < detectRange)
         {
             inRange = true;
+            if (!engaged)
+            {
+                _UIManager.instance.AddEnemy(data);
+                engaged = true;
+            }
         }
 
         if (Vector3.Distance(transform.position, player.position) < attackRange)

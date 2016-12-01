@@ -3,9 +3,12 @@ using System.Collections;
 
 public class _Player : _PlayerBaseCombat {
 
+
+
     void Start()
     {
         BaseStart();
+        _UIManager.instance.UpdateUI();
     }
 
     void Update()
@@ -13,16 +16,18 @@ public class _Player : _PlayerBaseCombat {
         if (baseState != BaseState.CantMove)
         {
             InputHandler();
+            CheckState();
+            Checks();
         }
     }
 
     void FixedUpdate()
     {
-        if (baseState != BaseState.CantMove)
-        {
-            CheckState();
-            Checks();
-        }
+        //if (baseState != BaseState.CantMove)
+        //{
+        //    CheckState();
+        //    Checks();
+        //}
     }
 
     void LateUpdate()
@@ -36,6 +41,10 @@ public class _Player : _PlayerBaseCombat {
             if(combatState == CombatState.Aiming || combatState == CombatState.ChargeBow)
             {
                 ikHandler.UseIKLookat(mouse.GetPosition, .5f);
+            }
+            if (combatState == CombatState.Blocking)
+            {
+                Blocking();
             }
         }
     }
@@ -62,7 +71,10 @@ public class _Player : _PlayerBaseCombat {
                 AimBow();
                 break;
             case CombatState.ChargeBow:
-                AimBow();
+                ChargeBow();
+                break;
+            case CombatState.JumpAttack:
+                JumpAttacking();
                 break;
         }
     }

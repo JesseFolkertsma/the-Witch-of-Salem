@@ -23,20 +23,49 @@ public class _PlayerBaseCombat : _PlayerBase {
         Bow
     };
 
-    public CombatState combatState;
+    public CombatState combatState = CombatState.Idle;
     public Weapon currentWeapon;
 
     public float swordDamage;
     public float arrowDamage;
-    public int comboInt;
+    public int arrows;
+    public GameObject sword;
+    public GameObject shield;
+    public GameObject bow;
+    public GameObject arrow;
+    Animator bowAnim;
+    int comboInt;
+    float str = 0;
 
-    public bool attacking;
-    public bool waitForNextAttack;
+    bool attacking;
+    bool waitForNextAttack;
     bool canDoDamage;
     bool canRoll = true;
     bool rolling;
+    bool aimBow;
 
     Coroutine waitAttackRoutine;
+
+    public override void BaseStart()
+    {
+        base.BaseStart();
+        bowAnim = bow.GetComponent<Animator>();
+        if(currentWeapon == Weapon.Sword)
+        {
+            bow.SetActive(false);
+        }
+        else if(currentWeapon == Weapon.Bow)
+        {
+            sword.SetActive(false);
+            shield.SetActive(false);
+        }
+        else
+        {
+            sword.SetActive(false);
+            shield.SetActive(false);
+            bow.SetActive(false);
+        }
+    }
 
     public override void InputHandler()
     {
@@ -70,11 +99,18 @@ public class _PlayerBaseCombat : _PlayerBase {
         anim.SetInteger("Combo", comboInt);
         anim.SetBool("Attacking", attacking);
         anim.SetBool("Rolling", rolling);
+        anim.SetFloat("DrawStrenght", str);
+        anim.SetBool("AimBow", aimBow);
+        if (bow.activeSelf)
+        {
+            bowAnim.SetFloat("Blend", str);
+        }
     }
 
     public override void ResetStates()
     {
         base.ResetStates();
+        ExitComboLoop();
         combatState = CombatState.Idle;
         canDoDamage = false;
         attacking = false;
@@ -82,18 +118,27 @@ public class _PlayerBaseCombat : _PlayerBase {
         useRootMovement = true;
         canRoll = true;
         rolling = false;
+        aimBow = false;
+        anim.SetLayerWeight(1, 0);
+        anim.SetLayerWeight(2, 0);
+        anim.SetLayerWeight(3, 0);
+        anim.SetLayerWeight(4, 0);
+        str = 0;
     }
 
     public override void Jump()
     {
         base.Jump();
-        ExitComboLoop();
-        combatState = CombatState.Idle;
+        if (combatState != CombatState.Rolling && baseState == BaseState.Grounded)
+        {
+            ResetStates();
+        }
     }
 
     public virtual void TakeDamage(int damage)
     {
         lives -= damage;
+        _UIManager.instance.UpdateUI();
     }
 
     public void LeftMouseDown()
@@ -105,6 +150,7 @@ public class _PlayerBaseCombat : _PlayerBase {
                 if (combatState == CombatState.Idle)
                 {
                     ComboAttack(Random.Range(1, 4));
+                    anim.SetLayerWeight(3, 1);
                 }
                 if (combatState == CombatState.Attacking && waitForNextAttack)
                 {
@@ -121,7 +167,7 @@ public class _PlayerBaseCombat : _PlayerBase {
         }
         else if (currentWeapon == Weapon.Bow)
         {
-            if (combatState == CombatState.Aiming)
+            if (combatState == CombatState.Aiming && arrows > 0)
             {
                 combatState = CombatState.ChargeBow;
             }
@@ -132,7 +178,7 @@ public class _PlayerBaseCombat : _PlayerBase {
     {
         if(combatState == CombatState.ChargeBow)
         {
-            ShootArrow();
+            ShootArrow(str);
             combatState = CombatState.Aiming;
         }
     }
@@ -143,6 +189,11 @@ public class _PlayerBaseCombat : _PlayerBase {
         {
             combatState = CombatState.Aiming;
         }
+        if(currentWeapon == Weapon.Sword)
+        {
+            combatState = CombatState.Blocking;
+            useRootMovement = false;
+        }
     }
 
     public void RightMouseUp()
@@ -150,27 +201,88 @@ public class _PlayerBaseCombat : _PlayerBase {
         if(combatState == CombatState.Aiming || combatState == CombatState.ChargeBow)
         {
             combatState = CombatState.Idle;
+            aimBow = false;
+            anim.SetLayerWeight(2, 0);
+            useRootMovement = true;
+        }
+        if(combatState == CombatState.Blocking)
+        {
+            anim.SetLayerWeight(1, 0);
+            combatState = CombatState.Idle;
+            useRootMovement = true;
         }
     }
 
     public void AimBow()
     {
-        Move(2f, true);
+        useRootMovement = false;
+        Move(2, true);
+        anim.SetLayerWeight(2, 1);
+        aimBow = true;
     }
 
     public void ChargeBow()
     {
         AimBow();
+        str = Mathf.Lerp(str, 20, Time.deltaTime * 1f);
     }
 
-    public void ShootArrow()
+    public void ShootArrow(float _str)
     {
-
+        Vector3 dir = (mouse.GetPosition - transform.position).normalized;
+        GameObject a = Instantiate(arrow, new Vector3(bow.transform.position.x, bow.transform.position.y, 0) + dir, Quaternion.identity) as GameObject;
+        a.GetComponent<Arrow>().Shoot(dir, _str);
+        str = 0;
+        arrows--;
+        _UIManager.instance.UpdateUI();
     }
 
     public void JumpAttack()
     {
+        combatState = CombatState.JumpAttack;
+        anim.SetTrigger("JumpAttack");
+    }
 
+    public void JumpAttacking()
+    {
+        rb.velocity = Vector3.down * 20;
+        if(baseState == BaseState.Grounded)
+        {
+            JumpAttackEffect();
+        }
+    }
+
+    public void JumpAttackEffect()
+    {
+        combatState = CombatState.Idle;
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, 5f);
+
+        List<Rigidbody> enemies = new List<Rigidbody>();
+
+        if (hits.Length > 0)
+        {
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].GetComponent<BreakableLootObject>())
+                {
+                    hits[i].GetComponent<BreakableLootObject>().Break(transform.position);
+                }
+
+                if (hits[i].attachedRigidbody)
+                {
+                    if (!enemies.Contains(hits[i].attachedRigidbody))
+                    {
+                        enemies.Add(hits[i].attachedRigidbody);
+                        hits[i].attachedRigidbody.AddExplosionForce(1000, transform.position, 5f, 10);
+                        if (hits[i].attachedRigidbody.GetComponent<Enemy>())
+                        {
+                            hits[i].attachedRigidbody.GetComponent<Enemy>().TakeDamage(2);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void ComboAttack(int combo)
@@ -180,7 +292,7 @@ public class _PlayerBaseCombat : _PlayerBase {
             StopCoroutine(waitAttackRoutine);
         }
         waitForNextAttack = false;
-        useRootMovement = false;
+        //useRootMovement = false;
 
         if(xInput > .1f)
         {
@@ -203,13 +315,19 @@ public class _PlayerBaseCombat : _PlayerBase {
 
     public void SwitchWeapons()
     {
-        if(currentWeapon == Weapon.Sword)
+        if(currentWeapon == Weapon.Sword && bow != null)
         {
             currentWeapon = Weapon.Bow;
+            bow.SetActive(true);
+            sword.SetActive(false);
+            shield.SetActive(false);
         }
-        else if (currentWeapon == Weapon.Bow)
+        else if (currentWeapon == Weapon.Bow && sword != null)
         {
             currentWeapon = Weapon.Sword;
+            bow.SetActive(false);
+            sword.SetActive(true);
+            shield.SetActive(true);
         }
     }
 
@@ -235,6 +353,7 @@ public class _PlayerBaseCombat : _PlayerBase {
 
     public void ExitComboLoop()
     {
+        anim.SetLayerWeight(3, 0);
         canDoDamage = false;
         attacking = false;
         waitForNextAttack = false;
@@ -249,10 +368,19 @@ public class _PlayerBaseCombat : _PlayerBase {
         combatState = CombatState.Idle;
     }
 
+    public void Blocking()
+    {
+        anim.SetLayerWeight(1, 1);
+        ikHandler.UseIKLookat(mouse.GetPosition, .5f);
+        Move(2f, true);
+
+    }
+
     public void CombatRoll()
     {
         if(baseState == BaseState.Grounded && canRoll)
         {
+            ResetStates();
             StartCoroutine(Rolling());
             ExitComboLoop();
             combatState = CombatState.Rolling;
@@ -267,9 +395,9 @@ public class _PlayerBaseCombat : _PlayerBase {
         anim.SetTrigger("Roll");
         yield return new WaitForSeconds(1);
         rolling = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.1f);
         canRoll = true;
-        combatState = CombatState.Idle;
+        ResetStates();
     }
 
     List<Enemy> hits = new List<Enemy>();
@@ -289,6 +417,10 @@ public class _PlayerBaseCombat : _PlayerBase {
                         e.TakeDamage(1);
                         hits.Add(e);
                     }
+                }
+                if (col.attachedRigidbody.GetComponent<BreakableLootObject>())
+                {
+                    col.attachedRigidbody.GetComponent<BreakableLootObject>().Break(transform.position);
                 }
             }
         }

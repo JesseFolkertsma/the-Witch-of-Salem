@@ -13,7 +13,9 @@ public class Enemy : MonoBehaviour {
 
     public bool active;
 
-    public float lives;
+    public _EnemyUIData data;
+
+    public int lives;
     public float movementSpeed;
     public bool isAgressive;
     public bool isDead = false;

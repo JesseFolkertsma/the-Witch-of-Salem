@@ -114,7 +114,6 @@ public class PlayerCombat : PlayerComponent {
         {
             Collider[] hits = Physics.OverlapSphere(psm.transform.position, 5f);
             List<Enemy> enemies = new List<Enemy>();
-            enemies.Add(new Enemy());
             
             for(int i = 0; i < hits.Length; i++)
             {
@@ -125,19 +124,15 @@ public class PlayerCombat : PlayerComponent {
 
                 if (hits[i].attachedRigidbody != null)
                 {
+                    hits[i].attachedRigidbody.AddExplosionForce(1000, psm.transform.position, 5f, 10);
                     if (hits[i].attachedRigidbody.GetComponent<Enemy>() != null)
                     {
-                        if (enemies[enemies.Count - 1] != hits[i].attachedRigidbody.GetComponent<Enemy>())
+                        if (!enemies.Contains(hits[i].attachedRigidbody.GetComponent<Enemy>()))
                         {
                             hits[i].attachedRigidbody.GetComponent<Enemy>().lives -= 2;
                             enemies.Add(hits[i].attachedRigidbody.GetComponent<Enemy>());
                         }
                     }
-                }
-
-                if (hits[i].GetComponent<Rigidbody>() != null)
-                {
-                    hits[i].GetComponent<Rigidbody>().AddExplosionForce(1000, psm.transform.position, 5f, 10);
                 }
             }
             psm.jumpAttack = false;
