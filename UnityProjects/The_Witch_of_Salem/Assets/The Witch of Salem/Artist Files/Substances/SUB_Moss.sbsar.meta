@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: df6198866ea6f634ca25286a46b3fa41
-timeCreated: 1478783834
+timeCreated: 1480603054
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -10,9 +10,9 @@ SubstanceImporter:
     prototypeName: SUB_Moss
     shaderName: 
     shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP
+    shaderKeywords: 
     renderQueue: -1
-    lightmapFlags: 1
+    lightmapFlags: 5
     inputs:
     - name: $outputsize
       value:
@@ -51,7 +51,7 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Moss_Moistness
       value:
-        scalar[0]: 0.262
+        scalar[0]: 0.5
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -66,7 +66,7 @@ SubstanceImporter:
     materialInformation:
       serializedVersion: 5
       offset: {x: 0, y: 0}
-      scale: {x: 3, y: 3}
+      scale: {x: 1, y: 1}
       generateMipmaps: 1
       generateAllOutputs: 0
       animationUpdateRate: 42
@@ -77,13 +77,13 @@ SubstanceImporter:
           name: _BumpMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 3, y: 1}
+          scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - first:
           name: _DetailAlbedoMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 3, y: 3}
+          scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - first:
           name: _DetailMask
@@ -101,19 +101,19 @@ SubstanceImporter:
           name: _EmissionMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 3, y: 3}
+          scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - first:
           name: _MainTex
         second:
           texture: {instanceID: 0}
-          scale: {x: 3, y: 3}
+          scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - first:
           name: _MetallicGlossMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 3, y: 1}
+          scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - first:
           name: _OcclusionMap
@@ -179,7 +179,7 @@ SubstanceImporter:
       colors:
       - first:
           name: _Color
-        second: {r: 0, g: 0.2965517, b: 1, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
       - first:
           name: _EmissionColor
         second: {r: 0, g: 0, b: 0, a: 1}
