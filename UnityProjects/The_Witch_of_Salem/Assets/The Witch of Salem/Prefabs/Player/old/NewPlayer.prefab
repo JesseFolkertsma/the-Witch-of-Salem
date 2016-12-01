@@ -3260,9 +3260,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f50959ed6dabbf49b2d58bb54d96b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseState: 1
   lives: 0
+  maxLives: 5
+  apples: 0
+  baseState: 1
   movementSpeed: 0
+  climbSpeed: 0
   jumpHeight: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
@@ -3271,12 +3274,22 @@ MonoBehaviour:
   lm:
     serializedVersion: 2
     m_Bits: 256
+  ikHandler: {fileID: 0}
+  holdPos: {x: 0, y: 0, z: 0}
   xInput: 0
+  yInput: 0
   useRootMovement: 1
   isDead: 0
-  isFalling: 0
+  walkingDirection: 0
+  combatState: 8
+  currentWeapon: 0
   swordDamage: 0
   arrowDamage: 0
+  arrows: 0
+  sword: {fileID: 0}
+  shield: {fileID: 0}
+  bow: {fileID: 0}
+  arrow: {fileID: 0}
 --- !u!135 &135000014004724756
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -648,15 +648,14 @@ MonoBehaviour:
   jumpAttack: 0
   isDead: 0
   model: {fileID: 0}
-  shield: {fileID: 1000011209363368}
-  bow: {fileID: 1000010446391432}
-  arrow: {fileID: 1000012006826884, guid: 448a842abe435774f94ad15b95dc2492, type: 2}
+  shield: {fileID: 55842336}
+  bow: {fileID: 83009824}
+  arrow: {fileID: 83010080, guid: 448a842abe435774f94ad15b95dc2492, type: 2}
   mouse: {fileID: 0}
-  walkingPar: {fileID: 1000013560221478, guid: 8bc997d1908da754093d0ad0d0b6c123, type: 2}
+  walkingPar: {fileID: 83008544, guid: 8bc997d1908da754093d0ad0d0b6c123, type: 2}
   wParSystem: {fileID: 0}
-  smashParticles: {fileID: 1000012600757078, guid: 2ab9a9b4036e78d4283c50bc2cf54d93,
-    type: 2}
-  ragdoll: {fileID: 1000013879837844, guid: 3bd8fb9783148c049b2a97cf7d35de6c, type: 2}
+  smashParticles: {fileID: 58142624, guid: 2ab9a9b4036e78d4283c50bc2cf54d93, type: 2}
+  ragdoll: {fileID: 83018656, guid: 3bd8fb9783148c049b2a97cf7d35de6c, type: 2}
 --- !u!136 &136000011268532058
 CapsuleCollider:
   m_ObjectHideFlags: 1
