@@ -1198,7 +1198,7 @@ ModelImporter:
     - serializedVersion: 16
       name: JumpAttack_Landing
       takeName: MC_Jonas_Aimations
-      firstFrame: 302
+      firstFrame: 330
       lastFrame: 360
       wrapMode: 0
       orientationOffsetY: 0

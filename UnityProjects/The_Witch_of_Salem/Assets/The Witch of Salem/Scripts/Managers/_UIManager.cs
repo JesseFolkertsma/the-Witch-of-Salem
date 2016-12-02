@@ -38,44 +38,47 @@ public class _UIManager : MonoBehaviour {
         {
             Destroy(this);
         }
-    }
-
-    void Start()
-    {
         mainCanvas = GameObject.Find("MainCanvas");
         livesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Lives").GetComponentsInChildren<Image>();
         enemyPanel = mainCanvas.transform.FindChild("InGameUI").FindChild("EnemyPanel").gameObject;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<_Player>();
+        player = FindObjectOfType<_Player>();
         applesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Apple").GetComponentInChildren<Text>();
         arrowsUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Arrow").GetComponentInChildren<Text>();
         popupText = mainCanvas.transform.FindChild("Popup").GetComponentInChildren<Text>();
     }
 
+    void Start()
+    {
+    }
+
     public void UpdateUI()
     {
-        if(player.lives != lives)
+        if (player != null)
         {
-            for (int i = 0; i < livesUI.Length; i++)
+            if (player.lives != lives)
             {
-                if (i > player.lives)
+                for (int i = 0; i < livesUI.Length; i++)
                 {
-                    livesUI[i].gameObject.SetActive(false);
-                }
-                else
-                {
-                    livesUI[i].gameObject.SetActive(true);
+                    if (i > player.lives)
+                    {
+                        livesUI[i].gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        livesUI[i].gameObject.SetActive(true);
+                    }
                 }
             }
-        }
-        if (apples != player.apples)
-        {
-            apples = player.apples;
-            applesUI.text = apples.ToString();
-        }
-        if (arrows != player.arrows)
-        {
-            arrows = player.arrows;
-            arrowsUI.text = arrows.ToString();
+            if (apples != player.apples)
+            {
+                apples = player.apples;
+                applesUI.text = apples.ToString();
+            }
+            if (arrows != player.arrows)
+            {
+                arrows = player.arrows;
+                arrowsUI.text = arrows.ToString();
+            }
         }
     }
 

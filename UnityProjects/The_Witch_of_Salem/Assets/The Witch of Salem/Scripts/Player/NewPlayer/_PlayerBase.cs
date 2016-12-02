@@ -63,6 +63,7 @@ public class _PlayerBase : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         model = transform.GetChild(0);
         ikHandler = GetComponentInChildren<_PlayerIKHandler>();
+        mouse = GameObject.FindObjectOfType<_PlayerMouse>();
     }
 
     public virtual void InputHandler()
