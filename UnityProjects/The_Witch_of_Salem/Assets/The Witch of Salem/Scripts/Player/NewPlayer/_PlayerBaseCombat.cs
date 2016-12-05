@@ -165,7 +165,7 @@ public class _PlayerBaseCombat : _PlayerBase {
                 }
             }
         }
-        else if (currentWeapon == Weapon.Bow)
+        else if (currentWeapon == Weapon.Bow && baseState == BaseState.Grounded)
         {
             if (combatState == CombatState.Aiming && arrows > 0)
             {
@@ -185,14 +185,17 @@ public class _PlayerBaseCombat : _PlayerBase {
 
     public void RightMouseDown()
     {
-        if(currentWeapon == Weapon.Bow)
+        if (baseState == BaseState.Grounded)
         {
-            combatState = CombatState.Aiming;
-        }
-        if(currentWeapon == Weapon.Sword)
-        {
-            combatState = CombatState.Blocking;
-            useRootMovement = false;
+            if (currentWeapon == Weapon.Bow)
+            {
+                combatState = CombatState.Aiming;
+            }
+            if (currentWeapon == Weapon.Sword)
+            {
+                combatState = CombatState.Blocking;
+                useRootMovement = false;
+            }
         }
     }
 

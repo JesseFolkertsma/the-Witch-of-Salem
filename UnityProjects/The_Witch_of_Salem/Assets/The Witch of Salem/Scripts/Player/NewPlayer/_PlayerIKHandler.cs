@@ -28,6 +28,7 @@ public class _PlayerIKHandler : MonoBehaviour {
     {
         holdPosition = holdPos;
         useIKHands = true;
+
     }
 
     void OnAnimatorIK()
