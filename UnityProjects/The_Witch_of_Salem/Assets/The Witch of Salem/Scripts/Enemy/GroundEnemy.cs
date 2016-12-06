@@ -3,39 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GroundEnemy : Enemy {
-
-    public enum EnemyState
-    {
-        Patrolling,
-        Following
-    };
-
-    public EnemyState state;
-
-    public List<Transform> waypoints;
-    
-    [HideInInspector]
-    public int currentwp;
-    
-    public Transform head;
+        
     Transform enemyModel;
     public Animator anim;
 
     public float mSpeed;
-    public float detectionRange;
     public float attackRange;
 
     public bool walking;
-
-    public bool randomStops;
-    public Vector2 minMaxWalkTime;
-    public Vector2 minMaxStopTime;
-    float walkTime;
-    float stopTime;
-    float walkTimer;
-    float stopTimer;
-
-    bool inRange;
+    
     bool canAttack;
 
     public GameObject ragdoll;
@@ -45,22 +21,15 @@ public class GroundEnemy : Enemy {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponentInChildren<Animator>();
         enemyModel = transform.GetChild(0);
-        walkTime = Random.Range(minMaxWalkTime.x, minMaxWalkTime.y);
-        stopTime = Random.Range(minMaxStopTime.x, minMaxStopTime.y);
+        _UIManager.instance.AddEnemy(data);
     }
 
     public virtual void GEUpdate()
     {
-        CheckForPlayer(detectionRange, attackRange);
-        switch (state)
-        {
-            case EnemyState.Patrolling:
-                Patolling();
-                break;
-            case EnemyState.Following:
-                FollowPlayer();
-                break;
-        }
+        CheckForPlayer(attackRange);
+
+        FollowPlayer();
+
         anim.SetBool("IsWalking", walking);
         if(lives < 1)
         {
@@ -68,19 +37,9 @@ public class GroundEnemy : Enemy {
         }
         data.lives = lives;
     }
-    bool engaged;
-    public virtual void CheckForPlayer(float detectRange, float attackRange)
-    {
-        if (Vector3.Distance(transform.position, player.position) < detectRange)
-        {
-            inRange = true;
-            if (!engaged)
-            {
-                _UIManager.instance.AddEnemy(data);
-                engaged = true;
-            }
-        }
 
+    public virtual void CheckForPlayer(float attackRange)
+    {
         if (Vector3.Distance(transform.position, player.position) < attackRange)
         {
             canAttack = true;
@@ -119,45 +78,10 @@ public class GroundEnemy : Enemy {
         transform.Translate(dir * movementSpeed * Time.deltaTime);
     }
 
-    public virtual void Patolling()
-    {
-        if (waypoints[0] != null)
-        {
-            float speed = mSpeed;
-
-            if (randomStops == true)
-            {
-                walkTimer += 1 * Time.deltaTime;
-                if (walkTimer >= walkTime)
-                {
-                    speed = 0;
-                    stopTimer += 1 * Time.deltaTime;
-                    if (stopTimer >= stopTime)
-                    {
-                        walkTime = Random.Range(minMaxWalkTime.x, minMaxWalkTime.y);
-                        stopTime = Random.Range(minMaxStopTime.x, minMaxStopTime.y);
-                        walkTimer = 0;
-                        stopTimer = 0;
-                    }
-                }
-            }
-
-            Move(speed, waypoints[currentwp].position);
-        }
-        if (inRange == true)
-        {
-            state = EnemyState.Following;
-        }
-    }
-
     public virtual void FollowPlayer()
     {
         Move(mSpeed, player.position);
-        head.LookAt(player);
-        if(inRange == false)
-        {
-            state = EnemyState.Patrolling;
-        }
+
         if(canAttack == true)
         {
             Attack();

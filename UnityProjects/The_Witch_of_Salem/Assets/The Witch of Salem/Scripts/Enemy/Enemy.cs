@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour {
     public bool active;
 
     public _EnemyUIData data;
+    [HideInInspector]
+    public EnemySpawn spawn;
 
     public int lives;
     public float movementSpeed;
@@ -42,5 +44,9 @@ public class Enemy : MonoBehaviour {
     public virtual void Die()
     {
         isDead = true;
+        if (spawn != null)
+        {
+            spawn.Die();
+        }
     }
 }
