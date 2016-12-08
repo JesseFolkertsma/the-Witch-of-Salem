@@ -3,7 +3,14 @@ using System.Collections;
 
 public class _Player : _PlayerBaseCombat {
 
+    public enum VelocityState
+    {
+        Standard,
+        Clamped,
+        EXTREME
+    };
 
+    public VelocityState velocityState;
 
     void Start()
     {
@@ -19,15 +26,35 @@ public class _Player : _PlayerBaseCombat {
             CheckState();
             Checks();
         }
+        CheckVelocityState();
     }
 
-    void FixedUpdate()
+    void CheckVelocityState()
     {
-        //if (baseState != BaseState.CantMove)
-        //{
-        //    CheckState();
-        //    Checks();
-        //}
+        switch (velocityState)
+        {
+            case VelocityState.Clamped:
+                if (rb.velocity.x > 5)
+                {
+                    rb.velocity = new Vector3(5, 0, 0);
+                }
+                else if (rb.velocity.x < -5)
+                {
+                    rb.velocity = new Vector3(-5, 0, 0);
+                }
+                if (rb.velocity.y > 10)
+                {
+                    rb.velocity = new Vector3(10, 0, 0);
+                }
+                else if (rb.velocity.x < -10)
+                {
+                    rb.velocity = new Vector3(-10, 0, 0);
+                }
+                break;
+            case VelocityState.EXTREME:
+                rb.velocity = rb.velocity * 2;
+                break;
+        }
     }
 
     void LateUpdate()

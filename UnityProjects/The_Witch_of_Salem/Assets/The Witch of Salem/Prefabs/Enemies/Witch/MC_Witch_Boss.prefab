@@ -2055,11 +2055,12 @@ MonoBehaviour:
   telPositions:
   - {fileID: 0}
   - {fileID: 0}
-  witchProjectile: {fileID: 0}
+  witchProjectile: {fileID: 1000011708508598, guid: b10fa13bdd81d6a439767a35004b4a5a,
+    type: 2}
   ik: {fileID: 0}
-  willSpawn: 0
-  willTeleport: 0
-  willShoot: 0
+  willSpawn: 1
+  willTeleport: 1
+  willShoot: 1
 --- !u!137 &137000011428571030
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
