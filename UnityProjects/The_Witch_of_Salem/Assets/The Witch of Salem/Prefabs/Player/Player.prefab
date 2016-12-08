@@ -3175,7 +3175,7 @@ MonoBehaviour:
   baseState: 1
   movementSpeed: 1
   climbSpeed: 3
-  jumpHeight: 5
+  jumpHeight: 7
   anim: {fileID: 0}
   rb: {fileID: 0}
   model: {fileID: 0}

@@ -470,7 +470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &882327187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,7 +591,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.89
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_LocalPosition.z
@@ -599,19 +599,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.12278779
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6963643
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.12278779
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6963643
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_RootOrder
@@ -619,7 +619,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.00001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_Controller
@@ -631,7 +631,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
       propertyPath: m_LocalScale.x
@@ -1775,9 +1775,10 @@ MonoBehaviour:
   - {fileID: 1809058834}
   - {fileID: 213724531}
   witchProjectile: {fileID: 733711670}
-  spawnTimer: 0
-  spawnTime: 0
-  maxSpawnT: 10
+  ik: {fileID: 0}
+  willSpawn: 0
+  willTeleport: 0
+  willShoot: 0
 --- !u!1 &1809058833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,6 +2053,25 @@ Transform:
   - {fileID: 1441613531}
   m_Father: {fileID: 719448162}
   m_RootOrder: 0
+--- !u!1 &2133458006 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100132, guid: be56c3425aba7fd458b37b6e103f9950, type: 3}
+  m_PrefabInternal: {fileID: 1008216696}
+--- !u!114 &2133458008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2133458006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a673d1448a7eddf4fabc58d27287835a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headWeight: 1
+  bodyWeight: 0.5
+  target: {fileID: 0}
+  enemyType: 2
 --- !u!1001 &2145090243
 Prefab:
   m_ObjectHideFlags: 0
