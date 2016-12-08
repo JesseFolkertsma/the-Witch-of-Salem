@@ -14,14 +14,19 @@ public class Witch : Boss {
     public GameObject witchProjectile;
     bool spawned = false;
 
+    public EnemyIKHandler ik;
+
     //Timers
-    public bool spawnTimer = false;
+    public bool willSpawn;
+    public bool willTeleport;
+    public bool willShoot;
+    bool spawnTimer = false;
     bool projectileTimer = false;
     bool teleportTimer = false;
-    public float spawnTime = 0f;
+    float spawnTime = 0f;
     float projectileTime = 0f;
     float teleportTime = 0f;
-    public float maxSpawnT = 10;
+    float maxSpawnT = 10;
     float maxProjectileT = 4;
     float maxTeleportT = 6;
 
@@ -29,27 +34,41 @@ public class Witch : Boss {
     {
         BossStart();
         lives = 20;
+        ik = GetComponentInChildren<EnemyIKHandler>();
+        ik.target = player;
     }
 
     void Update()
     {
         Timers();
-        if(enemies.Count < 1 && !spawnTimer)
+        CheckAbilities();
+        LookatPlayer();
+    }
+
+    void LookatPlayer()
+    {
+        Vector3 look = new Vector3(player.position.x, transform.position.y, 0);
+        transform.LookAt(look);
+    }
+
+    void CheckAbilities()
+    {
+        if (enemies.Count < 1 && !spawnTimer && willSpawn)
         {
             SpawnEnemies();
         }
-        if(!teleportTimer)
+        if (!teleportTimer && willTeleport)
         {
             Teleport();
         }
-        if (!projectileTimer)
+        if (!projectileTimer && willShoot)
         {
             ShootProjectile();
         }
 
         if (spawned)
         {
-            if(enemies[0] == null)
+            if (enemies[0] == null)
             {
                 spawnTimer = true;
             }
@@ -63,6 +82,7 @@ public class Witch : Boss {
             spawnTime += Time.deltaTime;
             if(spawnTime >= maxSpawnT)
             {
+                enemies.Clear();
                 spawnTimer = false;
                 spawnTime = 0f;
                 spawned = false;
@@ -125,7 +145,8 @@ public class Witch : Boss {
 
     void ShootProjectile()
     {
-        Instantiate(witchProjectile, transform.position, Quaternion.identity);
+        GameObject g = Instantiate(witchProjectile, transform.position, Quaternion.identity) as GameObject;
+        g.GetComponent<WitchProjectile>().SetTarget(player);
         projectileTimer = true;
     }
 }
