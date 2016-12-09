@@ -3175,7 +3175,7 @@ MonoBehaviour:
   baseState: 1
   movementSpeed: 1
   climbSpeed: 3
-  jumpHeight: 5
+  jumpHeight: 7
   anim: {fileID: 0}
   rb: {fileID: 0}
   model: {fileID: 0}
@@ -3195,10 +3195,12 @@ MonoBehaviour:
   swordDamage: 0
   arrowDamage: 0
   arrows: 10
+  jumpCooldown: 5
   sword: {fileID: 1000010239635816}
   shield: {fileID: 1000011035962538}
   bow: {fileID: 1000011545593108}
   arrow: {fileID: 1000012006826884, guid: 448a842abe435774f94ad15b95dc2492, type: 2}
+  velocityState: 1
 --- !u!114 &114000011802351822
 MonoBehaviour:
   m_ObjectHideFlags: 1

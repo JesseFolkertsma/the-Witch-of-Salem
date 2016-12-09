@@ -29,6 +29,7 @@ public class _PlayerBaseCombat : _PlayerBase {
     public float swordDamage;
     public float arrowDamage;
     public int arrows;
+    public float jumpCooldown;
     public GameObject sword;
     public GameObject shield;
     public GameObject bow;
@@ -37,6 +38,7 @@ public class _PlayerBaseCombat : _PlayerBase {
     int comboInt;
     float str = 0;
 
+    bool canJumpAttack;
     bool attacking;
     bool waitForNextAttack;
     bool canDoDamage;
@@ -65,6 +67,7 @@ public class _PlayerBaseCombat : _PlayerBase {
             shield.SetActive(false);
             bow.SetActive(false);
         }
+        canJumpAttack = true;
     }
 
     public override void InputHandler()
@@ -242,8 +245,11 @@ public class _PlayerBaseCombat : _PlayerBase {
 
     public void JumpAttack()
     {
-        combatState = CombatState.JumpAttack;
-        anim.SetTrigger("JumpAttack");
+        if (canJumpAttack)
+        {
+            combatState = CombatState.JumpAttack;
+            anim.SetTrigger("JumpAttack");
+        }
     }
 
     public void JumpAttacking()
@@ -257,6 +263,7 @@ public class _PlayerBaseCombat : _PlayerBase {
 
     public void JumpAttackEffect()
     {
+        StartCoroutine(JumpAttackCoolDown());
         combatState = CombatState.Idle;
 
         Collider[] hits = Physics.OverlapSphere(transform.position, 5f);
@@ -286,6 +293,13 @@ public class _PlayerBaseCombat : _PlayerBase {
                 }
             }
         }
+    }
+
+    IEnumerator JumpAttackCoolDown()
+    {
+        canJumpAttack = false;
+        yield return new WaitForSeconds(jumpCooldown);
+        canJumpAttack = true;
     }
 
     public void ComboAttack(int combo)

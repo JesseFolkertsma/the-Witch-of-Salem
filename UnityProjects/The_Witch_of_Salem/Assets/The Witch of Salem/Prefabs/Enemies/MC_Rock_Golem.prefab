@@ -1189,6 +1189,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013609236440}
   - 95: {fileID: 95000012096083068}
+  - 114: {fileID: 114000013087064772}
   m_Layer: 0
   m_Name: Mc_RockGolem
   m_TagString: Untagged
@@ -2550,31 +2551,42 @@ MonoBehaviour:
   data:
     lives: 0
     character: {fileID: 21300014, guid: 131c9a84613ecf14cb205c1133d72f19, type: 3}
+  spawn:
+    enemy: {fileID: 0}
+    enemyPosition: {fileID: 0}
+    waitSec: 0
+    waitForDead: 0
+    isDead: 0
   lives: 3
   movementSpeed: 0
   isAgressive: 0
   isDead: 0
   player: {fileID: 0}
-  state: 0
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  currentwp: 0
-  head: {fileID: 4000013446789532}
   anim: {fileID: 0}
   mSpeed: 3
-  detectionRange: 15
   attackRange: 4
   walking: 0
-  randomStops: 1
-  minMaxWalkTime: {x: 5, y: 10}
-  minMaxStopTime: {x: 3, y: 6}
   ragdoll: {fileID: 1000011024673424, guid: f02204b118697424da94cdffdedf44ea, type: 2}
   smashParticle: {fileID: 1000012600757078, guid: 2ab9a9b4036e78d4283c50bc2cf54d93,
     type: 2}
   audioS: {fileID: 0}
   smash: {fileID: 8300000, guid: 7afc2679f80c72143a39b825e9a4f7f9, type: 3}
   getHit: {fileID: 8300000, guid: cdc95f6c10d1e2b419b713f4685366c3, type: 3}
+--- !u!114 &114000013087064772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014038547722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a673d1448a7eddf4fabc58d27287835a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headWeight: 0.6
+  bodyWeight: 0
+  target: {fileID: 0}
+  enemyType: 1
 --- !u!135 &135000010403153028
 SphereCollider:
   m_ObjectHideFlags: 1
