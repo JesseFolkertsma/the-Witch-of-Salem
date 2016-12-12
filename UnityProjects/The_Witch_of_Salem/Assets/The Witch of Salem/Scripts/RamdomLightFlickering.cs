@@ -9,8 +9,12 @@ public class RamdomLightFlickering : MonoBehaviour {
 
 	float time;
 	void Update () {
-		
-		float randomNum = Random.Range(0f,1f);
+
+		//Intensity Range
+
+		float randomNum = Random.Range(0.4f,1f);
+
+		// Interval value
 		float randomInterval = Random.Range (0f, .2f);
 		time += Time.deltaTime;
 
