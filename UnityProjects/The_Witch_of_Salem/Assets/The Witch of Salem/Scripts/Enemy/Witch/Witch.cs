@@ -4,6 +4,16 @@ using System.Collections.Generic;
 
 public class Witch : Boss {
 
+    public enum State
+    {
+        Idle,
+        UsingAbility,
+        Dead
+    };
+
+    public State state = State.Idle;
+    Coroutine routine;
+
     public List<GameObject> enemies;
     public GameObject enemy;
     public Transform[] enemypos;
@@ -53,85 +63,122 @@ public class Witch : Boss {
 
     void CheckAbilities()
     {
-        if (enemies.Count < 1 && !spawnTimer && willSpawn)
+        if (state == State.Idle)
         {
-            SpawnEnemies();
-        }
-        if (!teleportTimer && willTeleport)
-        {
-            Teleport();
-        }
-        if (!projectileTimer && willShoot)
-        {
-            ShootProjectile();
-        }
-
-        if (spawned)
-        {
-            if (enemies[0] == null)
+            if (enemies.Count < 1 && !spawnTimer && willSpawn)
             {
-                spawnTimer = true;
+                SpawnEnemies();
+            }
+            if (!teleportTimer && willTeleport)
+            {
+                Teleport();
+            }
+            if (!projectileTimer && willShoot)
+            {
+                ShootProjectile();
+            }
+
+            if (spawned)
+            {
+                if (enemies[0] == null)
+                {
+                    spawnTimer = true;
+                }
             }
         }
     }
 
     void Timers()
     {
-        if (spawnTimer)
+        if (state == State.Idle)
         {
-            spawnTime += Time.deltaTime;
-            if(spawnTime >= maxSpawnT)
+            if (spawnTimer)
             {
-                enemies.Clear();
-                spawnTimer = false;
-                spawnTime = 0f;
-                spawned = false;
+                spawnTime += Time.deltaTime;
+                if (spawnTime >= maxSpawnT)
+                {
+                    enemies.Clear();
+                    spawnTimer = false;
+                    spawnTime = 0f;
+                    spawned = false;
+                }
             }
-        }
-        if (projectileTimer)
-        {
-            projectileTime += Time.deltaTime;
-            if (projectileTime >= maxProjectileT)
+            if (projectileTimer)
             {
-                projectileTimer = false;
-                projectileTime = 0f;
+                projectileTime += Time.deltaTime;
+                if (projectileTime >= maxProjectileT)
+                {
+                    projectileTimer = false;
+                    projectileTime = 0f;
+                }
             }
-        }
-        if (teleportTimer)
-        {
-            teleportTime += Time.deltaTime;
-            if (teleportTime >= maxTeleportT)
+            if (teleportTimer)
             {
-                teleportTimer = false;
-                teleportTime = 0f;
+                teleportTime += Time.deltaTime;
+                if (teleportTime >= maxTeleportT)
+                {
+                    teleportTimer = false;
+                    teleportTime = 0f;
+                }
             }
         }
     }
 
     void SpawnEnemies()
     {
-        if (spawned)
+        if (routine == null)
         {
-            spawnTimer = true;
-        }
-        else
-        {
-            spawned = true;
-            print("SpawnEnemies");
-            //spawnTimer = true;
-            for (int i = 0; i < enemypos.Length; i++)
+            if (spawned)
             {
-                if (enemypos[i] != null)
-                {
-                    GameObject g = Instantiate(enemy, enemypos[i].position, Quaternion.identity) as GameObject;
-                    enemies.Add(g);
-                }
+                spawnTimer = true;
+            }
+            else
+            {
+                spawned = true;
+                routine = StartCoroutine(SpawnE());
             }
         }
     }
 
+    IEnumerator SpawnE()
+    {
+        anim.SetTrigger("Summon");
+        state = State.UsingAbility;
+
+        yield return new WaitForSeconds(1f);
+
+        print("SpawnEnemies");
+        spawnTimer = true;
+        for (int i = 0; i < enemypos.Length; i++)
+        {
+            if (enemypos[i] != null)
+            {
+                GameObject g = Instantiate(enemy, enemypos[i].position, Quaternion.identity) as GameObject;
+                enemies.Add(g);
+            }
+        }
+
+        yield return new WaitForSeconds(.5f);
+
+        state = State.Idle;
+        routine = null;
+    }
+
     void Teleport()
     {
+        if (routine == null)
+        {
+            routine = StartCoroutine(TeleportE());
+        }
+    }
+
+    IEnumerator TeleportE()
+    {
+        state = State.UsingAbility;
+        anim.SetTrigger("Teleport");
+
+        yield return new WaitForSeconds(2f);
+
         print("Teleport");
         int telpos = currentTelPos + 1;
         if (telpos > telPositions.Length - 1)
@@ -141,12 +188,41 @@ public class Witch : Boss {
         transform.position = telPositions[telpos].position;
         currentTelPos = telpos;
         teleportTimer = true;
+
+        yield return new WaitForSeconds(1f);
+
+        state = State.Idle;
+        routine = null;
     }
 
     void ShootProjectile()
     {
+        if (routine == null)
+        {
+            routine = StartCoroutine(ShootE());
+        }
+    }
+
+    IEnumerator ShootE()
+    {
+        state = State.UsingAbility;
+        anim.SetTrigger("Shoot");
+
+        yield return new WaitForSeconds(1.5f);
+        
         GameObject g = Instantiate(witchProjectile, transform.position, Quaternion.identity) as GameObject;
         g.GetComponent<WitchProjectile>().SetTarget(player);
         projectileTimer = true;
+
+        yield return new WaitForSeconds(.5f);
+
+        state = State.Idle;
+        routine = null;
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        anim.SetTrigger("Die");
     }
 }

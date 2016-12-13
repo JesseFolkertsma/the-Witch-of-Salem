@@ -45,7 +45,11 @@ public class WitchProjectile : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.attachedRigidbody)
+        if(col.tag == "Shield")
+        {
+            Destroy(gameObject);
+        }
+        else if (col.attachedRigidbody)
         {
             if (col.attachedRigidbody.GetComponent<_Player>())
             {
