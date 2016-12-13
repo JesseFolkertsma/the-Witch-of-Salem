@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/CA_Pieces/Door huge.meta
 guid: 78ebd649b37ebbd4b819c6b37d9837c0
 folderAsset: yes
 timeCreated: 1481556767
+=======
+guid: 75977ffc36ffbe744a8dd8f3f4d3e391
+folderAsset: yes
+timeCreated: 1481557967
+>>>>>>> 4ed6450b7eeee24e939f735b58dfcee1d19c5156:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/FarmHouse Interiors/Prefabs/Farmhouse Base.meta
 licenseType: Free
 DefaultImporter:
   userData: 

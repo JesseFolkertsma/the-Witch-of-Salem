@@ -166,7 +166,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Witch_Appear
       takeName: mixamo.com
-      firstFrame: 0
+      firstFrame: 95
       lastFrame: 195
       wrapMode: 0
       orientationOffsetY: 0
