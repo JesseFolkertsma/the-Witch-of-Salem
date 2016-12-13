@@ -24,6 +24,9 @@ public class EnemySpawn {
     public void Die()
     {
         isDead = true;
-        spawn.CheckForEnd();
+        if (spawn != null)
+        {
+            spawn.CheckForEnd();
+        }
     }
 }
