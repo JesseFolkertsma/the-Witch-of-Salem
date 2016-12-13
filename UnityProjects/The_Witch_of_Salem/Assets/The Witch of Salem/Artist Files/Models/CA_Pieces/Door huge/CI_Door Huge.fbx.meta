@@ -1,10 +1,15 @@
 fileFormatVersion: 2
-guid: 086983498a3576f438750672c044e053
-timeCreated: 1481229849
+guid: bc78538f377a83f4e870d9f684676d31
+timeCreated: 1481556862
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: CI_Front door
   materials:
     importMaterials: 1
     materialName: 0
@@ -63,7 +68,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
