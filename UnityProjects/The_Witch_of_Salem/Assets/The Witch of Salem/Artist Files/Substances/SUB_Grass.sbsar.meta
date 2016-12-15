@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e1d52f7ecb0fcfd41a4bf8fb32781521
-timeCreated: 1481551724
+timeCreated: 1479391359
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -263,7 +263,7 @@ SubstanceImporter:
           name: _BumpMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 3, y: 3}
+          scale: {x: 3, y: 2}
           offset: {x: 0, y: 0}
       - first:
           name: _DetailAlbedoMap
@@ -299,7 +299,7 @@ SubstanceImporter:
           name: _MetallicGlossMap
         second:
           texture: {instanceID: 0}
-          scale: {x: 3, y: 3}
+          scale: {x: 3, y: 2}
           offset: {x: 0, y: 0}
       - first:
           name: _OcclusionMap
@@ -328,7 +328,7 @@ SubstanceImporter:
         second: 0
       - first:
           name: _GlossMapScale
-        second: 0
+        second: 1
       - first:
           name: _Glossiness
         second: 0.5
@@ -610,9 +610,9 @@ SubstanceImporter:
     prototypeName: SUB_Grass
     shaderName: 
     shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP
+    shaderKeywords: 
     renderQueue: -1
-    lightmapFlags: 1
+    lightmapFlags: 5
     inputs:
     - name: $outputsize
       value:
@@ -728,7 +728,7 @@ SubstanceImporter:
         second: 0
       - first:
           name: _GlossMapScale
-        second: 0
+        second: 1
       - first:
           name: _Glossiness
         second: 0.5
