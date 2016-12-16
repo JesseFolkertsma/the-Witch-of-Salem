@@ -10,8 +10,13 @@ public class RuneCircle : MonoBehaviour {
         Stance03
     };
 
+    [HideInInspector]
+    public bool disable = false;
+
     public Stance stance;
+    public Stance wantedStance;
     public Vector3 stancePositions;
+    public float turnSpeed = 1;
 
     public int CurrentStance
     {
@@ -34,23 +39,41 @@ public class RuneCircle : MonoBehaviour {
         }
     }
 
+    public bool StanceIsRight
+    {
+        get
+        {
+            if(stance == wantedStance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
     public void SetStance(int _stance)
     {
-        if(_stance > 3)
+        if (!disable)
         {
-            _stance = 1;
-        }
-        switch (_stance)
-        {
-            case 1:
-                stance = Stance.Stance01;
-                break;
-            case 2:
-                stance = Stance.Stance02;
-                break;
-            case 3:
-                stance = Stance.Stance03;
-                break;
+            if (_stance > 3)
+            {
+                _stance = 1;
+            }
+            switch (_stance)
+            {
+                case 1:
+                    stance = Stance.Stance01;
+                    break;
+                case 2:
+                    stance = Stance.Stance02;
+                    break;
+                case 3:
+                    stance = Stance.Stance03;
+                    break;
+            }
         }
     }
 
@@ -59,13 +82,13 @@ public class RuneCircle : MonoBehaviour {
         switch (stance)
         {
             case Stance.Stance01:
-                transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, stancePositions.x, 0), .1f);
+                transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, stancePositions.x, 0), Time.deltaTime * turnSpeed);
                 break;
             case Stance.Stance02:
-                transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, stancePositions.y, 0), .1f);
+                transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, stancePositions.y, 0), Time.deltaTime * turnSpeed);
                 break;
             case Stance.Stance03:
-                transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, stancePositions.z, 0), .1f);
+                transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, stancePositions.z, 0), Time.deltaTime * turnSpeed);
                 break;
         }
     }
