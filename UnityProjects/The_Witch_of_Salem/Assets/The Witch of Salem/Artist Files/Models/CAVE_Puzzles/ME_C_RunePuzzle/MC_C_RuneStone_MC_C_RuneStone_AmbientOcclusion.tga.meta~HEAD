@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: e5aaab853eb045f44ab27201e03eb423
-timeCreated: 1481297357
+<<<<<<< HEAD:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/FarmHouse Interiors/Materials/Textures/HI_ModularPieces_FarmHouse_BrokenCeilingPanels_AlbedoTransparency (2).png.meta:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/FarmHouse Interiors/Materials/Textures/HI_ModularPieces_FarmHouse_BrokenCeilingPanels_AlbedoTransparency (2).png.meta
+guid: 70889aede7d211448b1cfb853248c170
+timeCreated: 1481889607
+=======
+guid: 6dab091416cca314c9ed5ef33c61fdec
+timeCreated: 1481889745
+>>>>>>> 9eb6a2b5b522bbf10e523b21df74ba119fcb364c:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/CAVE_Puzzles/ME_C_RunePuzzle/MC_C_RuneStone_MC_C_RuneStone_AmbientOcclusion.tga.meta:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/CAVE_Puzzles/ME_C_RunePuzzle/MC_C_RuneStone_MC_C_RuneStone_AmbientOcclusion.tga.meta
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -8,7 +13,7 @@ TextureImporter:
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
-    linearTexture: 1
+    linearTexture: 0
     correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
@@ -16,7 +21,7 @@ TextureImporter:
     mipMapFadeDistanceEnd: 3
   bumpmap:
     convertToNormalMap: 0
-    externalNormalMap: 1
+    externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
@@ -47,7 +52,7 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 1
+  textureType: -1
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
