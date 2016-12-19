@@ -16,6 +16,7 @@ public class PressurePlate : MonoBehaviour {
 
     public bool isUp = true;
     public LightStone attachedLightStone;
+    public RuneCircle attackedRuneCircle;
 
     void Start()
     {
@@ -27,9 +28,15 @@ public class PressurePlate : MonoBehaviour {
         switch (puzzleType)
         {
             case PuzzleType.LightStone:
-                if(attachedLightStone != null)
+                if (attachedLightStone != null)
                 {
                     attachedLightStone.Activate(true);
+                }
+                break;
+            case PuzzleType.Symbol:
+                if (attackedRuneCircle != null)
+                {
+                    attackedRuneCircle.SetStance(attackedRuneCircle.CurrentStance + 1);
                 }
                 break;
         }
