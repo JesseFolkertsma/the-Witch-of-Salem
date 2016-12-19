@@ -15,7 +15,7 @@ public class EnemySpawnEvent : MonoBehaviour {
         col.SetActive(false);
     }
 
-    void Activate()
+    public void Activate()
     {
         active = true;
         col.SetActive(true);
