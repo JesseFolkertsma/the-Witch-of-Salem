@@ -1,0 +1,28 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   Art/Need to be Checked!/Props/ME_Cog/ME_Cog_LP.fbx
+#	renamed:    UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/ME_C_Stones.meta -> UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/FarmHouse Interiors/Farmhouse Interior Props/ME_Chair.meta
+#	renamed:    UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Farmhouse_Interiors.meta -> UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog.meta
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/ME_Cog_LP.fbx
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/ME_Cog_LP.fbx.meta
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Materials.meta
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Materials/ME_Cog_LP_initialShadingGroup_AlbedoTransparency.png
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Materials/ME_Cog_LP_initialShadingGroup_AlbedoTransparency.png.meta
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Materials/ME_Cog_LP_initialShadingGroup_MetallicSmoothness.png
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Materials/ME_Cog_LP_initialShadingGroup_MetallicSmoothness.png.meta
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Materials/ME_Cog_LP_initialShadingGroup_Normal.png
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Materials/ME_Cog_LP_initialShadingGroup_Normal.png.meta
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Materials/initialShadingGroup1.mat
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Materials/initialShadingGroup1.mat.meta
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Rotating Sprocket.controller
+#	new file:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/ME_Cog/Rotating Sprocket.controller.meta
+#	modified:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Prefabs/Enemies/MC_Rock_Golem.prefab
+#	modified:   UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Scenes/Farmland Scene.unity
+#	modified:   UnityProjects/The_Witch_of_Salem/ProjectSettings/ProjectSettings.asset
+#
+
