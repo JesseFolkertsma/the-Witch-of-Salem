@@ -115,18 +115,6 @@ public class _PlayerBase : MonoBehaviour
         RaycastHit climbHit;
         if(Physics.Raycast(transform.position + Vector3.up, Vector3.right * walkingDirection, out climbHit, .4f, lm))
         {
-            float offset;
-            if(climbHit.transform.position.x > transform.position.x)
-            {
-                offset = 2;
-            }
-            else
-            {
-                offset = -2;
-            }
-
-            holdPos = climbHit.collider.ClosestPointOnBounds(transform.position + Vector3.up * 5 + -model.transform.forward ) + Vector3.right * offset;
-
             if (climbHit.transform.tag == "Ladder" && baseState != BaseState.Climbing && baseState != BaseState.Hanging) 
             {
                 baseState = BaseState.Climbing;
@@ -166,6 +154,8 @@ public class _PlayerBase : MonoBehaviour
 
     public virtual void Move(float moveSpeed, bool turnToMouse)
     {
+        //float velocity = xInput * moveSpeed * Time.fixedDeltaTime;
+        //rb.MovePosition(rb.position + Vector3.right * velocity);
         transform.Translate(new Vector3(xInput, 0, 0) * moveSpeed * movementSpeed * Time.deltaTime);
         if (turnToMouse)
         {
