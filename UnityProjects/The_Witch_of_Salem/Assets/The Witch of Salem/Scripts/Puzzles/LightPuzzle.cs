@@ -3,7 +3,8 @@ using UnityEngine.Events;
 using System.Collections;
 
 public class LightPuzzle : MonoBehaviour {
-
+    
+    [SerializeField]
     LightStone[] stones;
     bool isDone = false;
     public UnityEvent eventWhenDone;
