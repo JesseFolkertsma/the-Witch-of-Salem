@@ -23,10 +23,17 @@ public class _Player : _PlayerBaseCombat {
         if (baseState != BaseState.CantMove)
         {
             InputHandler();
-            CheckState();
             Checks();
+            CheckState();
         }
         CheckVelocityState();
+    }
+
+    void FixedUpdate()
+    {
+        if(baseState != BaseState.CantMove)
+        {
+        }
     }
 
     void CheckVelocityState()
