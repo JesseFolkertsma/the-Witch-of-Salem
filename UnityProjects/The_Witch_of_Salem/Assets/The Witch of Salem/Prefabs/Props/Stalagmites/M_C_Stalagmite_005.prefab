@@ -21,9 +21,10 @@ GameObject:
   - 4: {fileID: 4000011493997782}
   - 33: {fileID: 33000010126858230}
   - 23: {fileID: 23000012262759786}
+  - 64: {fileID: 64000012343447762}
   m_Layer: 0
   m_Name: M_C_Stalagmite_005
-  m_TagString: Untagged
+  m_TagString: Ladder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,10 +35,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012544802708}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.70710576, y: -0, z: -0, w: 0.70710784}
+  m_LocalPosition: {x: 32.28, y: -81.8, z: 5.1797776}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.981, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,4 +77,16 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012544802708}
+  m_Mesh: {fileID: 4300000, guid: 4ff4659373692154e942e47f7f7c6c8c, type: 3}
+--- !u!64 &64000012343447762
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012544802708}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 4ff4659373692154e942e47f7f7c6c8c, type: 3}
