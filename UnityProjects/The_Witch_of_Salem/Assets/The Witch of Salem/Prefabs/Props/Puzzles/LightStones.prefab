@@ -827,7 +827,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f3b92e5f7589741bc6fc750f4e9065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  disable: 0
+  active: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   attachedLightstones:
   - {fileID: 114000011624422410}
@@ -843,7 +844,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f3b92e5f7589741bc6fc750f4e9065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  disable: 0
+  active: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   attachedLightstones:
   - {fileID: 114000011607234638}
@@ -860,7 +862,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f3b92e5f7589741bc6fc750f4e9065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  disable: 0
+  active: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   attachedLightstones:
   - {fileID: 114000013279052590}
@@ -877,7 +880,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f3b92e5f7589741bc6fc750f4e9065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  disable: 0
+  active: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   attachedLightstones:
   - {fileID: 114000010480722850}
@@ -893,6 +897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc759749dd86dd040831a75bee801ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stones: []
   eventWhenDone:
     m_PersistentCalls:
       m_Calls:
@@ -920,7 +925,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f3b92e5f7589741bc6fc750f4e9065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  disable: 0
+  active: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   attachedLightstones:
   - {fileID: 114000010121498406}
@@ -936,7 +942,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f3b92e5f7589741bc6fc750f4e9065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  disable: 0
+  active: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   attachedLightstones:
   - {fileID: 114000011624422410}
@@ -953,7 +960,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f3b92e5f7589741bc6fc750f4e9065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  disable: 0
+  active: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   attachedLightstones:
   - {fileID: 114000011607234638}
@@ -969,7 +977,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f3b92e5f7589741bc6fc750f4e9065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  disable: 0
+  active: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   attachedLightstones:
   - {fileID: 114000010034900772}
