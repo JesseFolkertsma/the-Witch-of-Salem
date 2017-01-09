@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/FarmHouse Interiors/Farmhouse Interior Props/ME_Chair.meta
+guid: 26401b9f13ff400419a412d2e9a89813
+folderAsset: yes
+timeCreated: 1481809900
+=======
 guid: cf5caab2e969f8a47b70f033e344c06a
 folderAsset: yes
 timeCreated: 1482408512
+>>>>>>> 148d10cc51ba9410f26cfc8181566efcc098f1ad:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/FarmHouse Interiors/Farmhouse Interior Props/ME_Chair.meta
 licenseType: Free
 DefaultImporter:
   userData: 
