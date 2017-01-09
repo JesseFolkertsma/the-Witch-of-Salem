@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ae14864329ede65468f470496aff7bd1
-timeCreated: 1480590958
+timeCreated: 1482678750
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -44,7 +44,7 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Maple_Leaf_General_Opacity
       value:
-        scalar[0]: 0.446
+        scalar[0]: 0
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -107,14 +107,14 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Alder_Leaf_General_Opacity
       value:
-        scalar[0]: 0.41
+        scalar[0]: 0
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Leaves_Saturation
       value:
-        scalar[0]: 0.5
+        scalar[0]: 0.227
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -353,7 +353,7 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Oak_Leaf_1_General_Opacity
       value:
-        scalar[0]: 0.12
+        scalar[0]: 0
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -367,7 +367,7 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Maple_Leaf_General_Opacity
       value:
-        scalar[0]: 0
+        scalar[0]: 0.176
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -381,21 +381,21 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Height_Leaves
       value:
-        scalar[0]: 0.14
+        scalar[0]: 0.04
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Leaves_Saturation
       value:
-        scalar[0]: 0
+        scalar[0]: 0.752
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Leaves_Lightness
       value:
-        scalar[0]: 0.397
+        scalar[0]: 0.464
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
