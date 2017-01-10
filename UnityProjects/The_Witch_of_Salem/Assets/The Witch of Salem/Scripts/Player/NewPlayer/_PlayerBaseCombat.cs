@@ -33,6 +33,9 @@ public class _PlayerBaseCombat : _PlayerBase {
     public GameObject sword;
     public GameObject shield;
     public GameObject bow;
+    public GameObject swordH;
+    public GameObject shieldH;
+    public GameObject bowH;
     public GameObject arrow;
     Animator bowAnim;
     int comboInt;
@@ -55,11 +58,16 @@ public class _PlayerBaseCombat : _PlayerBase {
         if(currentWeapon == Weapon.Sword)
         {
             bow.SetActive(false);
+            bowH.SetActive(true);
+            swordH.SetActive(false);
+            shieldH.SetActive(false);
         }
         else if(currentWeapon == Weapon.Bow)
         {
             sword.SetActive(false);
             shield.SetActive(false);
+            swordH.SetActive(true);
+            shieldH.SetActive(true);
         }
         else
         {
@@ -338,6 +346,9 @@ public class _PlayerBaseCombat : _PlayerBase {
             bow.SetActive(true);
             sword.SetActive(false);
             shield.SetActive(false);
+            bowH.SetActive(false);
+            swordH.SetActive(true);
+            shieldH.SetActive(true);
         }
         else if (currentWeapon == Weapon.Bow && sword != null)
         {
@@ -345,6 +356,9 @@ public class _PlayerBaseCombat : _PlayerBase {
             bow.SetActive(false);
             sword.SetActive(true);
             shield.SetActive(true);
+            bowH.SetActive(true);
+            swordH.SetActive(false);
+            shieldH.SetActive(false);
         }
     }
 
@@ -406,13 +420,15 @@ public class _PlayerBaseCombat : _PlayerBase {
 
     IEnumerator Rolling()
     {
+        LerpColSize(standardColSize / 2, 0);
         rb.velocity += Vector3.right * xInput * 3;
         rolling = true;
         canRoll = false;
         anim.SetTrigger("Roll");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.8f);
+        LerpColSize(standardColSize, .25f);
         rolling = false;
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.3f);
         canRoll = true;
         ResetStates();
     }

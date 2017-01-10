@@ -27,7 +27,10 @@ public class _PlayerBase : MonoBehaviour
     public _PlayerMouse mouse;
     public LayerMask lm;
     public _PlayerIKHandler ikHandler;
-    public Vector3 holdPos;
+    public CapsuleCollider col;
+    public float standardColSize = 1.8f;
+
+    public Collider climbingOnObject;
 
     public float xInput, yInput;
     public bool useRootMovement = true;
@@ -64,6 +67,8 @@ public class _PlayerBase : MonoBehaviour
         model = transform.GetChild(0);
         ikHandler = GetComponentInChildren<_PlayerIKHandler>();
         mouse = GameObject.FindObjectOfType<_PlayerMouse>();
+        col = GetComponent<CapsuleCollider>();
+        standardColSize = col.height;
     }
 
     public virtual void InputHandler()
@@ -109,15 +114,16 @@ public class _PlayerBase : MonoBehaviour
             }
         }
 
-        Debug.DrawRay(transform.position + Vector3.up, Vector3.right * walkingDirection, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * 1.5f, Vector3.right * walkingDirection, Color.red);
         Debug.DrawRay(transform.position + Vector3.up * 2f, Vector3.right * walkingDirection, Color.blue);
 
         RaycastHit climbHit;
-        if(Physics.Raycast(transform.position + Vector3.up, Vector3.right * walkingDirection, out climbHit, .4f, lm))
+        if(Physics.Raycast(transform.position + Vector3.up * 1.5f, Vector3.right * walkingDirection, out climbHit, .4f, lm))
         {
             if (climbHit.transform.tag == "Ladder" && baseState != BaseState.Climbing && baseState != BaseState.Hanging) 
             {
                 baseState = BaseState.Climbing;
+                climbingOnObject = climbHit.collider;
             }
             else if (climbHit.transform.tag == "Ledge" && baseState != BaseState.Hanging)
             {
@@ -129,6 +135,7 @@ public class _PlayerBase : MonoBehaviour
     public virtual void ResetStates()
     {
         baseState = BaseState.Grounded;
+        //col.height = standardColSize;
     }
 
     public void Heal(int _lives, bool useApple)
@@ -154,9 +161,10 @@ public class _PlayerBase : MonoBehaviour
 
     public virtual void Move(float moveSpeed, bool turnToMouse)
     {
-        //float velocity = xInput * moveSpeed * Time.fixedDeltaTime;
+        //float velocity = xInput * moveSpeed * Time.deltaTime;
         //rb.MovePosition(rb.position + Vector3.right * velocity);
         transform.Translate(new Vector3(xInput, 0, 0) * moveSpeed * movementSpeed * Time.deltaTime);
+        
         if (turnToMouse)
         {
             TurnPlayer(true, GetMouseDirection);
@@ -214,6 +222,21 @@ public class _PlayerBase : MonoBehaviour
     {
         if (useRootMovement)
         {
+            float offset = .3f;
+            float wallPosition = climbingOnObject.bounds.extents.x + offset;
+            float newPlayerX = 0f;
+
+            if (climbingOnObject.transform.position.x > transform.position.x)
+            {
+                newPlayerX = climbingOnObject.transform.position.x - wallPosition;
+            }
+            else
+            {
+                newPlayerX = climbingOnObject.transform.position.x + wallPosition;
+            }
+
+            transform.position = new Vector3(newPlayerX, transform.position.y, 0);
+
             anim.SetLayerWeight(4, 1);
             TurnPlayer(false, walkingDirection);
             Vector3 climbVector = new Vector3(0, yInput * climbSpeed / 100, 0);
@@ -286,6 +309,36 @@ public class _PlayerBase : MonoBehaviour
         if (!isDead)
         {
             isDead = true;
+        }
+    }
+
+    Coroutine lerpRoutine;
+    public void LerpColSize(float newSize, float time)
+    {
+        if (time <= 0)
+        {
+            col.height = newSize;
+        }
+
+        else
+        {
+            if(lerpRoutine != null)
+            {
+                StopCoroutine(lerpRoutine);
+            }
+            lerpRoutine = StartCoroutine(LerpCZ(newSize, time));
+        }
+    }
+
+    IEnumerator LerpCZ(float newSize, float time)
+    {
+        float elapsedTime = 0f;
+        float oldSize = col.height;
+        while(elapsedTime < time)
+        {
+            col.height = Mathf.Lerp(oldSize, newSize, (elapsedTime / time));
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
     }
 

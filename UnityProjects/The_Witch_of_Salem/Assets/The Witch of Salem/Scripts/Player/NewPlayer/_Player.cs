@@ -68,10 +68,6 @@ public class _Player : _PlayerBaseCombat {
     {
         if(baseState != BaseState.CantMove)
         {
-            if(baseState == BaseState.Hanging)
-            {
-                ikHandler.UseIKHands(holdPos);
-            }
             if(combatState == CombatState.Aiming || combatState == CombatState.ChargeBow)
             {
                 ikHandler.UseIKLookat(mouse.GetPosition, .5f);
