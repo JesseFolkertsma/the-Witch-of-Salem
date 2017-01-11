@@ -17,7 +17,7 @@ public class CheckPoint : MonoBehaviour {
                     print("SAVEGAME");
                     used = true;
                     GameManager.instance.currentCheckpoint = checkPointI;
-                    GameManager.instance.slSystem.SaveGame(GameManager.instance.playerName);
+                    //GameManager.instance.slSystem.SaveGame(GameManager.instance.playerName);
                     GameManager.instance.popup.DisplayPopup("CheckPoint Reached", 3f);
                 }
             }
