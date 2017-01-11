@@ -442,10 +442,13 @@ MonoBehaviour:
   isAgressive: 0
   isDead: 0
   player: {fileID: 0}
+  attackState: 0
   flapStrenght: 5
   flySpeed: 5
   flapCD: 1
-  ragdoll: {fileID: 0}
+  thrustCD: 5
+  thrustForce: 100
+  ragdoll: {fileID: 1000010147628406, guid: 9de2404836ed61342af149744fc9491d, type: 2}
 --- !u!135 &135000013231339258
 SphereCollider:
   m_ObjectHideFlags: 1
