@@ -127,6 +127,7 @@ public class _PlayerBase : MonoBehaviour
             }
             else if (climbHit.transform.tag == "Ledge" && baseState != BaseState.Hanging)
             {
+                climbingOnObject = climbHit.collider;
                 HangOnLedge();
             }
         }
@@ -222,6 +223,7 @@ public class _PlayerBase : MonoBehaviour
     {
         if (useRootMovement)
         {
+            anim.SetBool("IsHanging", false);
             float offset = .3f;
             float wallPosition = climbingOnObject.bounds.extents.x + offset;
             float newPlayerX = 0f;
@@ -239,8 +241,8 @@ public class _PlayerBase : MonoBehaviour
 
             anim.SetLayerWeight(4, 1);
             TurnPlayer(false, walkingDirection);
-            Vector3 climbVector = new Vector3(0, yInput * climbSpeed / 100, 0);
-            transform.Translate(climbVector);
+            Vector3 climbVector = new Vector3(0, yInput * climbSpeed / 2, 0);
+            transform.Translate(climbVector * Time.deltaTime);
             rb.useGravity = false;
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
@@ -253,6 +255,23 @@ public class _PlayerBase : MonoBehaviour
 
     public virtual void HangOnLedge()
     {
+        anim.SetLayerWeight(4, 1);
+        anim.SetBool("IsHanging", true);
+        float offset = .3f;
+        float wallPosition = climbingOnObject.bounds.extents.x + offset;
+        float newPlayerX = 0f;
+
+        if (climbingOnObject.transform.position.x > transform.position.x)
+        {
+            newPlayerX = climbingOnObject.transform.position.x - wallPosition;
+        }
+        else
+        {
+            newPlayerX = climbingOnObject.transform.position.x + wallPosition;
+        }
+
+        transform.position = new Vector3(newPlayerX, climbingOnObject.transform.position.y + climbingOnObject.bounds.extents.y - 2.1f, 0);
+
         TurnPlayer(false, walkingDirection);
         rb.useGravity = false;
         baseState = BaseState.Hanging;
@@ -266,11 +285,6 @@ public class _PlayerBase : MonoBehaviour
         {
             anim.SetTrigger("ClimbUp");
         }
-    }
-
-    public virtual void DropFromClimb()
-    {
-
     }
 
     public virtual void Falling()
@@ -347,7 +361,7 @@ public class _PlayerBase : MonoBehaviour
         ActivateRootMotion();
     }
 
-    public void StopClimbEvent()
+    public virtual void StopClimbEvent()
     {
         DeActivateRootMotion();
         rb.useGravity = true;

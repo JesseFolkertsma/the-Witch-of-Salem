@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 [System.Serializable]
@@ -10,25 +11,41 @@ public class SaveFile  {
     public int apples;
     public int arrows;
 
-    public int currentlevel;
-    public int currentCheckpoint;
+    public string levelName;
+    public int levelID;
 
-    //public Tutorial tutorialInfo;
-    //public Farmlands farmlandsInfo;
-    //public Forest forestInfo;
-    //public Caves cavesInfo;
-    //public WitchTower witchTowerInfo;
-    //public TestLevel testInfo;
+    public List<bool> crates;
+    public List<bool> spawns;
 
 
-    public SaveFile (Vector3 pos, PlayerStats playerS, int ccp)
+    public SaveFile(Vector3 pos, int _lives, int _apples, int _arrows, List<BreakableLootObject> _crates, List<EnemySpawnEvent> _spawns, string _levelName, int _levelID)
     {
         playerPos = pos;
-        lives = playerS.lives;
-        apples = playerS.apples;
-        arrows = playerS.arrows;
-        currentlevel = 5;
-        currentCheckpoint = ccp;
+        lives = _lives;
+        apples = _apples;
+        arrows = _arrows;
+
+        levelName = _levelName;
+        levelID = _levelID;
+
+        crates = new List<bool>();
+        for (int i = 0; i < _crates.Count; i++)
+        {
+            if (_crates[i] != null)
+            {
+                crates.Add(false);
+            }
+            else
+            {
+                crates.Add(true);
+            }
+        }
+
+        spawns = new List<bool>();
+        for (int i = 0; i < _spawns.Count; i++)
+        {
+            spawns.Add(_spawns[i].isDone);
+        }
     }
 
     public SaveFile() { }

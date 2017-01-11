@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ae14864329ede65468f470496aff7bd1
-timeCreated: 1482678750
+timeCreated: 1484050946
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -219,7 +219,7 @@ SubstanceImporter:
         second: 1
       - first:
           name: _Parallax
-        second: 0.0486
+        second: 0.005
       - first:
           name: _Shininess
         second: 0.078125

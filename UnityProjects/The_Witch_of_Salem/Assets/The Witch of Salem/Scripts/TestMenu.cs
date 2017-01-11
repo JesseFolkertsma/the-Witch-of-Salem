@@ -12,12 +12,12 @@ public class TestMenu : MonoBehaviour {
     public void NewGameButton()
     {
         //SceneManager.LoadScene(0);
-        GameManager.instance.slSystem.NewGame();
+        //GameManager.instance.slSystem.NewGame();
     }
 
     public void LoadGameButton()
     {
         //SceneManager.LoadScene(0);
-        GameManager.instance.slSystem.LoadScene("Jonas");
+        //GameManager.instance.slSystem.LoadScene("Jonas");
     }
 }

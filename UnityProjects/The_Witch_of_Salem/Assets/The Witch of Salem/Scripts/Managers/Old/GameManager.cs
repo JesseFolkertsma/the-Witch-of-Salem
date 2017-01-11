@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
 
 
         slSystem = new SaveLoadSystem();
-        slSystem.gm = this;
+        //slSystem.gm = this;
         popup = GetComponent<PopupMessages>();
 
         currentLevel = 5;
@@ -68,12 +68,12 @@ public class GameManager : MonoBehaviour {
     {
         if (Input.GetButtonDown("Save"))
         {
-            slSystem.SaveGame(playerName);
+            //slSystem.SaveGame(playerName);
             popup.DisplayPopup("Quicksaving", 2);
         }
         if (Input.GetButtonDown("Load"))
         {
-            slSystem.LoadGame(playerName);
+            //slSystem.LoadGame(playerName);
             popup.DisplayPopup("Quickloading", 2);
         }
 
