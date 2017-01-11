@@ -3,9 +3,19 @@ using System.Collections;
 
 public class BreakableLootObject : MonoBehaviour {
 
+    public bool broken = false;
+
     public GameObject pieces;
     public float destroyForce = 500;
     public GameObject apple;
+
+    void Update()
+    {
+        if (broken)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 	public void Break(Vector3 pos)
     {
