@@ -204,8 +204,11 @@ public class _PlayerBaseCombat : _PlayerBase {
             }
             if (currentWeapon == Weapon.Sword)
             {
-                combatState = CombatState.Blocking;
-                useRootMovement = false;
+                if (combatState != CombatState.Attacking)
+                {
+                    combatState = CombatState.Blocking;
+                    useRootMovement = false;
+                }
             }
         }
     }
@@ -405,6 +408,59 @@ public class _PlayerBaseCombat : _PlayerBase {
         ikHandler.UseIKLookat(mouse.GetPosition, .5f);
         Move(2f, true);
 
+    }
+
+    public override void Climbing()
+    {
+        base.Climbing();
+        
+        bow.SetActive(false);
+        sword.SetActive(false);
+        shield.SetActive(false);
+        bowH.SetActive(true);
+        swordH.SetActive(true);
+        shieldH.SetActive(true);
+    }
+
+    public override void HangOnLedge()
+    {
+        base.HangOnLedge();
+
+        bow.SetActive(false);
+        sword.SetActive(false);
+        shield.SetActive(false);
+        bowH.SetActive(true);
+        swordH.SetActive(true);
+        shieldH.SetActive(true);
+    }
+
+    public override void StopClimbEvent()
+    {
+        base.StopClimbEvent();
+
+        if (currentWeapon == Weapon.Sword)
+        {
+            bow.SetActive(false);
+            sword.SetActive(true);
+            shield.SetActive(true);
+            bowH.SetActive(true);
+            swordH.SetActive(false);
+            shieldH.SetActive(false);
+        }
+        else if (currentWeapon == Weapon.Bow)
+        {
+            sword.SetActive(false);
+            shield.SetActive(false);
+            bow.SetActive(true);
+            bowH.SetActive(false);
+            swordH.SetActive(true);
+            shieldH.SetActive(true);
+        }
+    }
+
+    IEnumerator StopClimbRoutine()
+    {
+        yield return new WaitForSeconds(1f);
     }
 
     public void CombatRoll()
