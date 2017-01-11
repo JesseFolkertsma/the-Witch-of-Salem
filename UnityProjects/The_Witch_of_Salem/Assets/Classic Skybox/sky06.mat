@@ -24,7 +24,7 @@ Material:
     - first:
         name: _DownTex
       second:
-        m_Texture: {fileID: 2800000, guid: ff89da3cb5241404aadc6fe1efa1abf7, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -60,10 +60,14 @@ Material:
     m_Floats:
     - first:
         name: _Exposure
-      second: 1.3
+      second: 0.95
     - first:
         name: _Rotation
+<<<<<<< HEAD
+      second: 46
+=======
       second: 229
+>>>>>>> db988b32de4fb34383796a6e92af9c9b79ddc2f8
     m_Colors:
     - first:
         name: _Color
