@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<SaveFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <playerPos>
+    <x>-6.72754</x>
+    <y>3.55352163</y>
+    <z>0</z>
+  </playerPos>
+  <lives>5</lives>
+  <apples>5</apples>
+  <arrows>0</arrows>
+  <levelName />
+  <levelID>1</levelID>
+  <crates>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+  </crates>
+  <spawns>
+    <boolean>true</boolean>
+  </spawns>
+</SaveFile>

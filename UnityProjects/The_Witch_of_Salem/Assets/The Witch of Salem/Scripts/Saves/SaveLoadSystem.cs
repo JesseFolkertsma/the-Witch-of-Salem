@@ -10,118 +10,43 @@ public class SaveLoadSystem {
 
     string savePath = "/The Witch of Salem/SaveFiles/";
 
-    public GameManager gm;
+    public _GameManager gm;
 
-    public SaveFile sFile;
+    //public SaveFile sFile;
 
-    SaveFile SetupSaveFile()
+    SaveFile SetupSaveFile(string pn, string levelName, int levelID, _Player player, LevelData lData)
     {
-        SaveFile file = new SaveFile(GameObject.FindGameObjectWithTag("Player").transform.position, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>(), gm.currentCheckpoint);
+        SaveFile file = new SaveFile(player.transform.position, player.lives, player.apples, player.arrows, lData.crates, lData.spawners, levelName, levelID); 
         return file;
     }
 
-    void SetupLoad(SaveFile file)
+	public void SaveGame(string pn, string levelName, int levelID, _Player player, LevelData lData)
     {
-        gm.loadPos = file.playerPos;
-        gm.playerS.lives = file.lives;
-        gm.playerS.apples = file.apples;
-        gm.playerS.arrows = file.arrows;
-        gm.currentLevel = file.currentlevel;
-        gm.currentCheckpoint = file.currentCheckpoint;
-        //SetupLevel(file.currentlevel, file.currentCheckpoint);
-    }
-
-    public void NewGame()
-    {
-        LoadGame("NewGame");
-        SceneManager.LoadScene(1);
-    }
-
-    public void LoadScene(string pn)
-    {
-        LoadGame(pn);
-        SceneManager.LoadScene(1);
-    }
-
-	public void SaveGame(string pn)
-    {
-        SaveFile file = SetupSaveFile();
+        SaveFile file = SetupSaveFile(pn, levelName, levelID, player, lData);
 
         XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
-        //FileStream stream = new FileStream(Application.dataPath + savePath + pn + "_SaveGame.xml", FileMode.Create);
-        FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Create);
+        FileStream stream = new FileStream(Application.dataPath + savePath + pn + "/_SaveGame.xml", FileMode.Create);
+        //FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Create);
         serializer.Serialize(stream, file);
         stream.Close();
+        Debug.Log("Saved Game!");
     }
 
-    public void LoadGame(string pn)
+    public void LoadGame(string pn, string levelName)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
-        //FileStream stream = new FileStream(Application.dataPath + savePath + pn + "_SaveGame.xml", FileMode.Open);
-        FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Open);
+        FileStream stream = new FileStream(Application.dataPath + savePath + pn + "/_SaveGame.xml", FileMode.Open);
+        //FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Open);
         SaveFile file = serializer.Deserialize(stream) as SaveFile;
         stream.Close();
 
-        SetupLoad(file);
-        sFile = file;
-    }
-
-    public void SetupLevel(int level, int checkpoint)
-    {
-        switch (level)
+        if (levelName != file.levelName)
         {
-            case 0:
-                SetupTutorial(checkpoint);
-                break;
-            case 1:
-                SetupFarmlands(checkpoint);
-                break;
-            case 2:
-                SetupForest(checkpoint);
-                break;
-            case 3:
-                SetupCaves(checkpoint);
-                break;
-            case 4:
-                SetupWitchTower(checkpoint);
-                break;
-            case 5:
-                SetupTest(checkpoint);
-                break;
+            Debug.LogWarning("No Save of current level");
         }
-    }
-
-    void SetupTutorial(int checkpoint)
-    {
-
-    }
-
-    void SetupFarmlands(int checkpoint)
-    {
-
-    }
-
-    void SetupForest(int checkpoint)
-    {
-
-    }
-    void SetupCaves(int checkpoint)
-    {
-
-    }
-    void SetupWitchTower(int checkpoint)
-    {
-
-    }
-    void SetupTest(int checkpoint)
-    {
-        if(checkpoint >= 1)
+        else
         {
-            GameObject.Find("M_Bridge").GetComponent<BridgeRope>().BreakRope();
-            if(checkpoint >= 2)
-            {
-
-            }
+            gm.LoadLevelData(file);
         }
     }
 }

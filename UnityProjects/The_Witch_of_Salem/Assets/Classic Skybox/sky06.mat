@@ -63,7 +63,11 @@ Material:
       second: 0.95
     - first:
         name: _Rotation
+<<<<<<< HEAD
       second: 46
+=======
+      second: 229
+>>>>>>> db988b32de4fb34383796a6e92af9c9b79ddc2f8
     m_Colors:
     - first:
         name: _Color
