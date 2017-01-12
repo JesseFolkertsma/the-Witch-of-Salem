@@ -28,6 +28,7 @@ public class Raven : Enemy {
 
     void Start()
     {
+        GEStart();
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(ThrustCD());
@@ -39,6 +40,8 @@ public class Raven : Enemy {
         Flap();
         Thrust();
         Thrusting();
+
+        data.lives = lives;
 
         if (lives < 1)
         {
@@ -124,8 +127,15 @@ public class Raven : Enemy {
         Destroy(gameObject);
     }
 
-    void OnCollisionEnter()
+    void OnCollisionEnter(Collision col)
     {
         attackState = AttackState.Flapping;
+        if (col.collider.attachedRigidbody)
+        {
+            if (col.collider.attachedRigidbody.GetComponent<_Player>())
+            {
+                col.collider.attachedRigidbody.GetComponent<_Player>().TakeDamage(1);
+            }
+        }
     }
 }
