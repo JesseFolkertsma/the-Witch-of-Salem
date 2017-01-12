@@ -24,6 +24,12 @@ public class Enemy : MonoBehaviour {
 
     public Transform player;
 
+    public virtual void GEStart()
+    {
+        
+        _UIManager.instance.AddEnemy(data);
+    }
+
     public virtual TargetDirection CheckTargetDir(Vector3 target)
     {
         if(transform.position.x < target.x)
