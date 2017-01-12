@@ -437,7 +437,7 @@ MonoBehaviour:
     waitSec: 0
     waitForDead: 0
     isDead: 0
-  lives: 3
+  lives: 1
   movementSpeed: 0
   isAgressive: 0
   isDead: 0
