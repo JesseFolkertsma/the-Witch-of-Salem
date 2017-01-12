@@ -16,12 +16,13 @@ public class GroundEnemy : Enemy {
 
     public GameObject ragdoll;
 
-    public virtual void GEStart()
+    public override void GEStart()
     {
+        base.GEStart();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponentInChildren<Animator>();
         enemyModel = transform.GetChild(0);
-        _UIManager.instance.AddEnemy(data);
+
     }
 
     public virtual void GEUpdate()
