@@ -87,19 +87,19 @@ Light:
   m_Enabled: 1
   serializedVersion: 7
   m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.53676474, g: 0.5344783, b: 0.45388195, a: 1}
   m_Intensity: 1.41
-  m_Range: 10
+  m_Range: 13
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.561
     m_Bias: 0
-    m_NormalBias: 0.28
-    m_NearPlane: 0.2
+    m_NormalBias: 0.44
+    m_NearPlane: 0.1
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -109,6 +109,6 @@ Light:
     m_Bits: 4294967295
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1.07
+  m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
