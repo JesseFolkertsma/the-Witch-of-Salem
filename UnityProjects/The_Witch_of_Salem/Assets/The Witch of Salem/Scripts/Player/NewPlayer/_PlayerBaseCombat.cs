@@ -496,7 +496,7 @@ public class _PlayerBaseCombat : _PlayerBase {
         {
             if(col.attachedRigidbody)
             {
-                col.attachedRigidbody.AddExplosionForce(500, col.ClosestPointOnBounds(transform.position + Vector3.up * 2), 2f);
+                //col.attachedRigidbody.AddExplosionForce(500, col.ClosestPointOnBounds(transform.position + Vector3.up * 2), 2f);
                 if (col.attachedRigidbody.GetComponent<Enemy>())
                 {
                     Enemy e = col.attachedRigidbody.GetComponent<Enemy>();
