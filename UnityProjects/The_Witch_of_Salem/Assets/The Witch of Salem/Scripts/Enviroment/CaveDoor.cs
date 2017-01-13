@@ -3,29 +3,35 @@ using System.Collections;
 
 public class CaveDoor : MonoBehaviour {
 
-    bool puzzle1 = false;
-    bool puzzle2 = false;
-    bool puzzle3 = false;
+    public int puzzlesToComplete = 1;
 
-    public void FinishedPuzzle1()
+    public bool[] completedPuzzles;
+
+    void Start()
     {
-        puzzle1 = true;
-        Check();
+        completedPuzzles = new bool[puzzlesToComplete];
     }
-    public void FinishedPuzzle2()
+
+    public void FinishPuzzle(int puzzleNbr)
     {
-        puzzle2 = true;
-        Check();
-    }
-    public void FinishedPuzzle3()
-    {
-        puzzle3 = true;
+        completedPuzzles[puzzleNbr - 1] = true;
         Check();
     }
 
     void Check()
     {
-        if(puzzle1 && puzzle2 && puzzle3)
+        bool allDone = true;
+
+        for(int i = 0; i < completedPuzzles.Length; i++)
+        {
+            if (!completedPuzzles[i])
+            {
+                allDone = false;
+                break;
+            }
+        }
+
+        if(allDone)
         {
             GetComponent<Animator>().SetTrigger("OpenDoor");
         }
