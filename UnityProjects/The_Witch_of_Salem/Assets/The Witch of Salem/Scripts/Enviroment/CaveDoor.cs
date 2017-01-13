@@ -5,7 +5,7 @@ public class CaveDoor : MonoBehaviour {
 
     public int puzzlesToComplete = 1;
 
-    bool[] completedPuzzles;
+    public bool[] completedPuzzles;
 
     void Start()
     {
