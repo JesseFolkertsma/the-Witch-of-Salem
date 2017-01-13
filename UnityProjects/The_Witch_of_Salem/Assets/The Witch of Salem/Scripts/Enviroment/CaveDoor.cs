@@ -14,6 +14,7 @@ public class CaveDoor : MonoBehaviour {
 
     public void FinishPuzzle(int puzzleNbr)
     {
+        print("Finished puzzle " + puzzleNbr.ToString());
         completedPuzzles[puzzleNbr - 1] = true;
         Check();
     }
