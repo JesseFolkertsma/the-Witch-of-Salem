@@ -24,7 +24,6 @@ public class _EnemyUI : MonoBehaviour {
         {
             if (!dataSetup)
             {
-                print("Whut");
                 for (int i = 0; i < lives.Length; i++)
                 {
                     if (i > data.lives)
