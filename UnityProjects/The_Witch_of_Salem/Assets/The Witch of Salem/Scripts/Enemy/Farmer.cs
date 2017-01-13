@@ -65,7 +65,9 @@ public class Farmer : GroundEnemy {
             audioS.Play();
         }
         willAttack = true;
+        print("StartAttack");
         yield return new WaitForSeconds(.5f);
+        print("StopAttack");
         willAttack = false;
     }
 
@@ -82,7 +84,7 @@ public class Farmer : GroundEnemy {
     void OnTriggerEnter(Collider col)
     {
         bool hitPlayer = false;
-        if (col.tag == "Shield")
+        if (col.tag == "Shield" && col.attachedRigidbody.GetComponent<_PlayerBaseCombat>().combatState == _PlayerBaseCombat.CombatState.Blocking)
         {
             hitPlayer = true;
             willAttack = false;
