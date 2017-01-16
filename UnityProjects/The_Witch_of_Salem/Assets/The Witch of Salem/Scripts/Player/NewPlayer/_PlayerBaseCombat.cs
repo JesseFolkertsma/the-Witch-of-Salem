@@ -343,25 +343,28 @@ public class _PlayerBaseCombat : _PlayerBase {
 
     public void SwitchWeapons()
     {
-        if(currentWeapon == Weapon.Sword && bow != null)
+        if (combatState == CombatState.Idle)
         {
-            currentWeapon = Weapon.Bow;
-            bow.SetActive(true);
-            sword.SetActive(false);
-            shield.SetActive(false);
-            bowH.SetActive(false);
-            swordH.SetActive(true);
-            shieldH.SetActive(true);
-        }
-        else if (currentWeapon == Weapon.Bow && sword != null)
-        {
-            currentWeapon = Weapon.Sword;
-            bow.SetActive(false);
-            sword.SetActive(true);
-            shield.SetActive(true);
-            bowH.SetActive(true);
-            swordH.SetActive(false);
-            shieldH.SetActive(false);
+            if (currentWeapon == Weapon.Sword && bow != null)
+            {
+                currentWeapon = Weapon.Bow;
+                bow.SetActive(true);
+                sword.SetActive(false);
+                shield.SetActive(false);
+                bowH.SetActive(false);
+                swordH.SetActive(true);
+                shieldH.SetActive(true);
+            }
+            else if (currentWeapon == Weapon.Bow && sword != null)
+            {
+                currentWeapon = Weapon.Sword;
+                bow.SetActive(false);
+                sword.SetActive(true);
+                shield.SetActive(true);
+                bowH.SetActive(true);
+                swordH.SetActive(false);
+                shieldH.SetActive(false);
+            }
         }
     }
 
