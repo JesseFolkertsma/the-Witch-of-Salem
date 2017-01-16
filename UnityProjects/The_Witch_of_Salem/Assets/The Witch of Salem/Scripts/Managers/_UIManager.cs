@@ -37,6 +37,7 @@ public class _UIManager : MonoBehaviour {
     List<string> wholeConv;
     public bool writing;
     public bool inConv;
+    public GameObject screenConv;
     public Text screenText;
     int convInt = 0;
     #endregion
@@ -117,7 +118,7 @@ public class _UIManager : MonoBehaviour {
                     }
                     else
                     {
-                        screenText.enabled = false;
+                        screenConv.SetActive(false);
                         player.enabled = true;
                     }
                 }
@@ -127,7 +128,7 @@ public class _UIManager : MonoBehaviour {
 
     public void StartConversation(List<string> conv)
     {
-        screenText.enabled = true;
+        screenConv.SetActive(true);
         wholeConv = conv;
         screenText.text = "";
         player.enabled = false;
