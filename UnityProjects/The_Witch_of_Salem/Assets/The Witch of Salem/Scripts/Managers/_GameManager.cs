@@ -29,7 +29,7 @@ public class _GameManager : MonoBehaviour {
 
     }
 
-    public void LoadLevelData(SaveFile file)
+    public void LoadLevelData(SaveFile file, bool playerDataOnly)
     {
         _Player p = FindObjectOfType<_Player>();
         p.transform.position = file.playerPos;
@@ -38,13 +38,16 @@ public class _GameManager : MonoBehaviour {
         p.arrows = file.arrows;
         _UIManager.instance.UpdateUI();
 
-        for (int i = 0; i < levelData.crates.Count; i++)
+        if (!playerDataOnly)
         {
-            levelData.crates[i].broken = file.crates[i];
-        }
-        for (int i = 0; i < levelData.spawners.Count; i++)
-        {
-            levelData.spawners[i].isDone = file.spawns[i];
+            for (int i = 0; i < levelData.crates.Count; i++)
+            {
+                levelData.crates[i].broken = file.crates[i];
+            }
+            for (int i = 0; i < levelData.spawners.Count; i++)
+            {
+                levelData.spawners[i].isDone = file.spawns[i];
+            }
         }
     }
 }
