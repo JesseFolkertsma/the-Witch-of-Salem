@@ -12,5 +12,4 @@ public class Boss : Enemy {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
     }
-
 }

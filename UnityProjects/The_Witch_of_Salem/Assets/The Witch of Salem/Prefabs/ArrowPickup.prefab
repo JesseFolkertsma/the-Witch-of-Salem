@@ -279,6 +279,7 @@ GameObject:
   - 4: {fileID: 4000012758632584}
   - 65: {fileID: 65000011604214228}
   - 114: {fileID: 114000014006044474}
+  - 54: {fileID: 54000011996741164}
   m_Layer: 0
   m_Name: ArrowPickup
   m_TagString: Untagged
@@ -1097,6 +1098,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010771799904}
   m_Mesh: {fileID: 4300000, guid: 470b6f6dc43cbc74d8130c00f3a1e797, type: 3}
+--- !u!54 &54000011996741164
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012684279928}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65000011604214228
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -12,6 +12,7 @@ public class ArrowPickup : MonoBehaviour {
             _Player player = col.transform.GetComponent<_Player>();
             player.arrows += amount;
             _UIManager.instance.UpdateUI();
+            _UIManager.instance.DisplayPopup("Picked up Arrows", 2f);
             Destroy(gameObject);
         }
     }
