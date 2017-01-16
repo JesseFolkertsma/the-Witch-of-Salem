@@ -53,7 +53,6 @@ public class EnemySpawnEvent : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        print("SPAWN");
         if(!isDone && !active)
         {
             if (col.attachedRigidbody)

@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f636129e92fd0cf4cbb3944915d0b90d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelData: {fileID: 0}
+  playerName: 
 --- !u!114 &114000012876002852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80,3 +82,8 @@ MonoBehaviour:
   enemyPanel: {fileID: 0}
   enemy: {fileID: 1000010180878384, guid: 64237e6a042ee12459ef8104163df949, type: 2}
   enemies: []
+  writeRate: 10
+  writing: 0
+  inConv: 0
+  screenConv: {fileID: 0}
+  screenText: {fileID: 0}

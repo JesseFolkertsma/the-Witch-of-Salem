@@ -12,7 +12,7 @@ public class GroundEnemy : Enemy {
 
     public bool walking;
     
-    bool canAttack;
+    public bool canAttack = false;
 
     public GameObject ragdoll;
 
@@ -22,7 +22,7 @@ public class GroundEnemy : Enemy {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponentInChildren<Animator>();
         enemyModel = transform.GetChild(0);
-
+        canAttack = true;
     }
 
     public virtual void GEUpdate()
@@ -41,7 +41,7 @@ public class GroundEnemy : Enemy {
 
     public virtual void CheckForPlayer(float attackRange)
     {
-        if (Vector3.Distance(transform.position, player.position) < attackRange)
+        if (Vector3.Distance(transform.position , player.position) < attackRange)
         {
             canAttack = true;
         }
@@ -53,9 +53,10 @@ public class GroundEnemy : Enemy {
 
     public virtual void Move(float movementSpeed, Vector3 target)
     {
-        if (movementSpeed > 0.1f && !Physics.Raycast(transform.position + enemyModel.transform.forward / 2, enemyModel.transform.forward, 2))
+        if (movementSpeed > 0.1f && !Physics.Raycast(transform.position + enemyModel.transform.up + enemyModel.transform.forward / 2, enemyModel.transform.forward, 2))
             walking = true;
-        else {
+        else
+        {
             walking = false;
             movementSpeed = 0;
         }

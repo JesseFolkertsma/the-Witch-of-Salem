@@ -16,6 +16,7 @@ public class _UIManager : MonoBehaviour {
     public Sprite farmer;
     public Sprite raven;
 
+    #region playerdata
     _Player player;
     public int lives;
     public int apples;
@@ -24,9 +25,22 @@ public class _UIManager : MonoBehaviour {
     public Text arrowsUI;
     public Text popupText;
     public Image[] livesUI;
+    #endregion
+
     public GameObject enemyPanel;
     public GameObject enemy;
     public List<GameObject> enemies;
+
+    #region Conversation
+    [SerializeField]
+    float writeRate;
+    List<string> wholeConv;
+    public bool writing;
+    public bool inConv;
+    public GameObject screenConv;
+    public Text screenText;
+    int convInt = 0;
+    #endregion
 
     void Awake()
     {
@@ -45,10 +59,8 @@ public class _UIManager : MonoBehaviour {
         applesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Apple").GetComponentInChildren<Text>();
         arrowsUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Arrow").GetComponentInChildren<Text>();
         popupText = mainCanvas.transform.FindChild("Popup").GetComponentInChildren<Text>();
-    }
-
-    void Start()
-    {
+        DisplayPopup(" ", 1f);
+        screenConv.SetActive(false);
     }
 
     public void UpdateUI()
@@ -80,6 +92,68 @@ public class _UIManager : MonoBehaviour {
                 arrowsUI.text = arrows.ToString();
             }
         }
+    }
+
+    void Update()
+    {
+        if (inConv)
+        {
+            if (writing)
+            {
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    StopAllCoroutines();
+                    screenText.text = wholeConv[convInt];
+                    writing = false;
+                    convInt++;
+                }
+            }
+            else
+            {
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    if (convInt < wholeConv.Count)
+                    {
+                        screenText.text = "";
+                        StartCoroutine(AddLetters(wholeConv[convInt]));
+                    }
+                    else
+                    {
+                        screenConv.SetActive(false);
+                        player.enabled = true;
+                    }
+                }
+            }
+        }
+    }
+
+    public void StartConversation(List<string> conv)
+    {
+        screenConv.SetActive(true);
+        wholeConv = conv;
+        screenText.text = "";
+        player.xInput = 0;
+        player.enabled = false;
+        inConv = true;
+        convInt = 0;
+        writing = true;
+        print("Starting conv" + conv[convInt]);
+        StartCoroutine(AddLetters(conv[convInt]));
+    }
+
+    IEnumerator AddLetters(string text)
+    {
+        print("Hey");
+        for (int i = 0; i < text.Length; i++)
+        {
+            print("Wat");
+            yield return new WaitForSeconds(1/writeRate);
+            print("adding " + text[i]);
+            writing = true;
+            screenText.text += text[i];
+        }
+        writing = false;
+        convInt++;
     }
 
     public void DisplayPopup(string text, float time)
