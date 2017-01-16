@@ -15,7 +15,7 @@ public class Witch : Boss {
     Coroutine routine;
 
     public List<GameObject> enemies;
-    public GameObject enemy;
+    public List<GameObject> enemy;
     public Transform[] enemypos;
 
     public Transform[] telPositions;
@@ -48,8 +48,33 @@ public class Witch : Boss {
         ik.target = player;
     }
 
+    bool NoSpawns()
+    {
+        if (enemies.Count == 0)
+        {
+            return true;
+        }
+        else {
+            for (int i = 0; i < enemies.Count; i++) {
+                if (enemies[i] == null)
+                {
+                    enemies.Remove(enemies[i]);
+                }
+            }
+            if(enemies.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
     void Update()
     {
+        BossUpdate();
         Timers();
         CheckAbilities();
         LookatPlayer();
@@ -76,14 +101,6 @@ public class Witch : Boss {
             if (!projectileTimer && willShoot)
             {
                 ShootProjectile();
-            }
-
-            if (spawned)
-            {
-                if (enemies[0] == null)
-                {
-                    spawnTimer = true;
-                }
             }
         }
     }
@@ -153,7 +170,8 @@ public class Witch : Boss {
         {
             if (enemypos[i] != null)
             {
-                GameObject g = Instantiate(enemy, enemypos[i].position, Quaternion.identity) as GameObject;
+                int rng = Random.Range(0, enemy.Count);
+                GameObject g = Instantiate(enemy[rng], enemypos[i].position, Quaternion.identity) as GameObject;
                 enemies.Add(g);
             }
         }
