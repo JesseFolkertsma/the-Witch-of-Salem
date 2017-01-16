@@ -60,6 +60,7 @@ public class _UIManager : MonoBehaviour {
         arrowsUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Arrow").GetComponentInChildren<Text>();
         popupText = mainCanvas.transform.FindChild("Popup").GetComponentInChildren<Text>();
         DisplayPopup(" ", 1f);
+        screenConv.SetActive(false);
     }
 
     public void UpdateUI()
@@ -131,6 +132,7 @@ public class _UIManager : MonoBehaviour {
         screenConv.SetActive(true);
         wholeConv = conv;
         screenText.text = "";
+        player.xInput = 0;
         player.enabled = false;
         inConv = true;
         convInt = 0;

@@ -2022,19 +2022,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114000012876002852, guid: 0f424471bf4e1e442b42c163846f65c0,
         type: 2}
-      propertyPath: screenText
-      value: 
-      objectReference: {fileID: 1559314909}
-    - target: {fileID: 114000012876002852, guid: 0f424471bf4e1e442b42c163846f65c0,
-        type: 2}
-      propertyPath: writeRate
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012876002852, guid: 0f424471bf4e1e442b42c163846f65c0,
-        type: 2}
       propertyPath: screenConv
       value: 
       objectReference: {fileID: 1675357086}
+    - target: {fileID: 114000012876002852, guid: 0f424471bf4e1e442b42c163846f65c0,
+        type: 2}
+      propertyPath: screenText
+      value: 
+      objectReference: {fileID: 1559314909}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f424471bf4e1e442b42c163846f65c0, type: 2}
   m_IsPrefabParent: 0
@@ -2307,8 +2302,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message:
-  - Im Cube
-  - BYE!
+  - Im Cube, please talk to me I love people
+  - Goodbye my friend!
 --- !u!23 &1647290794
 MeshRenderer:
   m_ObjectHideFlags: 0
