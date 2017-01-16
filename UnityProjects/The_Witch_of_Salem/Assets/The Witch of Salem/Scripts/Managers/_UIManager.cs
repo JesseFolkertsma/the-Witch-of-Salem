@@ -143,12 +143,9 @@ public class _UIManager : MonoBehaviour {
 
     IEnumerator AddLetters(string text)
     {
-        print("Hey");
         for (int i = 0; i < text.Length; i++)
         {
-            print("Wat");
             yield return new WaitForSeconds(1/writeRate);
-            print("adding " + text[i]);
             writing = true;
             screenText.text += text[i];
         }
