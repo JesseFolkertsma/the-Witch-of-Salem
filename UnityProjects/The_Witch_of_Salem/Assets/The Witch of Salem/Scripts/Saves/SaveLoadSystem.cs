@@ -32,7 +32,7 @@ public class SaveLoadSystem {
         Debug.Log("Saved Game!");
     }
 
-    public void LoadGame(string pn, string levelName)
+    public void LoadGame(string pn, string levelName, bool playerDataOnly)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
         FileStream stream = new FileStream(Application.dataPath + savePath + pn + "/_SaveGame.xml", FileMode.Open);
@@ -46,7 +46,7 @@ public class SaveLoadSystem {
         }
         else
         {
-            gm.LoadLevelData(file);
+            gm.LoadLevelData(file, playerDataOnly);
         }
     }
 }
