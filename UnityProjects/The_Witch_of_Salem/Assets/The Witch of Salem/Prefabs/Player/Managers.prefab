@@ -82,6 +82,8 @@ MonoBehaviour:
   enemyPanel: {fileID: 0}
   enemy: {fileID: 1000010180878384, guid: 64237e6a042ee12459ef8104163df949, type: 2}
   enemies: []
+  canvas: {fileID: 1000011736952562, guid: 4c7b4b78798f20740be6836a20c1e3b4, type: 2}
+  secondCanvas: {fileID: 0}
   writeRate: 10
   writing: 0
   inConv: 0
