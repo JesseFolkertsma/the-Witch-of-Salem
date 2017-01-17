@@ -66,7 +66,7 @@ public class _PlayerBase : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         model = transform.GetChild(0);
         ikHandler = GetComponentInChildren<_PlayerIKHandler>();
-        mouse = GameObject.FindObjectOfType<_PlayerMouse>();
+        //mouse = GameObject.FindObjectOfType<_PlayerMouse>();
         col = GetComponent<CapsuleCollider>();
         standardColSize = col.height;
     }
