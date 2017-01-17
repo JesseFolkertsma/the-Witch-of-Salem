@@ -70,6 +70,7 @@ public class _PlayerBase : MonoBehaviour
         //mouse = GameObject.FindObjectOfType<_PlayerMouse>();
         col = GetComponent<CapsuleCollider>();
         standardColSize = col.height;
+        _GameManager.instance.PlayerDeath(false);
     }
 
     public virtual void InputHandler()
@@ -325,6 +326,7 @@ public class _PlayerBase : MonoBehaviour
         {
             isDead = true;
             Destroy(gameObject);
+            _GameManager.instance.PlayerDeath(true);
             if (ragdoll != null)
             {
                 Instantiate(ragdoll, transform.position, transform.rotation);

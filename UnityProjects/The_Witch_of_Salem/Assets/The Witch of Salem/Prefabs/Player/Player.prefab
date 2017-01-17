@@ -4474,7 +4474,7 @@ MonoBehaviour:
   yInput: 0
   useRootMovement: 1
   isDead: 0
-  ragdoll: {fileID: 0}
+  ragdoll: {fileID: 1000011196350212, guid: 12ac1234d5ba90f468ae2d3923ae2a1d, type: 2}
   walkingDirection: 0
   combatState: 8
   currentWeapon: 1
