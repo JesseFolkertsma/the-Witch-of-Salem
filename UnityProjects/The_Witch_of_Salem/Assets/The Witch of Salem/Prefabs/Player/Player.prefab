@@ -4462,7 +4462,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   rb: {fileID: 0}
   model: {fileID: 0}
-  mouse: {fileID: 0}
+  mouse: {fileID: 114000013142497004, guid: e02b5ae016233254e95245f313b845e1, type: 2}
   lm:
     serializedVersion: 2
     m_Bits: 4294967039
@@ -4489,6 +4489,7 @@ MonoBehaviour:
   bowH: {fileID: 1000012749603646}
   arrow: {fileID: 1000012006826884, guid: 448a842abe435774f94ad15b95dc2492, type: 2}
   velocityState: 1
+  mainCanvas: {fileID: 1000011736952562, guid: 4c7b4b78798f20740be6836a20c1e3b4, type: 2}
 --- !u!114 &114000011802351822
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour {
 
     public virtual void GEStart()
     {
-        
         _UIManager.instance.AddEnemy(data);
     }
 

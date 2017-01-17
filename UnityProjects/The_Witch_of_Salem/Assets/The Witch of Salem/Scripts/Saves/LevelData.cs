@@ -32,7 +32,7 @@ public class LevelData : MonoBehaviour {
             }
             if (Input.GetButtonDown("Load"))
             {
-                _GameManager.instance.saveSystem.LoadGame(_GameManager.instance.playerName, levelName);
+                _GameManager.instance.saveSystem.LoadGame(_GameManager.instance.playerName, levelName, false);
             }
         }
     }
