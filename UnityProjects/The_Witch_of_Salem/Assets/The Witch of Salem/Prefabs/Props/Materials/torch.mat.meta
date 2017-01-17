@@ -1,4 +1,8 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 66a7d92b43ad7e249a8b3b60b59eba9e
+timeCreated: 1484579402
+=======
 <<<<<<< HEAD:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Prefabs/Props/Materials/torch.mat.meta
 guid: 019227bf59a699840991cadff097f8b9
 timeCreated: 1484579849
@@ -11,6 +15,7 @@ guid: 5b0f69adfad690246876f945086afed3
 timeCreated: 1484575986
 >>>>>>> 801e6bdc0650f767b326924b39dcdf3ef872def7
 >>>>>>> a887dc52e5600cba4b334b314584e75f9130a2bb:UnityProjects/The_Witch_of_Salem/Assets/The Witch of Salem/Artist Files/Models/Props/Torch/Materials/torch 2.mat.meta
+>>>>>>> deeff413ec7e58ba6d1892db8b5ac1f6e83246e4
 licenseType: Free
 NativeFormatImporter:
   userData: 
