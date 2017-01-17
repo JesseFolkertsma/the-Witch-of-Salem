@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class BridgeRope : MonoBehaviour {
 
-    public List<Rigidbody> ropePieces;
+	public List<Rigidbody> ropePieces = new List<Rigidbody>();
     public bool broken;
 
     void Start()
