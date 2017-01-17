@@ -31,6 +31,8 @@ public class _UIManager : MonoBehaviour {
     public GameObject enemy;
     public List<GameObject> enemies;
 
+    public GameObject secondCanvas;
+
     #region Conversation
     [SerializeField]
     float writeRate;
@@ -52,15 +54,26 @@ public class _UIManager : MonoBehaviour {
         {
             Destroy(this);
         }
-        mainCanvas = GameObject.Find("MainCanvas");
+    }
+
+    public void SetupMainCanvas(GameObject canvas)
+    {
+        mainCanvas = canvas;
         livesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Lives").GetComponentsInChildren<Image>();
         enemyPanel = mainCanvas.transform.FindChild("InGameUI").FindChild("EnemyPanel").gameObject;
         player = FindObjectOfType<_Player>();
         applesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Apple").GetComponentInChildren<Text>();
         arrowsUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Arrow").GetComponentInChildren<Text>();
         popupText = mainCanvas.transform.FindChild("Popup").GetComponentInChildren<Text>();
-        DisplayPopup(" ", 1f);
+        screenConv = mainCanvas.transform.FindChild("Popup").FindChild("Conv").gameObject;
+        screenText = screenConv.GetComponentInChildren<Text>();
         screenConv.SetActive(false);
+        DisplayPopup(" ", 1f);
+    }
+
+    void SpawnSecondCanvas()
+    {
+        Instantiate(secondCanvas);
     }
 
     public void UpdateUI()
