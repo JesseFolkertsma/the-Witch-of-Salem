@@ -37,6 +37,7 @@ public class _PlayerBase : MonoBehaviour
     public bool isDead;
     bool isFalling, canClimbUp;
 
+    public GameObject ragdoll;
 
     bool canJump;
 
@@ -323,6 +324,15 @@ public class _PlayerBase : MonoBehaviour
         if (!isDead)
         {
             isDead = true;
+            Destroy(gameObject);
+            if (ragdoll != null)
+            {
+                Instantiate(ragdoll, transform.position, transform.rotation);
+            }
+            else
+            {
+                Debug.LogError("Player ragdoll not setup!");
+            }
         }
     }
 
