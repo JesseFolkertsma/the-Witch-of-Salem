@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class _GameManager : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class _GameManager : MonoBehaviour {
 
     public SaveFile file;
     public bool willLoadData;
+    public bool playerDataOnly = false;
     bool playerIsDead = false;
 
     void Awake()
@@ -54,15 +56,17 @@ public class _GameManager : MonoBehaviour {
 
     public void LoadLevelWithSave()
     {
-        file = saveSystem.LoadGame(playerName, false);
+        file = saveSystem.LoadGame(playerName);
         willLoadData = true;
+        playerDataOnly = false;
         SceneManager.LoadScene(file.levelID);
     }
 
     public void LoadOtherLevelWithSave(int buildIndex)
     {
-        file = saveSystem.LoadGame(playerName, false);
+        file = saveSystem.LoadGame(playerName);
         willLoadData = true;
+        playerDataOnly = true;
         SceneManager.LoadScene(buildIndex);
     }
 
@@ -70,7 +74,7 @@ public class _GameManager : MonoBehaviour {
     {
         if (willLoadData)
         {
-            LoadLevelData(file, false);
+            LoadLevelData(file, playerDataOnly);
             willLoadData = false;
         }
     }
@@ -78,6 +82,8 @@ public class _GameManager : MonoBehaviour {
     public void LoadLevelData(SaveFile _file, bool playerDataOnly)
     {
         levelData = FindObjectOfType<LevelData>();
+        levelData.messages.Clear();
+        levelData.messages = new List<Message>(FindObjectsOfType<Message>());
 
         _Player p = FindObjectOfType<_Player>();
         p.transform.position = file.playerPos;
@@ -95,6 +101,13 @@ public class _GameManager : MonoBehaviour {
             for (int i = 0; i < levelData.spawners.Count; i++)
             {
                 levelData.spawners[i].isDone = file.spawns[i];
+            }
+            for (int i = 0; i < levelData.messages.Count; i++)
+            {
+                if (levelData.messages[i] != null)
+                {
+                    levelData.messages[i].SetIsDone(file.messages[i]);
+                }
             }
             print("LoadedLevel data");
         }

@@ -9,9 +9,7 @@ public class GroundEnemy : Enemy {
 
     public float mSpeed;
     public float attackRange;
-
     public bool walking;
-    
     public bool canAttack = false;
 
     public GameObject ragdoll;

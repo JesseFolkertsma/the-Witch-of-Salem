@@ -12,6 +12,7 @@ public class LevelData : MonoBehaviour {
 
     public List<BreakableLootObject> crates;
     public List<EnemySpawnEvent> spawners;
+    public List<Message> messages;
 
     void Update()
     {
@@ -42,6 +43,7 @@ public class LevelData : MonoBehaviour {
         gatherLevelData = false;
         crates.Clear();
         spawners.Clear();
+        messages.Clear();
 
         foreach (BreakableLootObject c in FindObjectsOfType<BreakableLootObject>())
         {
@@ -51,6 +53,11 @@ public class LevelData : MonoBehaviour {
         foreach (EnemySpawnEvent e in FindObjectsOfType<EnemySpawnEvent>())
         {
             spawners.Add(e);
+        }
+
+        foreach(Message m in FindObjectsOfType<Message>())
+        {
+            messages.Add(m);
         }
     }
 }

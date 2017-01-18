@@ -32,7 +32,7 @@ public class _UIManager : MonoBehaviour {
     public List<GameObject> enemies;
 
     public GameObject canvas;
-    public GameObject secondCanvas;
+    public GameObject deathCanvas;
 
     #region Conversation
     [SerializeField]
@@ -55,6 +55,15 @@ public class _UIManager : MonoBehaviour {
         {
             Destroy(this);
         }
+        _Player.OnDeathEvent += PlayerDied;
+    }
+    
+    void PlayerDied()
+    {
+        Destroy(mainCanvas);
+        mainCanvas = null;
+        SpawnDeadCanvas();
+        _Player.OnDeathEvent -= PlayerDied;
     }
 
     public void SetupMainCanvas()
@@ -80,9 +89,9 @@ public class _UIManager : MonoBehaviour {
         }
     }
 
-    void SpawnSecondCanvas()
+    void SpawnDeadCanvas()
     {
-        Instantiate(secondCanvas);
+        Instantiate(deathCanvas);
     }
 
     public void UpdateUI()

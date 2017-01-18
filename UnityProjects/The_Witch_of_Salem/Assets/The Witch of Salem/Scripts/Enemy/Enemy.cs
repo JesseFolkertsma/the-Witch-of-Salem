@@ -29,6 +29,11 @@ public class Enemy : MonoBehaviour {
         _UIManager.instance.AddEnemy(data);
     }
 
+    void Awake()
+    {
+        _Player.OnDeathEvent += PlayerDied;
+    }
+
     public virtual TargetDirection CheckTargetDir(Vector3 target)
     {
         if(transform.position.x < target.x)
@@ -45,6 +50,16 @@ public class Enemy : MonoBehaviour {
     {
         lives -= damage;
     }
+
+    public void PlayerDied()
+    {
+        Destroy(gameObject);
+        if (spawn != null)
+        {
+            spawn.Die();
+        }
+        _Player.OnDeathEvent -= PlayerDied;
+    }
     
     public virtual void Die()
     {
@@ -53,5 +68,6 @@ public class Enemy : MonoBehaviour {
         {
             spawn.Die();
         }
+        _Player.OnDeathEvent -= PlayerDied;
     }
 }

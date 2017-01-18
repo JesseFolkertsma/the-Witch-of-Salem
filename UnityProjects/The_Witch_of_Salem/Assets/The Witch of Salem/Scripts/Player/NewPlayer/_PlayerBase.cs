@@ -41,6 +41,9 @@ public class _PlayerBase : MonoBehaviour
 
     bool canJump;
 
+    public delegate void OnDeath();
+    static public OnDeath OnDeathEvent;
+
     public int walkingDirection;
     public int GetMouseDirection
     {
@@ -327,6 +330,7 @@ public class _PlayerBase : MonoBehaviour
             isDead = true;
             Destroy(gameObject);
             _GameManager.instance.PlayerDeath(true);
+            OnDeathEvent();
             if (ragdoll != null)
             {
                 Instantiate(ragdoll, transform.position, transform.rotation);

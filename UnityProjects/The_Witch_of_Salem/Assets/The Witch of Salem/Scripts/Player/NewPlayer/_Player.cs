@@ -28,6 +28,10 @@ public class _Player : _PlayerBaseCombat {
             Checks();
             CheckState();
         }
+        if (Input.GetButtonDown("Escape"))
+        {
+            Die();
+        }
         CheckVelocityState();
     }
 

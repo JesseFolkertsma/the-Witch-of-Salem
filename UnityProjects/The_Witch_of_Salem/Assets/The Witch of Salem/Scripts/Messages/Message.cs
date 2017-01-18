@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Message : MonoBehaviour {
 
     public List<string> message;
-    bool isDone = false;    
+    public bool isDone; 
 
     void DisplayMessage()
     {
@@ -14,6 +14,11 @@ public class Message : MonoBehaviour {
             isDone = true;
             _UIManager.instance.StartConversation(message);
         }
+    }
+
+    public void SetIsDone(bool _isDone)
+    {
+        isDone = _isDone;
     }
 
     void OnTriggerEnter(Collider col)
