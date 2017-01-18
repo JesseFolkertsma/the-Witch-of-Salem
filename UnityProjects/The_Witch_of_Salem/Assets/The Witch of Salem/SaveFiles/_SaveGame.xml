@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <SaveFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <playerPos>
-    <x>154.717422</x>
-    <y>73.50109</y>
+    <x>26.8984661</x>
+    <y>5.09316444</y>
     <z>0</z>
   </playerPos>
   <lives>5</lives>
-  <apples>5</apples>
-  <arrows>50</arrows>
-  <levelName />
-  <levelID>0</levelID>
+  <apples>16</apples>
+  <arrows>38</arrows>
+  <levelName>Forest</levelName>
+  <levelID>2</levelID>
   <crates>
     <boolean>false</boolean>
     <boolean>false</boolean>
@@ -45,16 +45,27 @@
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
   </crates>
-  <spawns />
-  <messages>
+  <spawns>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
-    <boolean>true</boolean>
-    <boolean>true</boolean>
-  </messages>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+  </spawns>
+  <messages />
 </SaveFile>
