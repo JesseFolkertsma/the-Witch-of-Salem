@@ -54,6 +54,13 @@ public class _GameManager : MonoBehaviour {
         }
     }
 
+    public void SaveGame()
+    {
+        levelData = FindObjectOfType<LevelData>();
+        _Player player = FindObjectOfType<_Player>();
+        saveSystem.SaveGame(playerName, levelData.levelName, SceneManager.GetActiveScene().buildIndex, player, levelData);
+    }
+
     public void LoadLevelWithSave()
     {
         file = saveSystem.LoadGame(playerName);
@@ -72,6 +79,7 @@ public class _GameManager : MonoBehaviour {
 
     void OnLevelWasLoaded()
     {
+        print("Will load level data = " + willLoadData);
         if (willLoadData)
         {
             LoadLevelData(file, playerDataOnly);
@@ -86,7 +94,6 @@ public class _GameManager : MonoBehaviour {
         levelData.messages = new List<Message>(FindObjectsOfType<Message>());
 
         _Player p = FindObjectOfType<_Player>();
-        p.transform.position = file.playerPos;
         p.lives = file.lives;
         p.apples = file.apples;
         p.arrows = file.arrows;
@@ -94,6 +101,7 @@ public class _GameManager : MonoBehaviour {
 
         if (!playerDataOnly)
         {
+            p.transform.position = file.playerPos;
             for (int i = 0; i < levelData.crates.Count; i++)
             {
                 levelData.crates[i].broken = file.crates[i];

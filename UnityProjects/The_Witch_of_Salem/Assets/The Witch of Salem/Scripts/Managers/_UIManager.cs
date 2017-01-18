@@ -87,6 +87,7 @@ public class _UIManager : MonoBehaviour {
         {
             print("Maincanvas already setup!");
         }
+        UpdateUI();
     }
 
     void SpawnDeadCanvas()
