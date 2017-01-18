@@ -37,8 +37,12 @@ public class _PlayerBase : MonoBehaviour
     public bool isDead;
     bool isFalling, canClimbUp;
 
+    public GameObject ragdoll;
 
     bool canJump;
+
+    public delegate void OnDeath();
+    static public OnDeath OnDeathEvent;
 
     public int walkingDirection;
     public int GetMouseDirection
@@ -69,6 +73,7 @@ public class _PlayerBase : MonoBehaviour
         //mouse = GameObject.FindObjectOfType<_PlayerMouse>();
         col = GetComponent<CapsuleCollider>();
         standardColSize = col.height;
+        _GameManager.instance.PlayerDeath(false);
     }
 
     public virtual void InputHandler()
@@ -323,6 +328,17 @@ public class _PlayerBase : MonoBehaviour
         if (!isDead)
         {
             isDead = true;
+            Destroy(gameObject);
+            _GameManager.instance.PlayerDeath(true);
+            OnDeathEvent();
+            if (ragdoll != null)
+            {
+                Instantiate(ragdoll, transform.position, transform.rotation);
+            }
+            else
+            {
+                Debug.LogError("Player ragdoll not setup!");
+            }
         }
     }
 

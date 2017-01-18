@@ -11,6 +11,8 @@ public class HouseEnter : MonoBehaviour {
     bool hasPlayer;
     bool canEnter;
 
+    public bool turnOffSun = false;
+
     void Start()
     {
         canEnterObject.SetActive(false);
@@ -19,6 +21,17 @@ public class HouseEnter : MonoBehaviour {
 	void EnterDoor()
     {
         player.position = house.position;
+
+        GameObject sun = GameObject.Find("Directional Light");
+
+        if (turnOffSun)
+        {
+            sun.GetComponent<Light>().enabled = false;
+        }
+        else
+        {
+            sun.GetComponent<Light>().enabled = true;
+        }
     }
 
     void Update()

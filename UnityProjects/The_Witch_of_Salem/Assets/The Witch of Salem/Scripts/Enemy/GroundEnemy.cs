@@ -9,9 +9,7 @@ public class GroundEnemy : Enemy {
 
     public float mSpeed;
     public float attackRange;
-
     public bool walking;
-    
     public bool canAttack = false;
 
     public GameObject ragdoll;
@@ -53,7 +51,7 @@ public class GroundEnemy : Enemy {
 
     public virtual void Move(float movementSpeed, Vector3 target)
     {
-        if (movementSpeed > 0.1f && !Physics.Raycast(transform.position + enemyModel.transform.up + enemyModel.transform.forward / 2, enemyModel.transform.forward, 2))
+        if (movementSpeed > 0.1f) // && !Physics.Raycast(transform.position + enemyModel.transform.up + enemyModel.transform.forward / 2, enemyModel.transform.forward, 2)
             walking = true;
         else
         {

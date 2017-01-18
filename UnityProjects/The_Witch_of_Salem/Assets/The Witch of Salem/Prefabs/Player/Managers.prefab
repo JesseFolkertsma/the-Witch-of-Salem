@@ -54,6 +54,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelData: {fileID: 0}
   playerName: 
+  file:
+    playerPos: {x: 0, y: 0, z: 0}
+    lives: 0
+    apples: 0
+    arrows: 0
+    levelName: 
+    levelID: 0
+    crates: 
+    spawns: 
+  willLoadData: 0
 --- !u!114 &114000012876002852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,6 +92,9 @@ MonoBehaviour:
   enemyPanel: {fileID: 0}
   enemy: {fileID: 1000010180878384, guid: 64237e6a042ee12459ef8104163df949, type: 2}
   enemies: []
+  canvas: {fileID: 1000011736952562, guid: 4c7b4b78798f20740be6836a20c1e3b4, type: 2}
+  deathCanvas: {fileID: 1000012967146110, guid: 3c6af7b98170b084983582b270dfa0e8,
+    type: 2}
   writeRate: 10
   writing: 0
   inConv: 0

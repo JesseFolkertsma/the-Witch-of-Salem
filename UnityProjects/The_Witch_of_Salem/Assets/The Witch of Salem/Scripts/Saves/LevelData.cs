@@ -12,6 +12,7 @@ public class LevelData : MonoBehaviour {
 
     public List<BreakableLootObject> crates;
     public List<EnemySpawnEvent> spawners;
+    public List<Message> messages;
 
     void Update()
     {
@@ -28,11 +29,11 @@ public class LevelData : MonoBehaviour {
 
             if (Input.GetButtonDown("Save"))
             {
-                _GameManager.instance.saveSystem.SaveGame(_GameManager.instance.playerName, levelName, Application.loadedLevel, FindObjectOfType<_Player>(), this);
+                _GameManager.instance.saveSystem.SaveGame(_GameManager.instance.playerName, levelName, SceneManager.GetActiveScene().buildIndex, FindObjectOfType<_Player>(), this);
             }
             if (Input.GetButtonDown("Load"))
             {
-                _GameManager.instance.saveSystem.LoadGame(_GameManager.instance.playerName, levelName, false);
+                _GameManager.instance.LoadLevelWithSave();
             }
         }
     }
@@ -42,6 +43,7 @@ public class LevelData : MonoBehaviour {
         gatherLevelData = false;
         crates.Clear();
         spawners.Clear();
+        messages.Clear();
 
         foreach (BreakableLootObject c in FindObjectsOfType<BreakableLootObject>())
         {
@@ -51,6 +53,11 @@ public class LevelData : MonoBehaviour {
         foreach (EnemySpawnEvent e in FindObjectsOfType<EnemySpawnEvent>())
         {
             spawners.Add(e);
+        }
+
+        foreach(Message m in FindObjectsOfType<Message>())
+        {
+            messages.Add(m);
         }
     }
 }
