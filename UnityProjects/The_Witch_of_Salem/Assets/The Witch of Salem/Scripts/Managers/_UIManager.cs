@@ -31,7 +31,8 @@ public class _UIManager : MonoBehaviour {
     public GameObject enemy;
     public List<GameObject> enemies;
 
-    public GameObject secondCanvas;
+    public GameObject canvas;
+    public GameObject deathCanvas;
 
     #region Conversation
     [SerializeField]
@@ -54,26 +55,43 @@ public class _UIManager : MonoBehaviour {
         {
             Destroy(this);
         }
+        _Player.OnDeathEvent += PlayerDied;
+    }
+    
+    void PlayerDied()
+    {
+        Destroy(mainCanvas);
+        mainCanvas = null;
+        SpawnDeadCanvas();
+        _Player.OnDeathEvent -= PlayerDied;
     }
 
-    public void SetupMainCanvas(GameObject canvas)
+    public void SetupMainCanvas()
     {
-        mainCanvas = canvas;
-        livesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Lives").GetComponentsInChildren<Image>();
-        enemyPanel = mainCanvas.transform.FindChild("InGameUI").FindChild("EnemyPanel").gameObject;
-        player = FindObjectOfType<_Player>();
-        applesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Apple").GetComponentInChildren<Text>();
-        arrowsUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Arrow").GetComponentInChildren<Text>();
-        popupText = mainCanvas.transform.FindChild("Popup").GetComponentInChildren<Text>();
-        screenConv = mainCanvas.transform.FindChild("Popup").FindChild("Conv").gameObject;
-        screenText = screenConv.GetComponentInChildren<Text>();
-        screenConv.SetActive(false);
-        DisplayPopup(" ", 1f);
+        if (mainCanvas == null)
+        {
+            mainCanvas = Instantiate(canvas);
+            livesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Lives").GetComponentsInChildren<Image>();
+            enemyPanel = mainCanvas.transform.FindChild("InGameUI").FindChild("EnemyPanel").gameObject;
+            player = FindObjectOfType<_Player>();
+            applesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Apple").GetComponentInChildren<Text>();
+            arrowsUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Arrow").GetComponentInChildren<Text>();
+            enemyPanel = mainCanvas.transform.FindChild("InGameUI").FindChild("EnemyPanel").gameObject;
+            popupText = mainCanvas.transform.FindChild("Popup").GetComponentInChildren<Text>();
+            screenConv = mainCanvas.transform.FindChild("Popup").FindChild("Conv").gameObject;
+            screenText = screenConv.GetComponentInChildren<Text>();
+            screenConv.SetActive(false);
+            DisplayPopup(" ", 1f);
+        }
+        else
+        {
+            print("Maincanvas already setup!");
+        }
     }
 
-    void SpawnSecondCanvas()
+    void SpawnDeadCanvas()
     {
-        Instantiate(secondCanvas);
+        Instantiate(deathCanvas);
     }
 
     public void UpdateUI()
@@ -181,6 +199,7 @@ public class _UIManager : MonoBehaviour {
 
     public void AddEnemy(_EnemyUIData _enemy)
     {
+        SetupMainCanvas();
         GameObject g = Instantiate(enemy, enemyPanel.transform) as GameObject;
         g.GetComponent<_EnemyUI>().data = _enemy;
     }

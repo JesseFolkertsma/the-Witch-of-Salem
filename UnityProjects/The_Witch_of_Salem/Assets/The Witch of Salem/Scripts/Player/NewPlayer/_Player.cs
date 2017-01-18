@@ -11,14 +11,13 @@ public class _Player : _PlayerBaseCombat {
     };
 
     public VelocityState velocityState;
-    public GameObject mainCanvas;
 
     void Start()
     {
         BaseStart();
         _UIManager.instance.UpdateUI();
         mouse = Instantiate(mouse, transform.position, Quaternion.identity) as _PlayerMouse;
-        _UIManager.instance.SetupMainCanvas(Instantiate(mainCanvas));
+        _UIManager.instance.SetupMainCanvas();
     }
 
     void Update()
@@ -28,6 +27,10 @@ public class _Player : _PlayerBaseCombat {
             InputHandler();
             Checks();
             CheckState();
+        }
+        if (Input.GetButtonDown("Escape"))
+        {
+            Die();
         }
         CheckVelocityState();
     }

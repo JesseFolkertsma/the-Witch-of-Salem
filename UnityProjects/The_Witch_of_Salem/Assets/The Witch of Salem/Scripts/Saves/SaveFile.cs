@@ -16,9 +16,10 @@ public class SaveFile  {
 
     public List<bool> crates;
     public List<bool> spawns;
+    public List<bool> messages;
 
 
-    public SaveFile(Vector3 pos, int _lives, int _apples, int _arrows, List<BreakableLootObject> _crates, List<EnemySpawnEvent> _spawns, string _levelName, int _levelID)
+    public SaveFile(Vector3 pos, int _lives, int _apples, int _arrows, List<BreakableLootObject> _crates, List<EnemySpawnEvent> _spawns, List<Message> _messages, string _levelName, int _levelID)
     {
         playerPos = pos;
         lives = _lives;
@@ -45,6 +46,12 @@ public class SaveFile  {
         for (int i = 0; i < _spawns.Count; i++)
         {
             spawns.Add(_spawns[i].isDone);
+        }
+
+        messages = new List<bool>();
+        for (int i = 0; i < _messages.Count; i++)
+        {
+            messages.Add(_messages[i].isDone);
         }
     }
 

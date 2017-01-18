@@ -16,7 +16,7 @@ public class SaveLoadSystem {
 
     SaveFile SetupSaveFile(string pn, string levelName, int levelID, _Player player, LevelData lData)
     {
-        SaveFile file = new SaveFile(player.transform.position, player.lives, player.apples, player.arrows, lData.crates, lData.spawners, levelName, levelID); 
+        SaveFile file = new SaveFile(player.transform.position, player.lives, player.apples, player.arrows, lData.crates, lData.spawners, lData.messages, levelName, levelID); 
         return file;
     }
 
@@ -32,7 +32,7 @@ public class SaveLoadSystem {
         Debug.Log("Saved Game!");
     }
 
-    public void LoadGame(string pn, string levelName, bool playerDataOnly)
+    public SaveFile LoadGame(string pn)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
         FileStream stream = new FileStream(Application.dataPath + savePath + pn + "/_SaveGame.xml", FileMode.Open);
@@ -40,13 +40,6 @@ public class SaveLoadSystem {
         SaveFile file = serializer.Deserialize(stream) as SaveFile;
         stream.Close();
 
-        if (levelName != file.levelName)
-        {
-            Debug.LogWarning("No Save of current level");
-        }
-        else
-        {
-            gm.LoadLevelData(file, playerDataOnly);
-        }
+        return file;
     }
 }
