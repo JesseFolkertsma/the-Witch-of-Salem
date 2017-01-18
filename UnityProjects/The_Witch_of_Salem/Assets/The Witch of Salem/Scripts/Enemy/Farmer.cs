@@ -65,9 +65,7 @@ public class Farmer : GroundEnemy {
             audioS.Play();
         }
         willAttack = true;
-        print("StartAttack");
         yield return new WaitForSeconds(.5f);
-        print("StopAttack");
         willAttack = false;
     }
 

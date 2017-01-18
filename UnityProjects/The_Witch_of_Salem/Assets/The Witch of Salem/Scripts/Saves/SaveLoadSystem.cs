@@ -23,6 +23,7 @@ public class SaveLoadSystem {
 	public void SaveGame(string pn, string levelName, int levelID, _Player player, LevelData lData)
     {
         SaveFile file = SetupSaveFile(pn, levelName, levelID, player, lData);
+        //_GameManager.instance.file = file;
 
         XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
         FileStream stream = new FileStream(Application.dataPath + savePath + pn + "/_SaveGame.xml", FileMode.Create);
