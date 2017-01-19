@@ -284,11 +284,13 @@ public class _PlayerBase : MonoBehaviour
         print("GO CLIMB");
     }
 
+    float climbCD = 0f;
     public virtual void ClimbUp()
     {
-        if (baseState == BaseState.Hanging)
+        if (baseState == BaseState.Hanging && Time.time > climbCD)
         {
             anim.SetTrigger("ClimbUp");
+            climbCD = Time.time + 4f;
         }
     }
 

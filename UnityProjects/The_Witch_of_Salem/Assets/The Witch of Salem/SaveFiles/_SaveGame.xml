@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <SaveFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <playerPos>
+<<<<<<< HEAD
+    <x>154.656586</x>
+    <y>73.50146</y>
+    <z>0</z>
+  </playerPos>
+  <lives>5</lives>
+  <apples>14</apples>
+  <arrows>10</arrows>
+=======
     <x>154.693985</x>
     <y>73.50869</y>
     <z>0</z>
@@ -8,6 +17,7 @@
   <lives>5</lives>
   <apples>19</apples>
   <arrows>50</arrows>
+>>>>>>> d8daf54673629c37a8333be766cd7e0333a3aa10
   <levelName />
   <levelID>1</levelID>
   <crates>
@@ -22,8 +32,11 @@
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>true</boolean>
+<<<<<<< HEAD
+=======
     <boolean>true</boolean>
     <boolean>true</boolean>
+>>>>>>> d8daf54673629c37a8333be766cd7e0333a3aa10
     <boolean>false</boolean>
     <boolean>true</boolean>
     <boolean>false</boolean>
@@ -35,6 +48,10 @@
     <boolean>true</boolean>
     <boolean>false</boolean>
     <boolean>true</boolean>
+<<<<<<< HEAD
+    <boolean>true</boolean>
+=======
+>>>>>>> d8daf54673629c37a8333be766cd7e0333a3aa10
     <boolean>false</boolean>
     <boolean>true</boolean>
     <boolean>true</boolean>
@@ -43,12 +60,32 @@
     <boolean>true</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
+<<<<<<< HEAD
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>true</boolean>
+    <boolean>false</boolean>
+    <boolean>true</boolean>
+    <boolean>false</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+=======
+>>>>>>> d8daf54673629c37a8333be766cd7e0333a3aa10
     <boolean>true</boolean>
     <boolean>true</boolean>
   </crates>
   <spawns />
   <messages>
+<<<<<<< HEAD
+    <boolean>false</boolean>
+=======
     <boolean>true</boolean>
+>>>>>>> d8daf54673629c37a8333be766cd7e0333a3aa10
     <boolean>true</boolean>
     <boolean>true</boolean>
     <boolean>true</boolean>

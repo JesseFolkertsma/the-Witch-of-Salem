@@ -2,8 +2,7 @@
 using System.Collections;
 
 public class CheckPoint : MonoBehaviour {
-
-    public int checkPointI;
+    
     public bool used;
 
     void OnTriggerEnter(Collider col)
@@ -14,11 +13,9 @@ public class CheckPoint : MonoBehaviour {
             {
                 if (col.attachedRigidbody.tag == "Player")
                 {
-                    print("SAVEGAME");
+                    _GameManager.instance.SaveGame();
+                    _UIManager.instance.DisplayPopup("CheckPoint Reached!", 3f);
                     used = true;
-                    GameManager.instance.currentCheckpoint = checkPointI;
-                    //GameManager.instance.slSystem.SaveGame(GameManager.instance.playerName);
-                    GameManager.instance.popup.DisplayPopup("CheckPoint Reached", 3f);
                 }
             }
         }

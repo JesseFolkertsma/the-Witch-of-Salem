@@ -104,18 +104,18 @@ public class _GameManager : MonoBehaviour {
             p.transform.position = file.playerPos;
             for (int i = 0; i < levelData.crates.Count; i++)
             {
-                levelData.crates[i].broken = file.crates[i];
+                if(levelData.crates[i] != null)
+                    levelData.crates[i].broken = file.crates[i];
             }
             for (int i = 0; i < levelData.spawners.Count; i++)
             {
-                levelData.spawners[i].isDone = file.spawns[i];
+                if(levelData.spawners[i] != null)
+                    levelData.spawners[i].isDone = file.spawns[i];
             }
             for (int i = 0; i < levelData.messages.Count; i++)
             {
                 if (levelData.messages[i] != null)
-                {
                     levelData.messages[i].SetIsDone(file.messages[i]);
-                }
             }
             print("LoadedLevel data");
         }
