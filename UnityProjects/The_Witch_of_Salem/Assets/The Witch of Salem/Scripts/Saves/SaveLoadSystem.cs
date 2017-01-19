@@ -36,12 +36,19 @@ public class SaveLoadSystem {
 
     public SaveFile LoadGame(string pn)
     {
-        XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
-        FileStream stream = new FileStream(Application.persistentDataPath + "/_SaveGame.xml", FileMode.Open);
-        //FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Open);
-        SaveFile file = serializer.Deserialize(stream) as SaveFile;
-        stream.Close();
+        if (File.Exists(Application.persistentDataPath + "/_SaveGame.xml"))
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
+            FileStream stream = new FileStream(Application.persistentDataPath + "/_SaveGame.xml", FileMode.Open);
+            //FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Open);
+            SaveFile file = serializer.Deserialize(stream) as SaveFile;
+            stream.Close();
 
-        return file;
+            return file;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
