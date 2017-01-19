@@ -15,6 +15,12 @@ public class MainMenuFunctions : MonoBehaviour {
 
     public void NewGameButton()
     {
+        _GameManager.instance.InstantiateLoad();
+        Invoke("Load", 3.5f);
+    }
+
+    public void Load()
+    {
         SceneManager.LoadScene(1);
     }
 

@@ -16,4 +16,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/The Witch of Salem/Scenes/Fin.unity
   - enabled: 1
+    path: Assets/The Witch of Salem/Scenes/Cave blockout.unity
+  - enabled: 1
     path: Assets/The Witch of Salem/Scenes/Tests/NewPlayerTest.unity

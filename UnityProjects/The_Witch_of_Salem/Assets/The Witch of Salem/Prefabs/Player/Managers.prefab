@@ -63,7 +63,10 @@ MonoBehaviour:
     levelID: 0
     crates: 
     spawns: 
+    messages: 
   willLoadData: 0
+  playerDataOnly: 0
+  loadCanvas: {fileID: 1000013160238826, guid: 47c816bb4580ff54d9129aa7764cffa7, type: 2}
 --- !u!114 &114000012876002852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,7 +98,7 @@ MonoBehaviour:
   canvas: {fileID: 1000011736952562, guid: 4c7b4b78798f20740be6836a20c1e3b4, type: 2}
   deathCanvas: {fileID: 1000012967146110, guid: 3c6af7b98170b084983582b270dfa0e8,
     type: 2}
-  writeRate: 10
+  writeRate: 20
   writing: 0
   inConv: 0
   screenConv: {fileID: 0}

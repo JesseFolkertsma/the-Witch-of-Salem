@@ -16,6 +16,8 @@ public class _GameManager : MonoBehaviour {
     public bool playerDataOnly = false;
     bool playerIsDead = false;
 
+    public GameObject loadCanvas;
+
     void Awake()
     {
         if (instance == null)
@@ -91,6 +93,11 @@ public class _GameManager : MonoBehaviour {
         {
             return false;
         }
+    }
+
+    public void InstantiateLoad()
+    {
+        Instantiate(loadCanvas);
     }
 
     void OnLevelWasLoaded()

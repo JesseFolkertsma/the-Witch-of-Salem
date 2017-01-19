@@ -290,7 +290,7 @@ public class _PlayerBase : MonoBehaviour
         if (baseState == BaseState.Hanging && Time.time > climbCD)
         {
             anim.SetTrigger("ClimbUp");
-            climbCD = Time.time + 4f;
+            climbCD = Time.time + 3f;
         }
     }
 
@@ -298,7 +298,7 @@ public class _PlayerBase : MonoBehaviour
     {
         if (useRootMovement)
         {
-            Move(1, false);
+            Move(2, false);
         }
     }
 
@@ -322,6 +322,7 @@ public class _PlayerBase : MonoBehaviour
                 ResetStates();
                 rb.velocity += Vector3.up * 3 + Vector3.right * xInput * 6;
             }
+
         }
     }
 

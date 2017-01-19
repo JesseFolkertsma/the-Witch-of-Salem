@@ -8,7 +8,9 @@ public class ExitLevelTrigger : MonoBehaviour {
     void ChangeLevel()
     {
         _GameManager.instance.SaveGame();
-        Invoke("ChangeLevelFollowup", 4f);
+        _GameManager.instance.InstantiateLoad();
+
+        Invoke("ChangeLevelFollowup", 3.5f);
     }
 
     void ChangeLevelFollowup()

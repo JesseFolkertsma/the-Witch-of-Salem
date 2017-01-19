@@ -127,14 +127,20 @@ public class Raven : Enemy {
         Destroy(gameObject);
     }
 
+
+    float attackCD;
     void OnCollisionEnter(Collision col)
     {
         attackState = AttackState.Flapping;
-        if (col.collider.attachedRigidbody)
+        if (attackCD < Time.time)
         {
-            if (col.collider.attachedRigidbody.GetComponent<_Player>())
+            if (col.collider.attachedRigidbody)
             {
-                col.collider.attachedRigidbody.GetComponent<_Player>().TakeDamage(1);
+                if (col.collider.attachedRigidbody.GetComponent<_Player>())
+                {
+                    col.collider.attachedRigidbody.GetComponent<_Player>().TakeDamage(1);
+                    attackCD = Time.time + 2f;
+                }
             }
         }
     }

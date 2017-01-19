@@ -117,7 +117,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014268832054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.507812, y: -20.444826, z: 5.2475243}
+  m_LocalPosition: {x: -7.986, y: 6.74, z: 2.264}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -179,7 +179,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 019227bf59a699840991cadff097f8b9, type: 2}
+  - {fileID: 2100000, guid: dcf4929d25d59484b8a4609b28478653, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -208,7 +208,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 019227bf59a699840991cadff097f8b9, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -281,7 +281,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 7
   m_Type: 2
-  m_Color: {r: 0.918, g: 0.604, b: 0, a: 1}
+  m_Color: {r: 0.16470589, g: 1, b: 1, a: 1}
   m_Intensity: 2.5
   m_Range: 18
   m_SpotAngle: 30
@@ -356,7 +356,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: -1299362256
+  randomSeed: 13841714
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -2035,7 +2035,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: 38385210
+  randomSeed: -1281775901
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -2178,7 +2178,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.8627451, b: 0.7137255, a: 0.8627451}
+      maxColor: {r: 0.33333334, g: 1, b: 1, a: 0.8627451}
       minMaxState: 0
     startSize:
       scalar: 1
