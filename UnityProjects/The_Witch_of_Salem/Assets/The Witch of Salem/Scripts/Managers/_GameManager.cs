@@ -61,20 +61,36 @@ public class _GameManager : MonoBehaviour {
         saveSystem.SaveGame(playerName, levelData.levelName, SceneManager.GetActiveScene().buildIndex, player, levelData);
     }
 
-    public void LoadLevelWithSave()
+    public bool LoadLevelWithSave()
     {
         file = saveSystem.LoadGame(playerName);
-        willLoadData = true;
-        playerDataOnly = false;
-        SceneManager.LoadScene(file.levelID);
+        if (file != null)
+        {
+            willLoadData = true;
+            playerDataOnly = false;
+            SceneManager.LoadScene(file.levelID);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    public void LoadOtherLevelWithSave(int buildIndex)
+    public bool LoadOtherLevelWithSave(int buildIndex)
     {
         file = saveSystem.LoadGame(playerName);
-        willLoadData = true;
-        playerDataOnly = true;
-        SceneManager.LoadScene(buildIndex);
+        if (file != null)
+        {
+            willLoadData = true;
+            playerDataOnly = true;
+            SceneManager.LoadScene(buildIndex);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     void OnLevelWasLoaded()
