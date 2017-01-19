@@ -29,7 +29,8 @@ public class LevelData : MonoBehaviour {
 
             if (Input.GetButtonDown("Save"))
             {
-                _GameManager.instance.saveSystem.SaveGame(_GameManager.instance.playerName, levelName, SceneManager.GetActiveScene().buildIndex, FindObjectOfType<_Player>(), this);
+                //_GameManager.instance.saveSystem.SaveGame(_GameManager.instance.playerName, levelName, SceneManager.GetActiveScene().buildIndex, FindObjectOfType<_Player>(), this);
+                _GameManager.instance.SaveGame();
             }
             if (Input.GetButtonDown("Load"))
             {

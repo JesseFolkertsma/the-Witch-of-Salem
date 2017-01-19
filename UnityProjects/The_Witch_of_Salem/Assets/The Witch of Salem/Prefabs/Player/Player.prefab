@@ -2891,7 +2891,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011497436868}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.37, y: 1.72, z: 0}
+  m_LocalPosition: {x: -3.3, y: -1.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -4480,7 +4480,7 @@ MonoBehaviour:
   currentWeapon: 1
   swordDamage: 0
   arrowDamage: 0
-  arrows: 50
+  arrows: 10
   jumpCooldown: 5
   sword: {fileID: 1000010825421582}
   shield: {fileID: 1000011035962538}

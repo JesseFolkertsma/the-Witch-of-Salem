@@ -8,7 +8,7 @@ using System.IO;
 
 public class SaveLoadSystem {
 
-    string savePath = "/The Witch of Salem/SaveFiles/";
+    string savePath = "/Recources";
 
     public _GameManager gm;
 
@@ -23,9 +23,11 @@ public class SaveLoadSystem {
 	public void SaveGame(string pn, string levelName, int levelID, _Player player, LevelData lData)
     {
         SaveFile file = SetupSaveFile(pn, levelName, levelID, player, lData);
+        //_GameManager.instance.file = file;
 
         XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
-        FileStream stream = new FileStream(Application.dataPath + savePath + pn + "/_SaveGame.xml", FileMode.Create);
+        Debug.Log("Saving to: " + Application.persistentDataPath + "/_SaveGame.xml");
+        FileStream stream = new FileStream(Application.persistentDataPath + "/_SaveGame.xml", FileMode.Create);
         //FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Create);
         serializer.Serialize(stream, file);
         stream.Close();
@@ -35,7 +37,7 @@ public class SaveLoadSystem {
     public SaveFile LoadGame(string pn)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
-        FileStream stream = new FileStream(Application.dataPath + savePath + pn + "/_SaveGame.xml", FileMode.Open);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/_SaveGame.xml", FileMode.Open);
         //FileStream stream = new FileStream(Application.persistentDataPath + "/" + pn + "_SaveGame.xml", FileMode.Open);
         SaveFile file = serializer.Deserialize(stream) as SaveFile;
         stream.Close();

@@ -77,7 +77,7 @@ public class _UIManager : MonoBehaviour {
             applesUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Apple").GetComponentInChildren<Text>();
             arrowsUI = mainCanvas.transform.FindChild("InGameUI").FindChild("PlayerPanel").FindChild("Utilities").FindChild("Arrow").GetComponentInChildren<Text>();
             enemyPanel = mainCanvas.transform.FindChild("InGameUI").FindChild("EnemyPanel").gameObject;
-            popupText = mainCanvas.transform.FindChild("Popup").GetComponentInChildren<Text>();
+            popupText = mainCanvas.transform.FindChild("Popup").FindChild("PopupText").GetComponentInChildren<Text>();
             screenConv = mainCanvas.transform.FindChild("Popup").FindChild("Conv").gameObject;
             screenText = screenConv.GetComponentInChildren<Text>();
             screenConv.SetActive(false);
@@ -87,6 +87,7 @@ public class _UIManager : MonoBehaviour {
         {
             print("Maincanvas already setup!");
         }
+        UpdateUI();
     }
 
     void SpawnDeadCanvas()
@@ -165,6 +166,7 @@ public class _UIManager : MonoBehaviour {
         screenText.text = "";
         player.xInput = 0;
         player.enabled = false;
+        player.anim.SetFloat("Movement", 0);
         inConv = true;
         convInt = 0;
         writing = true;
