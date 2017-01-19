@@ -4478,8 +4478,8 @@ MonoBehaviour:
   walkingDirection: 0
   combatState: 8
   currentWeapon: 1
-  swordDamage: 0
-  arrowDamage: 0
+  swordDamage: 3
+  arrowDamage: 10
   arrows: 10
   jumpCooldown: 5
   sword: {fileID: 1000010825421582}

@@ -51,7 +51,8 @@ public class SaveFile  {
         messages = new List<bool>();
         for (int i = 0; i < _messages.Count; i++)
         {
-            messages.Add(_messages[i].isDone);
+            if(_messages[i] != null)
+                messages.Add(_messages[i].isDone);
         }
     }
 

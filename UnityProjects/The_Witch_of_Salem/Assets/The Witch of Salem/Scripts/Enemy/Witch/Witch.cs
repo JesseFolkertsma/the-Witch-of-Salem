@@ -39,6 +39,7 @@ public class Witch : Boss {
     float maxSpawnT = 10;
     float maxProjectileT = 4;
     float maxTeleportT = 6;
+    bool activeWitch = false;
 
     void Start()
     {
@@ -46,6 +47,13 @@ public class Witch : Boss {
         lives = 20;
         ik = GetComponentInChildren<EnemyIKHandler>();
         ik.target = player;
+    }
+
+    public void Init(List<Transform> e, List<Transform> t)
+    {
+        enemypos = e.ToArray();
+        telPositions = t.ToArray();
+        activeWitch = true;
     }
 
     bool NoSpawns()
@@ -74,10 +82,13 @@ public class Witch : Boss {
 
     void Update()
     {
-        BossUpdate();
-        Timers();
-        CheckAbilities();
-        LookatPlayer();
+        if (activeWitch)
+        {
+            BossUpdate();
+            Timers();
+            CheckAbilities();
+            LookatPlayer();
+        }
     }
 
     void LookatPlayer()
@@ -242,5 +253,12 @@ public class Witch : Boss {
     {
         base.Die();
         anim.SetTrigger("Die");
+        _GameManager.instance.InstantiateLoad();
+        EndBoss();
+    }
+
+    public static void EndBoss()
+    {
+        _GameManager.instance.LoadOtherLevelWithSave(4);
     }
 }

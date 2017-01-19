@@ -112,37 +112,39 @@ public class _GameManager : MonoBehaviour {
 
     public void LoadLevelData(SaveFile _file, bool playerDataOnly)
     {
-        levelData = FindObjectOfType<LevelData>();
-        levelData.messages.Clear();
-        levelData.messages = new List<Message>(FindObjectsOfType<Message>());
-
-        _Player p = FindObjectOfType<_Player>();
-        p.lives = file.lives;
-        p.apples = file.apples;
-        p.arrows = file.arrows;
-        print("Loaded player data");
-
-        if (!playerDataOnly)
+        if (FindObjectOfType<_Player>())
         {
-            p.transform.position = file.playerPos;
-            for (int i = 0; i < levelData.crates.Count; i++)
-            {
-                if(levelData.crates[i] != null)
-                    levelData.crates[i].broken = file.crates[i];
-            }
-            for (int i = 0; i < levelData.spawners.Count; i++)
-            {
-                if(levelData.spawners[i] != null)
-                    levelData.spawners[i].isDone = file.spawns[i];
-            }
-            for (int i = 0; i < levelData.messages.Count; i++)
-            {
-                if (levelData.messages[i] != null)
-                    levelData.messages[i].SetIsDone(file.messages[i]);
-            }
-            print("LoadedLevel data");
-        }
+            _Player p = FindObjectOfType<_Player>();
+            p.lives = file.lives;
+            p.apples = file.apples;
+            p.arrows = file.arrows;
+            print("Loaded player data");
 
-        _UIManager.instance.UpdateUI();
+            if (!playerDataOnly)
+            {
+                levelData = FindObjectOfType<LevelData>();
+                levelData.messages.Clear();
+                levelData.messages = new List<Message>(FindObjectsOfType<Message>());
+                p.transform.position = file.playerPos;
+                for (int i = 0; i < levelData.crates.Count; i++)
+                {
+                    if (levelData.crates[i] != null)
+                        levelData.crates[i].broken = file.crates[i];
+                }
+                for (int i = 0; i < levelData.spawners.Count; i++)
+                {
+                    if (levelData.spawners[i] != null)
+                        levelData.spawners[i].isDone = file.spawns[i];
+                }
+                for (int i = 0; i < levelData.messages.Count; i++)
+                {
+                    if (levelData.messages[i] != null)
+                        levelData.messages[i].SetIsDone(file.messages[i]);
+                }
+                print("LoadedLevel data");
+            }
+
+            _UIManager.instance.UpdateUI();
+        }
     }
 }

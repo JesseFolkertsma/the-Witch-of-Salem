@@ -26,8 +26,8 @@ public class _PlayerBaseCombat : _PlayerBase {
     public CombatState combatState = CombatState.Idle;
     public Weapon currentWeapon;
 
-    public float swordDamage;
-    public float arrowDamage;
+    public int swordDamage;
+    public int arrowDamage;
     public int arrows;
     public float jumpCooldown;
     public GameObject sword;
@@ -298,7 +298,7 @@ public class _PlayerBaseCombat : _PlayerBase {
                         hits[i].attachedRigidbody.AddExplosionForce(1000, transform.position, 5f, 10);
                         if (hits[i].attachedRigidbody.GetComponent<Enemy>())
                         {
-                            hits[i].attachedRigidbody.GetComponent<Enemy>().TakeDamage(2);
+                            hits[i].attachedRigidbody.GetComponent<Enemy>().TakeDamage(arrowDamage);
                         }
                     }
                 }
@@ -506,7 +506,7 @@ public class _PlayerBaseCombat : _PlayerBase {
                     if (!hits.Contains(e))
                     {
                         print("enemy hit");
-                        e.TakeDamage(1);
+                        e.TakeDamage(swordDamage);
                         hits.Add(e);
                     }
                 }
